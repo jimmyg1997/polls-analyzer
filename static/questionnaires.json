@@ -12,6 +12,12 @@
         "question8": "Moving or speaking so slowly that others have noticed, or the opposite?",
         "question9": "Thoughts that you would be better off dead or hurting yourself?",
         "question10": "How difficult have these problems made it to work or interact socially?",
+        "choices": {
+            "0" : "Not at all",
+            "1" : "Several days",
+            "2" : "More than half the days",
+            "3": "Nearly every day"
+        },
         "analysis": {
             "scoring": "Sum responses for the first 9 questions (score range: 0–27). Question 10 indicates impairment.",
             "severity_classification": {
@@ -41,6 +47,12 @@
         "question8": "How difficult have these problems made it to work or interact socially?",
         "question9": "Avoiding situations that make you anxious?",
         "question10": "Experiencing physical symptoms like sweating or trembling?",
+        "choices": {
+            "0" : "Not at all",
+            "1" : "Several days",
+            "2" : "More than half the days",
+            "3": "Nearly every day"
+        },
         "analysis": {
             "scoring": "Sum the first 7 questions (score range: 0–21). Questions 8–10 offer context.",
             "severity_classification": {
@@ -68,6 +80,12 @@
         "question8": "Feeling tired or fatigued during the day?",
         "question9": "Difficulty maintaining a consistent sleep schedule?",
         "question10": "Rate your overall sleep quality in the past month.",
+        "choices": {
+            "0" : "No difficulty / Very good",
+            "1" : "Mild difficulty / Fairly good",
+            "2" : "Moderate difficulty / Fairly bad",
+            "3" : "Severe difficulty / Very bad"
+        },
         "analysis": {
             "scoring": "Aggregate scores from all responses, rating sleep quality from poor to excellent.",
             "visualization": "Bar charts to show average sleep duration and quality.",
@@ -87,6 +105,13 @@
         "question8": "Felt that you were on top of things?",
         "question9": "Found that you could not cope with your workload?",
         "question10": "Felt you could handle your responsibilities?",
+        "choices": {
+            "0" : "Never",
+            "1" : "Almost never",
+            "2" : "Sometimes",
+            "3" : "Fairly often",
+            "4" : "Very often"
+        },
         "analysis": {
             "scoring": "Reverse score positive questions (e.g., 4, 5, 7, 8). Sum total scores.",
             "stress_levels": {
@@ -111,6 +136,14 @@
         "question8": "Do you consume alcohol? If so, how frequently?",
         "question9": "How often do you consume dairy products?",
         "question10": "Do you use nutritional supplements?",
+        "choices": {
+            "0" : "Never",
+            "1" : "Rarely",
+            "2" : "Occasionally",
+            "3" : "Often",
+            "4" : "Very often",
+            "5" : "Daily"
+        },
         "analysis": {
             "scoring": "Assign values to frequency (e.g., Never = 0, Daily = 5).",
             "patterns": "Identify trends in food consumption.",

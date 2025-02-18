@@ -148,6 +148,8 @@ class SurveyHandler():
         title           = questionnaire['title']
         purpose         = questionnaire['purpose']
         questions_dict  = {k: v for k, v in questionnaire.items() if k.startswith("question")}
+        choices         = questionnaire['choices']
+        help_text       = ", ".join(f"{i}: {choice}" for i, choice in choices.items())
 
 
         ## ___________________________________________________________________________ ##
@@ -188,12 +190,16 @@ class SurveyHandler():
             
             # Start Questionnaire
             st.markdown(f"*{len(questions_dict)} questions, < 1 min to fill in*")
+        
+            # Display the choices above the slider in evenly spaced columns
+            st.markdown(f"**{help_text}**")
 
             for question_id, question in questions_dict.items():
                 self.ask_q(
                     metadata    = metadata, 
                     question_id = question_id,
-                    question    = question
+                    question    = question,
+                    choices     = choices
                 )
 
 
@@ -202,16 +208,19 @@ class SurveyHandler():
             metadata    : Dict[str,str],
             question_id : int,
             question    : str,
+            choices     : Dict[str,str],
 
         ):
         #st.markdown("<h4 style='margin-top:-10px; margin-bottom:-30px;font-size: 20px;'>Ερώτηση 1: Καταθλιπτικό επεισόδιο</h4>", unsafe_allow_html=True)
-        
         question_idx = re.findall(r'\d+', question_id)[0]
-        
-        answer = st.radio(
+    
+        answer = st.slider(
             f"**Q{question_idx}** : {question}",
-            options = ["Ναι", "Όχι"],
-            index   = None # Do not preselect any option
+            min_value = 0, 
+            max_value = len(choices) - 1,
+            value     = 0,  # Default value (not preselected)
+            step      = 1,
+            format    = "%d",  # Display the slider value as an integer
         )
         self.store_response(
             question_id  = question_id,
