@@ -1,0 +1,120 @@
+{
+    "PHQ-9": {
+        "title": "Depression Screening (PHQ-9)",
+        "purpose": "Measure symptoms of depression over the past two weeks.",
+        "question1": "Little interest or pleasure in doing things?",
+        "question2": "Feeling down, depressed, or hopeless?",
+        "question3": "Trouble falling or staying asleep, or sleeping too much?",
+        "question4": "Feeling tired or having little energy?",
+        "question5": "Poor appetite or overeating?",
+        "question6": "Feeling bad about yourself or that you are a failure?",
+        "question7": "Trouble concentrating on things, such as reading or watching TV?",
+        "question8": "Moving or speaking so slowly that others have noticed, or the opposite?",
+        "question9": "Thoughts that you would be better off dead or hurting yourself?",
+        "question10": "How difficult have these problems made it to work or interact socially?",
+        "analysis": {
+            "scoring": "Sum responses for the first 9 questions (score range: 0–27). Question 10 indicates impairment.",
+            "severity_classification": {
+                "0-4": "Minimal",
+                "5-9": "Mild",
+                "10-14": "Moderate",
+                "15-19": "Moderately severe",
+                "20-27": "Severe"
+            },
+            "analysis_tools": [
+                "Calculate the mean score.",
+                "Use bar charts to show severity distribution."
+            ],
+            "insight": "Identify trends (e.g., percentage of participants with moderate/severe depression)."
+        }
+    },
+    "GAD-7": {
+        "title": "Generalized Anxiety Disorder (GAD-7)",
+        "purpose": "Assess anxiety levels over the past two weeks.",
+        "question1": "Feeling nervous, anxious, or on edge?",
+        "question2": "Unable to stop or control worrying?",
+        "question3": "Worrying too much about different things?",
+        "question4": "Trouble relaxing?",
+        "question5": "Being so restless that it is hard to sit still?",
+        "question6": "Becoming easily annoyed or irritable?",
+        "question7": "Feeling afraid as if something awful might happen?",
+        "question8": "How difficult have these problems made it to work or interact socially?",
+        "question9": "Avoiding situations that make you anxious?",
+        "question10": "Experiencing physical symptoms like sweating or trembling?",
+        "analysis": {
+            "scoring": "Sum the first 7 questions (score range: 0–21). Questions 8–10 offer context.",
+            "severity_classification": {
+                "0-4": "Minimal",
+                "5-9": "Mild",
+                "10-14": "Moderate",
+                "15-21": "Severe"
+            },
+            "analysis_tools": [
+                "Display severity distribution via pie charts.",
+                "Look for patterns in Questions 8–10 responses for contextual insights."
+            ]
+        }
+    },
+    "PSQI": {
+        "title": "Sleep Quality Index (PSQI)",
+        "purpose": "Assess sleep patterns and disturbances.",
+        "question1": "How many hours of actual sleep do you get per night?",
+        "question2": "Difficulty falling asleep?",
+        "question3": "Waking up in the middle of the night?",
+        "question4": "Waking up too early and not being able to fall asleep again?",
+        "question5": "Trouble staying awake during daytime activities?",
+        "question6": "Using medication to help you sleep?",
+        "question7": "Feeling refreshed after waking up?",
+        "question8": "Feeling tired or fatigued during the day?",
+        "question9": "Difficulty maintaining a consistent sleep schedule?",
+        "question10": "Rate your overall sleep quality in the past month.",
+        "analysis": {
+            "scoring": "Aggregate scores from all responses, rating sleep quality from poor to excellent.",
+            "visualization": "Bar charts to show average sleep duration and quality.",
+            "insights": "Identify if participants are at risk for sleep deprivation and correlate with daytime fatigue."
+        }
+    },
+    "PSS": {
+        "title": "Perceived Stress Scale (PSS)",
+        "purpose": "Understand stress levels over the past month.",
+        "question1": "How often have you been upset by unexpected events?",
+        "question2": "Felt unable to control important aspects of your life?",
+        "question3": "Felt nervous or 'stressed'?",
+        "question4": "Confident about your ability to handle personal problems?",
+        "question5": "Felt that things were going your way?",
+        "question6": "Felt difficulties were piling up too high?",
+        "question7": "Been able to control irritations?",
+        "question8": "Felt that you were on top of things?",
+        "question9": "Found that you could not cope with your workload?",
+        "question10": "Felt you could handle your responsibilities?",
+        "analysis": {
+            "scoring": "Reverse score positive questions (e.g., 4, 5, 7, 8). Sum total scores.",
+            "stress_levels": {
+                "0-13": "Low",
+                "14-26": "Moderate",
+                "27-40": "High"
+            },
+            "visualization": "Use histograms to visualize stress levels.",
+            "insights": "Target groups for stress-reducing strategies."
+        }
+    },
+    "FFQ": {
+        "title": "Food Frequency Questionnaire (FFQ)",
+        "purpose": "Assess dietary habits.",
+        "question1": "How often do you consume fruits?",
+        "question2": "How often do you eat vegetables?",
+        "question3": "How often do you drink sugary beverages?",
+        "question4": "How many meals per day do you typically eat?",
+        "question5": "How often do you eat fast food or takeout?",
+        "question6": "How often do you consume whole grains?",
+        "question7": "How often do you eat fried food?",
+        "question8": "Do you consume alcohol? If so, how frequently?",
+        "question9": "How often do you consume dairy products?",
+        "question10": "Do you use nutritional supplements?",
+        "analysis": {
+            "scoring": "Assign values to frequency (e.g., Never = 0, Daily = 5).",
+            "patterns": "Identify trends in food consumption.",
+            "insights": "Highlight areas for improvement, such as reducing processed food consumption."
+        }
+    }
+}
