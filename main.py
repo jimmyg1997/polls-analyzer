@@ -65,7 +65,7 @@ class Controller():
             "--questionnaire_name",
             "-qn",
             type    = str,
-            default = "PHQ-9",
+            default = "FFQ",
             help    = "Options ~ {PHQ-9,GAD-7, ...}"
         )
         return parser.parse_args()

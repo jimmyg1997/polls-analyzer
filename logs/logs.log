@@ -12494,3 +12494,15 @@
 2025-02-19 11:44:09 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
 2025-02-19 11:44:09 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
 2025-02-19 11:44:09 - INFO - (Controller.run) All services initilalized
+2025-02-19 11:44:46 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-19 11:44:46 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-19 11:44:46 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-19 11:44:46 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-19 11:44:46 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-19 11:44:46 - INFO - (Controller.run) All services initilalized
+2025-02-19 11:47:22 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-19 11:47:22 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-19 11:47:22 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-19 11:47:22 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-19 11:47:22 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-19 11:47:22 - INFO - (Controller.run) All services initilalized
