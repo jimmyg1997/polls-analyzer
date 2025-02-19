@@ -157,6 +157,9 @@ class SurveyHandler():
             header_settings + f""" <h1> {title} </h1> <h3> {purpose} </h3>""",
             unsafe_allow_html=True
         )
+        st.markdown(
+            "*I, Dimitrios Georgiou, a 𝐃𝐚𝐭𝐚 𝐒𝐜𝐢𝐞𝐧𝐭𝐢𝐬𝐭, am conducting this survey to analyze trends and behavioral patterns based on demographic and lifestyle factors. The collected data will be used solely for statistical analysis, ensuring anonymity and secure processing. Insights from this study aim to enhance understanding of behavioral trends, support research, and contribute to informed decision-making. Participation is voluntary, and no personally identifiable information will be shared.*"
+        )
 
         # Create two columns
         left_column, right_column = st.columns([1, 3])  # Adjust the ratio of column width
@@ -186,13 +189,18 @@ class SurveyHandler():
             errors = []
 
             if any(field == "" for field in metadata_to_check) :
-                errors.append("Please fill in all fields")
+                errors.append("Please fill in all fields above")
 
             if errors:
                 st.error("\n".join(errors))
             else:
                 st.success("All required fields are completed!")
                 # Continue processing metadata...
+
+            st.markdown(f"*Want to receive all the results once the poll ends? Enter your email below!*")
+            email = st.text_input("Email", "")
+            metadata["email"] = email
+            
 
         # Right column: Questions
         with right_column:
@@ -207,6 +215,7 @@ class SurveyHandler():
             st.markdown(f"**{help_text}**")
 
             for question_id, question in questions_dict.items():
+                question_id = re.findall(r'\d+', question_id)[0]
                 self.ask_q(
                     metadata    = metadata, 
                     question_id = question_id,
@@ -221,11 +230,8 @@ class SurveyHandler():
             question_id : int,
             question    : str,
             choices     : Dict[str,str],
-
         ):
-        #st.markdown("<h4 style='margin-top:-10px; margin-bottom:-30px;font-size: 20px;'>Ερώτηση 1: Καταθλιπτικό επεισόδιο</h4>", unsafe_allow_html=True)
-        question_idx = re.findall(r'\d+', question_id)[0]
-
+        
         # Inject custom CSS for the slider thumb
         st.markdown(
             """
@@ -240,9 +246,8 @@ class SurveyHandler():
             unsafe_allow_html=True
         )
 
-
         answer = st.slider(
-            f"**Q{question_idx}** : {question}",
+            f"**Q{question_id}** : {question}",
             min_value = 0, 
             max_value = len(choices) - 1,
             value     = 0,  # Default value (not preselected)
@@ -286,28 +291,37 @@ class SurveyHandler():
 
         # Log results with timestamp
         with right_column :
+            # Acceptance checkbox
+            accept_terms = st.checkbox("Do you consent to the processing of your data for statistical analysis purposes?.")
+
             if st.button("Submit Response"):
-                # Converting responses to DataFrame
-                if 'responses' in st.session_state:
-                    df = pd.DataFrame(st.session_state.responses)
-                    print(df)
+                if not accept_terms:
+                    st.error("You must accept the terms and conditions to proceed.")
 
-                    df = df.sort_values('Timestamp')\
-                        .drop_duplicates('Question', keep='last')\
-                        .sort_values('Question (id)')
+                else : 
+                    if 'responses' in st.session_state:
+                        # Converting responses to DataFrame
+                        df = pd.DataFrame(st.session_state.responses)
+                        print(df)
 
-                    # Save to CSV
-                    st.success("Response submitted successfully!")
-                    #st.dataframe(df)
+                        df["Question (id)"] = df["Question (id)"].astype(int)
 
-                    # Save to Google Sheets
-                    self.data_loader.append_data_to_google_sheets(
-                        df                     = df,
-                        spreadsheet_id         = sheets_reporter_id,
-                        spreadsheet_range_name = sheets_reporter_tab_survey_results,
-                    )
+                        df = df.sort_values('Timestamp')\
+                            .drop_duplicates('Question', keep='last')\
+                            .sort_values('Question (id)')
 
-                    return df
-                else:
-                    st.warning("No responses available to create the dataframe.")
-                    return None
+                        # Save to CSV
+                        st.success("Response submitted successfully!")
+                        #st.dataframe(df)
+
+                        # Save to Google Sheets
+                        self.data_loader.append_data_to_google_sheets(
+                            df                     = df,
+                            spreadsheet_id         = sheets_reporter_id,
+                            spreadsheet_range_name = sheets_reporter_tab_survey_results,
+                        )
+
+                        return df
+                    else:
+                        st.warning("No responses available to create the dataframe.")
+                        return None

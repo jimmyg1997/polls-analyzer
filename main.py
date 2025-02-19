@@ -167,7 +167,7 @@ class Controller():
         ## _____________________________________________________________________________________________________________________ ##
         ## 5. Log Survey responses to google sheets
         self.survey_handler.log_survey_result(
-            sheets_reporter_id = sheets_reporter_id,
+            sheets_reporter_id                 = sheets_reporter_id,
             sheets_reporter_tab_survey_results = sheets_reporter_tab_survey_results
         )
         
