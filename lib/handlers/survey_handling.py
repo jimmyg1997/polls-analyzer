@@ -162,7 +162,7 @@ class SurveyHandler():
         )
 
         # Create two columns
-        left_column, right_column = st.columns([1, 3])  # Adjust the ratio of column width
+        left_column, right_column = st.columns([1, 4])  # Adjust the ratio of column width
 
         # Left column: Metadata
         with left_column:
@@ -209,7 +209,7 @@ class SurveyHandler():
                 st.session_state.responses = []
             
             # Start Questionnaire
-            st.markdown(f"*{len(questions_dict)} questions, < 1 min to fill in*")
+            st.markdown(f"*{len(questions_dict)} questions, < 2 min to fill in*")
         
             # Display the choices above the slider in evenly spaced columns
             st.markdown(f"**{help_text}**")
@@ -245,6 +245,17 @@ class SurveyHandler():
             """,
             unsafe_allow_html=True
         )
+        # answer = st.radio(
+        #     f"**Q{question_id}** : {question}", 
+        #     list(choices.keys()), 
+        #     format_func=lambda x: choices[x],
+        #     horizontal=True
+        # )
+
+        # Initialize the session state if not already initialized
+        if f"slider_value_{question_id}" not in st.session_state:
+            st.session_state[f"slider_value_{question_id}"] = 0  # Default value when the page first loads
+
 
         answer = st.slider(
             f"**Q{question_id}** : {question}",
@@ -254,15 +265,30 @@ class SurveyHandler():
             step      = 1,
             format    = "%d",  # Display the slider value as an integer
         )
-        self.store_response(
-            question_id  = question_id,
-            question     = question,
-            answer       = answer, 
-            metadata     = metadata,
-        )
+
+
+        # If the value has changed, capture the timestamp and store the response
+        if answer != st.session_state[f"slider_value_{question_id}"]:
+            st.session_state[f"slider_value_{question_id}"] = answer  # Update the session state with new value
+            timestamp = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            self.store_response(
+                timestamp    = timestamp,
+                question_id  = question_id,
+                question     = question,
+                answer       = answer, 
+                metadata     = metadata,
+            )
+        # self.store_response(
+        #     timestamp    = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        #     question_id  = question_id,
+        #     question     = question,
+        #     answer       = answer, 
+        #     metadata     = metadata,
+        # )
 
     def store_response(
             self, 
+            timestamp   : dt.datetime,
             question_id : int, 
             question    : str, 
             answer      : str, 
@@ -270,7 +296,7 @@ class SurveyHandler():
         ):
 
         logs_dict = {
-            "Timestamp"     : dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "Timestamp"     : timestamp,
             "Question (id)" : question_id,
             "Question"      : question,
             "Answer"        : answer,
@@ -287,7 +313,7 @@ class SurveyHandler():
             sheets_reporter_tab_survey_results : str
         ):
         # Create two columns
-        left_column, right_column = st.columns([1, 3])  # Adjust the ratio of column width
+        left_column, right_column = st.columns([1, 4])  # Adjust the ratio of column width
 
         # Log results with timestamp
         with right_column :
