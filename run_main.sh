@@ -8,4 +8,4 @@ if [ ! -z "$PID" ]; then
 fi
 
 echo "Starting Streamlit on port $PORT..."
-streamlit run main.py --server.port $PORT
+streamlit run main.py --server.port $PORT -- --questionnaire_name FFQ

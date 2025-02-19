@@ -164,12 +164,12 @@ class SurveyHandler():
         # Left column: Metadata
         with left_column:
             st.image("https://raw.githubusercontent.com/jimmyg1997/polls-analyzer/main/static/1.png", use_container_width=True)
-            age_group               = st.selectbox("Age Group", ["18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-84"])
-            gender                  = st.selectbox("Gender", ["Male", "Female", "Non-binary", "Prefer not to say"])
-            education_level         = st.selectbox("Education Level", ["High school", "Bachelor's", "Master's", "PhD" , "Other"])
-            employment_status       = st.selectbox("Employment Status", ["Employed full-time", "Part-time", "Unemployed","Student", "Retired"])
-            living_situation        = st.selectbox("Living Situation", ["Alone", "With partner", "With family", "Shared housing"])
-            physical_activity_level = st.selectbox("Physical Activity Level", ["Sedentary", "Light activity", "Moderate activity", "High activity"])
+            age_group               = st.selectbox("Age Group", ["", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-84"])
+            gender                  = st.selectbox("Gender", ["", "Male", "Female", "Non-binary", "Prefer not to say"])
+            education_level         = st.selectbox("Education Level", ["", "High school", "Bachelor's", "Master's", "PhD" , "Other"])
+            employment_status       = st.selectbox("Employment Status", ["", "Employed full-time", "Part-time", "Unemployed","Student", "Retired"])
+            living_situation        = st.selectbox("Living Situation", ["", "Alone", "With partner", "With family", "Shared housing"])
+            physical_activity_level = st.selectbox("Physical Activity Level", ["", "Sedentary", "Light activity", "Moderate activity", "High activity"])
             city                    = st.text_input("City", "")
 
             metadata = {
@@ -181,6 +181,18 @@ class SurveyHandler():
                 "physical_activity_level" : physical_activity_level,
                 "city"                    : city
             }
+            # Later, before processing the data (e.g., on form submission), validate that no required field still has the placeholder.
+            metadata_to_check = list(metadata.values())
+            errors = []
+
+            if any(field == "" for field in metadata_to_check) :
+                errors.append("Please fill in all fields")
+
+            if errors:
+                st.error("\n".join(errors))
+            else:
+                st.success("All required fields are completed!")
+                # Continue processing metadata...
 
         # Right column: Questions
         with right_column:
@@ -213,7 +225,15 @@ class SurveyHandler():
         ):
         #st.markdown("<h4 style='margin-top:-10px; margin-bottom:-30px;font-size: 20px;'>Ερώτηση 1: Καταθλιπτικό επεισόδιο</h4>", unsafe_allow_html=True)
         question_idx = re.findall(r'\d+', question_id)[0]
-    
+        # answer = st.markdown("""
+        #     <style>
+        #     .stSlider [data-baseweb=slider]{
+        #         width: 25%;
+        #     }
+        #     </style>
+        #     """,unsafe_allow_html=True
+        # )
+
         answer = st.slider(
             f"**Q{question_idx}** : {question}",
             min_value = 0, 
@@ -228,10 +248,6 @@ class SurveyHandler():
             answer       = answer, 
             metadata     = metadata,
         )
-
-
-    
-
 
     def store_response(
             self, 

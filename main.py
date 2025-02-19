@@ -129,6 +129,9 @@ class Controller():
 
         # Args
         questionnaire_name = self.args.questionnaire_name
+        sheets_reporter_tab_survey_results = sheets_reporter_tab_survey_results.format(
+            questionnaire_name = questionnaire_name
+        )
 
         ## _____________________________________________________________________________________________________________________ ##
         ## 1. Get questionnaire
