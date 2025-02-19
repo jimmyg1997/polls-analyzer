@@ -12482,3 +12482,15 @@
 2025-02-19 11:38:19 - INFO - (Controller.run) All services initilalized
 2025-02-19 11:38:19 - INFO - (Controller.run) All services initilalized
 2025-02-19 11:38:19 - INFO - (Controller.run) All services initilalized
+2025-02-19 11:39:38 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-19 11:39:38 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-19 11:39:38 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-19 11:39:38 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-19 11:39:38 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-19 11:39:38 - INFO - (Controller.run) All services initilalized
+2025-02-19 11:44:09 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-19 11:44:09 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-19 11:44:09 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-19 11:44:09 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-19 11:44:09 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-19 11:44:09 - INFO - (Controller.run) All services initilalized

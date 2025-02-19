@@ -234,6 +234,42 @@ class SurveyHandler():
         #     """,unsafe_allow_html=True
         # )
 
+        # Inject custom CSS for the slider thumb
+        st.markdown(
+            """
+            <style>
+            /* For Chrome, Safari, and Opera */
+            input[type=range]::-webkit-slider-thumb {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background: #0d6efd;  /* Change color if needed */
+                cursor: pointer;
+                margin-top: -10px;  /* Adjust vertical alignment if needed */
+            }
+
+            /* For Firefox */
+            input[type=range]::-moz-range-thumb {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background: #0d6efd;
+                cursor: pointer;
+            }
+
+            /* For IE */
+            input[type=range]::-ms-thumb {
+                width: 25px;
+                height: 25px;
+                border-radius: 50%;
+                background: #0d6efd;
+                cursor: pointer;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+
         answer = st.slider(
             f"**Q{question_idx}** : {question}",
             min_value = 0, 
