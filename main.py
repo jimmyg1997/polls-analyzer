@@ -9,8 +9,7 @@
 # -*-*-*-*-*-*-*-*-*-*-* #
 #     Basic Modules      #
 # -*-*-*-*-*-*-*-*-*-*-* #
-import os, json, time, glob,argparse, re
-import numpy     as np
+import os, json, time, glob, argparse, re, ast
 import functools as ft
 import pandas    as pd
 import datetime  as dt
@@ -121,14 +120,17 @@ class Controller():
         sheets_reporter_tab_survey_results = self.mk1.config.get("google_sheets","reporter_tab_survey_results")
 
         # App Static
-        img_path_background = self.mk1.config.get("app_static","img_path_background")
-        fn_questionnaires   = self.mk1.config.get("app_static","fn_questionnaires")
+        img_path_backgrounds = ast.literal_eval(self.mk1.config.get("app_static","img_path_backgrounds"))
+        fn_questionnaires    = self.mk1.config.get("app_static","fn_questionnaires")
         
         # Attributes
         today = datetime.now()
 
         # Args
-        questionnaire_name = self.args.questionnaire_name
+        questionnaire_name   = self.args.questionnaire_name
+        img_path_background = img_path_backgrounds[
+            questionnaire_name
+        ]
         sheets_reporter_tab_survey_results = sheets_reporter_tab_survey_results.format(
             questionnaire_name = questionnaire_name
         )

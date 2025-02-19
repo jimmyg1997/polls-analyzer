@@ -163,7 +163,7 @@ class SurveyHandler():
 
         # Left column: Metadata
         with left_column:
-            st.image("https://raw.githubusercontent.com/jimmyg1997/polls-analyzer/main/static/1.png", use_container_width=True)
+            #st.image("https://raw.githubusercontent.com/jimmyg1997/polls-analyzer/main/static/1.png", use_container_width=True)
             age_group               = st.selectbox("Age Group", ["", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-84"])
             gender                  = st.selectbox("Gender", ["", "Male", "Female", "Non-binary", "Prefer not to say"])
             education_level         = st.selectbox("Education Level", ["", "High school", "Bachelor's", "Master's", "PhD" , "Other"])
@@ -225,14 +225,6 @@ class SurveyHandler():
         ):
         #st.markdown("<h4 style='margin-top:-10px; margin-bottom:-30px;font-size: 20px;'>Ερώτηση 1: Καταθλιπτικό επεισόδιο</h4>", unsafe_allow_html=True)
         question_idx = re.findall(r'\d+', question_id)[0]
-        # answer = st.markdown("""
-        #     <style>
-        #     .stSlider [data-baseweb=slider]{
-        #         width: 25%;
-        #     }
-        #     </style>
-        #     """,unsafe_allow_html=True
-        # )
 
         # Inject custom CSS for the slider thumb
         st.markdown(
