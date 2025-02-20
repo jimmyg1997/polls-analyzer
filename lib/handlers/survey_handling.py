@@ -77,34 +77,103 @@ class SurveyHandler():
                             url("{image_path}") no-repeat center center fixed;
                 background-size: cover;
             }}
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
 
-
-    def set_background_v2(
-            self, 
-            image_path : str, 
-            opacity    : float = 0.5
-        ):
-        """
-        Sets a background image in the main content area of a Streamlit app with reduced opacity.
-
-        Parameters:
-        - image_url (str): Direct URL to the background image.
-        - opacity (float): Opacity level (0.0 to 1.0, where 1 is fully visible and 0 is fully transparent).
-        """
-        st.markdown(
-            f"""
-            <style>
-            .block-container {{
-                background: linear-gradient(rgba(255,255,255, {1-opacity}), rgba(255,255,255, {1-opacity})), 
-                            url("{image_path}") no-repeat center center;
-                background-size: cover;
-                padding: 20px;
-                border-radius: 15px;
+            
+            /* _____________ General _____________ */
+            /* Ensures text is always visible */
+            html, body, [class*="st-"] {{
+                color: black !important;  /* Default color for light mode */
             }}
+
+            /* Change the top bar background color */
+            header[data-testid="stHeader"] {{
+                background-color: #1E1E1E !important;  /* Dark Gray */
+            }}
+
+            /* Change the text color of the top bar buttons (Deploy, Settings, etc.) */
+            header[data-testid="stHeader"] * {{
+                color: white !important;
+            }}
+
+            ul[role="listbox"] li {{
+                color: white !important;
+                background-color: #FFFFFF;
+                font-weight: bold;      
+                font-size: 16px;
+            }}
+
+            div[role="dialog"]  {{
+                color: white !important;
+                background-color: #FFFFFF;
+                font-weight: bold;      
+                font-size: 16px;
+            }}
+            
+            /* Fix text for dark mode */
+            @media (prefers-color-scheme: dark) {{
+                html, body, [class*="st-"] {{
+                    color: white !important;
+                }}
+            }}
+
+            /* _____________ 1. stSelectbox _____________ */
+            /* Fix font color for selectbox */
+            ul[data-testid="stSelectboxVirtualDropdown"] li {{
+                color: white !important;
+                background-color: #FFFFFF;
+                font-weight: bold;      
+                font-size: 16px;
+            }}
+           
+            .stSelectbox div[data-baseweb="select"] > div:first-child {{
+                background-color: #FFFFFF;
+                border-color: #2d408d;
+            }}
+
+            /* _____________ 2. stTextInput _____________ */
+            div[data-testid="stTextInput"] {{
+                color: white !important;
+                border-color: #2d408d;
+            }}
+
+            .stTextInput > div > div > input {{
+                background-color: #FFFFFF;
+                border-color: #2d408d;
+            }}
+
+            /* _____________ 3. checkBox _____________ */
+            div[data-baseweb="checkbox"] input {{
+                color: white !important;
+                border-color: #2d408d;
+            }}
+            div[data-baseweb="checkbox"] > div > div{{
+                color: white !important;
+                border-color: #2d408d;
+            }}
+
+            /* _____________ 4. stButton _____________ */
+            /* Fix font color for buttons */
+            .stButton>button {{
+                color: white !important;
+                background-color: #FFFFFF;
+                border-color: #2d408d;
+                border-radius: 8px;
+                font-weight: bold;
+            }}
+
+            /* _____________ 5. stSlider _____________ */    
+            /* Ensure slider text is readable */
+            .stSlider label {{
+                color: white !important;
+            }}
+
+            /* _____________ 5. stFileUploader _____________ */
+
+            /* Fix file uploader */
+            .stFileUploader label {{
+                color: white !important;
+            }}
+
             </style>
             """,
             unsafe_allow_html=True
