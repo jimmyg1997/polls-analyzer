@@ -212,7 +212,7 @@ class SurveyHandler():
             st.markdown(f"*{len(questions_dict)} questions, < 2 min to fill in*")
         
             # Display the choices above the slider in evenly spaced columns
-            st.markdown(f"**{help_text}**")
+            #st.markdown(f"**{help_text}**")
 
             for question_id, question in questions_dict.items():
                 question_id = re.findall(r'\d+', question_id)[0]
@@ -245,31 +245,80 @@ class SurveyHandler():
             """,
             unsafe_allow_html=True
         )
-        # answer = st.radio(
-        #     f"**Q{question_id}** : {question}", 
-        #     list(choices.keys()), 
-        #     format_func=lambda x: choices[x],
-        #     horizontal=True
-        # )
 
+        button_type = "slider"
         # Initialize the session state if not already initialized
-        if f"slider_value_{question_id}" not in st.session_state:
-            st.session_state[f"slider_value_{question_id}"] = 0  # Default value when the page first loads
+        if f"{button_type}_value_{question_id}" not in st.session_state:
+            st.session_state[f"{button_type}_value_{question_id}"] = 0  # Default value when the page first loads
 
 
-        answer = st.slider(
-            f"**Q{question_id}** : {question}",
-            min_value = 0, 
-            max_value = len(choices) - 1,
-            value     = 0,  # Default value (not preselected)
-            step      = 1,
-            format    = "%d",  # Display the slider value as an integer
-        )
+        if button_type == "radio" : 
+            answer = st.radio(
+                f"**Q{question_id}** : {question}", 
+                list(choices.keys()), 
+                format_func=lambda x: choices[x],
+                horizontal=True
+            )
+
+        elif button_type == "slider" : 
+            answer = st.slider(
+                f"**Q{question_id}** : {question}",
+                min_value = 0, 
+                max_value = len(choices) - 1,
+                value     = 0,  # Default value (not preselected)
+                step      = 1,
+                format    = "%d",  # Display the slider value as an integer
+            )            
+            slider_container = f"""
+                <style>
+                    /* Hide the min/max values of the Streamlit slider */
+                    div[data-testid="stSliderTickBar"] {{
+                        display: none !important;
+                    }}
+                    div[data-testid="stSliderTickBarMin"] {{
+                        display: none !important;
+                    }}
+                    div[data-testid="stSliderTickBarMax"] {{
+                        display: none !important;
+                    }}
+                    div[data-testid="stSlider"] span {{
+                        display: none !important;
+                    }}
+                    /* Positioning the labels */
+                    .slider-container {{
+                        position: relative;
+                        width: 100%;
+                    }}
+                    .slider-labels {{
+                        display: flex;
+                        justify-content: space-between;
+                        width: 100%;
+                        position: absolute;
+                        top: 5px;
+                        font-size: 14px;
+                        font-weight: bold;
+                    }}
+
+                    
+                </style>
+            """
+
+            slider_container_labels = "<div class='slider-container'> <div class='slider-labels'>"
+            for _, c in choices.items():
+                slider_container_labels += f"<span>{c}</span>"
+
+            slider_container_labels += "</div> </div>"
+
+            st.markdown(
+                slider_container + 
+                slider_container_labels,
+                unsafe_allow_html=True
+            )
 
 
         # If the value has changed, capture the timestamp and store the response
-        if answer != st.session_state[f"slider_value_{question_id}"]:
-            st.session_state[f"slider_value_{question_id}"] = answer  # Update the session state with new value
+        if answer != st.session_state[f"{button_type}_value_{question_id}"]:
+            st.session_state[f"{button_type}_value_{question_id}"] = answer  # Update the session state with new value
             timestamp = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             self.store_response(
                 timestamp    = timestamp,
@@ -278,13 +327,7 @@ class SurveyHandler():
                 answer       = answer, 
                 metadata     = metadata,
             )
-        # self.store_response(
-        #     timestamp    = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        #     question_id  = question_id,
-        #     question     = question,
-        #     answer       = answer, 
-        #     metadata     = metadata,
-        # )
+
 
     def store_response(
             self, 

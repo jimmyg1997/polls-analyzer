@@ -135,7 +135,7 @@
         "question7": "How often do you eat fried food?",
         "question8": "Do you consume alcohol? If so, how frequently?",
         "question9": "How often do you consume dairy products?",
-        "question10": "Do you use nutritional supplements?",
+        "question10": "Do you use nutritional supplements? If so, how frequently?",
         "choices": {
             "0" : "Never",
             "1" : "Rarely",
