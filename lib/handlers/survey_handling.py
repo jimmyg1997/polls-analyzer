@@ -141,6 +141,11 @@ class SurveyHandler():
                 border-color: #2d408d;
             }}
 
+            div[data-testid="stTextInput"] > div:focus-within {{
+                box-shadow: 0px 0px 5px 2px #2d408d !important;
+                border-color: #2d408d !important;
+            }}
+
             /* _____________ 3. checkBox _____________ */
             div[data-baseweb="checkbox"] input {{
                 color: white !important;
@@ -430,7 +435,7 @@ class SurveyHandler():
         # Log results with timestamp
         with right_column :
             # Acceptance checkbox
-            accept_terms = st.checkbox("Do you consent to the processing of your data for statistical analysis purposes?.")
+            accept_terms = st.checkbox("Do you consent to the processing of your data for statistical analysis purposes?")
 
             if st.button("Submit Response"):
                 if not accept_terms:
