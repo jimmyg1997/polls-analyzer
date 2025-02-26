@@ -43,6 +43,7 @@ class SurveyHandler():
         self.data_loader = data_loader
 
         ## ______________ ** Attributes ** ______________ ##
+        
    
     def get_questionnaire(
             self, 
@@ -239,6 +240,7 @@ class SurveyHandler():
         questions_dict  = {k: v for k, v in questionnaire.items() if k.startswith("question")}
         choices         = questionnaire['choices']
         help_text       = ", ".join(f"{i}: {choice}" for i, choice in choices.items())
+        
 
 
         ## ___________________________________________________________________________ ##
@@ -250,11 +252,18 @@ class SurveyHandler():
             "*I, Dimitrios Georgiou, a 𝐃𝐚𝐭𝐚 𝐒𝐜𝐢𝐞𝐧𝐭𝐢𝐬𝐭, am conducting this survey to analyze trends and behavioral patterns based on demographic and lifestyle factors. The collected data will be used solely for statistical analysis, ensuring anonymity and secure processing. Insights from this study aim to enhance understanding of behavioral trends, support research, and contribute to informed decision-making. Participation is voluntary, and no personally identifiable information will be shared.*"
         )
 
+        # Initialize session state for start time
+        if "start_time" not in st.session_state:
+            st.session_state.start_time = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
         # Create two columns
         left_column, right_column = st.columns([1, 4])  # Adjust the ratio of column width
 
         # Left column: Metadata
         with left_column:
+            if "required_fields_filled" not in st.session_state:
+                st.session_state.required_fields_filled = False
+
             #st.image("https://raw.githubusercontent.com/jimmyg1997/polls-analyzer/main/static/1.png", use_container_width=True)
             age_group               = st.selectbox("Age Group", ["", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-84"])
             gender                  = st.selectbox("Gender", ["", "Male", "Female", "Non-binary", "Prefer not to say"])
@@ -283,9 +292,8 @@ class SurveyHandler():
             if errors:
                 st.error("\n".join(errors))
             else:
+                st.session_state.required_fields_filled = True
                 st.success("All required fields are completed!")
-                self.start_time = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                st.success(f"HEYYYY {self.start_time}")
                 # Continue processing metadata...
 
             st.markdown(f"*Want to receive all the results once the poll ends? Enter your email below!*")
@@ -456,13 +464,14 @@ class SurveyHandler():
         ):
         # Create two columns
         left_column, right_column = st.columns([1, 4])  # Adjust the ratio of column width
+        required_fields_filled = st.session_state.required_fields_filled
 
         # Log results with timestamp
         with right_column :
             # Acceptance checkbox
             accept_terms = st.checkbox("Do you consent to the processing of your data for statistical analysis purposes?")
 
-            if st.button("Submit Response"):
+            if st.button("Submit Response", disabled=not required_fields_filled):
                 if not accept_terms:
                     st.error("You must accept the terms and conditions to proceed.")
 
@@ -479,7 +488,7 @@ class SurveyHandler():
                             .sort_values('Question (id)')
 
                         # add times
-                        df['Start Time'] = self.start_time
+                        df['Start Time'] = st.session_state.start_time
                         df['End Time']   = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
                         # Save to CSV

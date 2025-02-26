@@ -167,7 +167,7 @@ class Controller():
         ## 2. Set background
         self.survey_handler.set_background(
             image_path = img_path_background,
-            opacity    = 0.1
+            opacity    = 0.2
         )
         
         ## _____________________________________________________________________________________________________________________ ##
