@@ -39,9 +39,11 @@ class SurveyHandler():
         ## System Design
         self.mk1 = mk1
 
-        ## APIs & Handlers
+        ## ______________ ** APIs & Handlers ** ______________ ##
         self.data_loader = data_loader
 
+        ## ______________ ** Attributes ** ______________ ##
+   
     def get_questionnaire(
             self, 
             fn_questionnaires  : str,
@@ -77,12 +79,25 @@ class SurveyHandler():
                             url("{image_path}") no-repeat center center fixed;
                 background-size: cover;
             }}
-
+        
             
             /* _____________ General _____________ */
             /* Ensures text is always visible */
+            
             html, body, [class*="st-"] {{
                 color: black !important;  /* Default color for light mode */
+            }}
+
+            /* Dark mode override */
+            @media (prefers-color-scheme: dark) {{
+                html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {{
+                    color: black !important; 
+                }}
+
+                /* Ensure all text stays black */
+                * {{
+                    color: black !important;
+                }}
             }}
 
             /* Change the top bar background color */
@@ -269,6 +284,8 @@ class SurveyHandler():
                 st.error("\n".join(errors))
             else:
                 st.success("All required fields are completed!")
+                self.start_time = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                st.success(f"HEYYYY {self.start_time}")
                 # Continue processing metadata...
 
             st.markdown(f"*Want to receive all the results once the poll ends? Enter your email below!*")
@@ -324,6 +341,13 @@ class SurveyHandler():
         # Initialize the session state if not already initialized
         if f"{button_type}_value_{question_id}" not in st.session_state:
             st.session_state[f"{button_type}_value_{question_id}"] = 0  # Default value when the page first loads
+            self.store_response(
+                timestamp    = "",
+                question_id  = question_id,
+                question     = question,
+                answer       = 0, 
+                metadata     = metadata,
+            )
 
 
         if button_type == "radio" : 
@@ -369,7 +393,7 @@ class SurveyHandler():
                         width: 100%;
                         position: absolute;
                         top: 5px;
-                        font-size: 14px;
+                        font-size: 10px;
                         font-weight: bold;
                     }}
 
@@ -401,6 +425,7 @@ class SurveyHandler():
                 answer       = answer, 
                 metadata     = metadata,
             )
+            
 
 
     def store_response(
@@ -453,9 +478,12 @@ class SurveyHandler():
                             .drop_duplicates('Question', keep='last')\
                             .sort_values('Question (id)')
 
+                        # add times
+                        df['Start Time'] = self.start_time
+                        df['End Time']   = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
                         # Save to CSV
                         st.success("Response submitted successfully!")
-                        #st.dataframe(df)
 
                         # Save to Google Sheets
                         self.data_loader.append_data_to_google_sheets(

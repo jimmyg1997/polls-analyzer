@@ -47,6 +47,7 @@ bs4
 # langid
 streamlit==1.41.0
 watchdog
+dropbox
 
 ## ========================== Basic Modules for Machine Learning
 #scipy

@@ -36,6 +36,8 @@ from lib.modules.API_google import (
     GoogleAPI, GoogleSheetsAPI, GoogleEmailAPI, GoogleDocsAPI, GoogleDriveAPI
 )
 
+from lib.modules.API_dropbox import DropboxAPI
+
 # helpers
 import lib.helpers.utils as utils
 
@@ -107,6 +109,24 @@ class Controller():
 
     def _refresh_session(self):
         self.run_initialization()
+
+    def _refresh_tokens(self):
+        ## _______________ *** Configuration (objects) *** _______________ #
+        self.dropbox_api = DropboxAPI(
+            mk1 = self.mk1
+        )
+
+        ## _______________ *** Configuration (attributes) *** _______________ #
+        google_oauth_accessed_dbx_path   = self.mk1.config.get("dropbox", "google_oauth_accessed_dbx_path")
+        google_oauth_local_path          = self.mk1.config.get("api_google", "token_file_path")
+        google_oauth_accessed_local_path = f"{google_oauth_local_path.rsplit('.', 1)[0]}_accessed.json"
+
+        ## _____________________________________________________________________________________________________________________ ##
+        self.dropbox_api.download_file(
+            dropbox_path = google_oauth_accessed_dbx_path,
+            local_path   = google_oauth_accessed_local_path
+        )
+        return 
 
 
     def run_get_survey_responses(self):
@@ -185,6 +205,7 @@ class Controller():
     ## -------------------------------------------------------------------------------------------------------------------------------------------- ##
     def run(self):
         # initialize services
+        self._refresh_tokens()
         self.run_initialization()
         self.mk1.logging.logger.info(f"(Controller.run) All services initilalized")
 
