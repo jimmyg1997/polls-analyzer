@@ -147,7 +147,6 @@ class SurveyHandler():
             }}
 
             /* _____________ 2. stTextInput _____________ */
-
             div[data-testid="stTextInput"] input {{
                 color: white !important;
                 border-color: #2d408d;
@@ -157,6 +156,7 @@ class SurveyHandler():
                 background-color: #FFFFFF;
                 border-color: #2d408d;
                 border: 2px solid #2d408d !important;
+                color: black !important;
             }}
 
             /* _____________ 3. checkBox _____________ */
