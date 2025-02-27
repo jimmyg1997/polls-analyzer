@@ -15910,3 +15910,39 @@
 2025-02-27 17:16:31 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
 2025-02-27 17:16:31 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
 2025-02-27 17:16:31 - INFO - (Controller.run) All services initilalized
+2025-02-27 17:18:47 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-27 17:18:48 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-27 17:18:48 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-27 17:18:48 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-27 17:18:48 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-27 17:18:48 - INFO - (Controller.run) All services initilalized
+2025-02-27 17:31:51 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-27 17:31:53 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-27 17:31:53 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-27 17:31:53 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-27 17:31:53 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-27 17:31:53 - INFO - (Controller.run) All services initilalized
+2025-02-27 17:38:14 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-27 17:38:16 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-27 17:38:16 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-27 17:38:16 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-27 17:38:16 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-27 17:38:16 - INFO - (Controller.run) All services initilalized
+2025-02-27 17:38:38 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-27 17:38:39 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-27 17:38:39 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-27 17:38:39 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-27 17:38:39 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-27 17:38:39 - INFO - (Controller.run) All services initilalized
+2025-02-27 17:39:18 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-27 17:39:20 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-27 17:39:20 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-27 17:39:20 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-27 17:39:20 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-27 17:39:20 - INFO - (Controller.run) All services initilalized
+2025-02-27 17:39:34 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-02-27 17:39:36 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-02-27 17:39:36 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-02-27 17:39:36 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-02-27 17:39:36 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-02-27 17:39:36 - INFO - (Controller.run) All services initilalized
