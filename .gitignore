@@ -1,2 +1,14 @@
-# Ignore macOS system files
-.DS_Store
+# Basic
+*.pyc
+*.pyo
+__pycache__/
+*.DS_Store
+
+# Projects
+logs/*
+notebooks/*
+config/secrets/*
+# config/config.ini
+
+# Current Project
+storage/reporting/*

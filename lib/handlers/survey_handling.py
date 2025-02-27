@@ -296,7 +296,7 @@ class SurveyHandler():
                 st.success("All required fields are completed!")
                 # Continue processing metadata...
 
-            st.markdown(f"*Want to receive all the results once the poll ends? Enter your email below!*")
+            st.markdown(f"**⚠️ Want to receive all the results once the poll ends? Enter your email below!**")
             email = st.text_input("Email", "")
             metadata["email"] = email
             
@@ -401,7 +401,7 @@ class SurveyHandler():
                         width: 100%;
                         position: absolute;
                         top: 5px;
-                        font-size: 10px;
+                        font-size: 12px;
                         font-weight: bold;
                     }}
 
