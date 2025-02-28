@@ -239,7 +239,6 @@ class SurveyHandler():
         help_text       = ", ".join(f"{i}: {choice}" for i, choice in choices.items())
         
 
-
         ## ___________________________________________________________________________ ##
         st.markdown(
             header_settings + f""" <h1> {title} </h1> <h3> {purpose} </h3>""",
@@ -256,10 +255,14 @@ class SurveyHandler():
         # Create two columns
         left_column, right_column = st.columns([1, 4])  # Adjust the ratio of column width
 
-        # Left column: Metadata
+        # Left column: Demographic
         with left_column:
             if "required_fields_filled" not in st.session_state:
                 st.session_state.required_fields_filled = False
+
+            if "demographic" not in st.session_state:
+                st.session_state.demographic = {}
+
 
             #st.image("https://raw.githubusercontent.com/jimmyg1997/polls-analyzer/main/static/1.png", use_container_width=True)
             age_group               = st.selectbox("Age Group", ["", "18-24", "25-34", "35-44", "45-54", "55-64", "65-74", "75-84"])
@@ -270,7 +273,7 @@ class SurveyHandler():
             physical_activity_level = st.selectbox("Physical Activity Level", ["", "Sedentary", "Light activity", "Moderate activity", "High activity"])
             city                    = st.text_input("City", "")
 
-            metadata = {
+            demographic = {
                 "age_group"               : age_group,
                 "gender"                  : gender,
                 "education_level"         : education_level,
@@ -280,22 +283,24 @@ class SurveyHandler():
                 "city"                    : city
             }
             # Later, before processing the data (e.g., on form submission), validate that no required field still has the placeholder.
-            metadata_to_check = list(metadata.values())
+            demographic_to_check = list(demographic.values())
             errors = []
 
-            if any(field == "" for field in metadata_to_check) :
+            if any(field == "" for field in demographic_to_check) :
                 errors.append("Please fill in all fields above")
 
             if errors:
                 st.error("\n".join(errors))
             else:
                 st.session_state.required_fields_filled = True
+                st.session_state.demographic = demographic
                 st.success("All required fields are completed!")
-                # Continue processing metadata...
+                # Continue processing demographic...
 
             st.markdown(f"**⚠️ Want to receive all the results once the poll ends? Enter your email below!**")
             email = st.text_input("Email", "")
-            metadata["email"] = email
+            demographic["email"] = email
+            st.session_state.demographic = demographic
             
 
         # Right column: Questions
@@ -310,10 +315,10 @@ class SurveyHandler():
             # Display the choices above the slider in evenly spaced columns
             #st.markdown(f"**{help_text}**")
 
+            
             for question_id, question in questions_dict.items():
                 question_id = re.findall(r'\d+', question_id)[0]
                 self.ask_q(
-                    metadata    = metadata, 
                     question_id = question_id,
                     question    = question,
                     choices     = choices
@@ -322,7 +327,6 @@ class SurveyHandler():
 
     def ask_q(
             self, 
-            metadata    : Dict[str,str],
             question_id : int,
             question    : str,
             choices     : Dict[str,str],
@@ -347,11 +351,10 @@ class SurveyHandler():
         if f"{button_type}_value_{question_id}" not in st.session_state:
             st.session_state[f"{button_type}_value_{question_id}"] = 0  # Default value when the page first loads
             self.store_response(
-                timestamp    = "",
+                timestamp    = st.session_state.start_time,
                 question_id  = question_id,
                 question     = question,
                 answer       = 0, 
-                metadata     = metadata,
             )
 
 
@@ -359,8 +362,8 @@ class SurveyHandler():
             answer = st.radio(
                 f"**Q{question_id}** : {question}", 
                 list(choices.keys()), 
-                format_func=lambda x: choices[x],
-                horizontal=True
+                format_func = lambda x: choices[x],
+                horizontal  = True
             )
 
         elif button_type == "slider" : 
@@ -427,19 +430,16 @@ class SurveyHandler():
                 timestamp    = timestamp,
                 question_id  = question_id,
                 question     = question,
-                answer       = answer, 
-                metadata     = metadata,
+                answer       = answer
             )
             
-
 
     def store_response(
             self, 
             timestamp   : dt.datetime,
             question_id : int, 
             question    : str, 
-            answer      : str, 
-            metadata    : str, 
+            answer      : str
         ):
 
         logs_dict = {
@@ -448,9 +448,7 @@ class SurveyHandler():
             "Question"      : question,
             "Answer"        : answer,
         }
-
-        response = merge_dicts(metadata, logs_dict)
-        st.session_state.responses.append(response)
+        st.session_state.responses.append(logs_dict)
 
 
 
@@ -476,17 +474,21 @@ class SurveyHandler():
                     if 'responses' in st.session_state:
                         # Converting responses to DataFrame
                         df = pd.DataFrame(st.session_state.responses)
-                        print(df)
-
+                        
                         df["Question (id)"] = df["Question (id)"].astype(int)
 
                         df = df.sort_values('Timestamp')\
                             .drop_duplicates('Question', keep='last')\
                             .sort_values('Question (id)')
 
-                        # add times
+                        # Add times
                         df['Start Time'] = st.session_state.start_time
                         df['End Time']   = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
+                        # Add demographic
+                        for key, value in st.session_state.demographic.items() : 
+                            df[key] = value
 
                         # Save to CSV
                         st.success("Response submitted successfully!")
