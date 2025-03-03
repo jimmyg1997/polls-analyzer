@@ -99,6 +99,8 @@ class SurveyHandler():
                 * {{
                     color: black !important;
                 }}
+
+        
             }}
 
             /* Change the top bar background color */
@@ -134,15 +136,10 @@ class SurveyHandler():
 
             /* _____________ 1. stSelectbox _____________ */
             /* Fix font color for selectbox */
-            ul[data-testid="stSelectboxVirtualDropdown"] li {{
-                color: white !important;
-                background-color: #FFFFFF;
-                font-weight: bold;      
-                font-size: 16px;
-            }}
-           
+
             .stSelectbox div[data-baseweb="select"] > div:first-child {{
                 background-color: #FFFFFF;
+                color: black !important;
                 border-color: #2d408d;
             }}
 

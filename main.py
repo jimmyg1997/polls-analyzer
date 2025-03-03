@@ -28,8 +28,10 @@ from concurrent.futures import ThreadPoolExecutor
 from lib.framework.markI import *
 
 # handlers
-from lib.handlers.data_handling   import DataLoader
-from lib.handlers.survey_handling import SurveyHandler
+from lib.handlers.data_handling        import DataLoader
+from lib.handlers.survey_handling      import SurveyHandler
+from lib.handlers.statistical_analysis import DescriptiveStatisticsAnalyzer
+
 
 # modules
 from lib.modules.API_google import (
@@ -54,6 +56,13 @@ class Controller():
 
     def parsing(self):
         parser = argparse.ArgumentParser()
+        parser.add_argument(
+            "--operation",
+            "-o",
+            type=str,
+            default="descriptive_analysis",
+            help="Options = {descriptive_analysis}",
+        )
         parser.add_argument(
             "--days_diff",
             "-dd",
@@ -105,6 +114,7 @@ class Controller():
             mk1         = self.mk1,
             data_loader = self.data_loader
         )
+        self.descriptive_statistics_analyzer = DescriptiveStatisticsAnalyzer()
     
 
     def _refresh_session(self):
@@ -200,16 +210,47 @@ class Controller():
         #     spreadsheet_range_name = sheets_reporter_tab_survey_results,
         # )
 
+    ## ____________________________________________________________________________________________________________________________________________________________________________________ ##
+    def run_descriptive_analysis(self) :
+
+        ## _______________ *** Configuration (attributes) *** _______________ #
+        # Args
+        questionnaire_name  = self.args.questionnaire_name
+
+        # google sheets
+        sheets_reporter_id = self.mk1.config.get("google_sheets","reporter_id")
+        sheets_reporter_tab_survey_results = self.mk1.config.get("google_sheets","reporter_tab_survey_results")
+        sheets_reporter_tab_survey_results = sheets_reporter_tab_survey_results.format(
+            questionnaire_name = questionnaire_name
+        ) + "!A2:N"
+
+        ## ____________________________________________________________ #
+        survey_results = self.data_loader.load_data_from_google_sheets_tab(
+            spreadsheet_id=sheets_reporter_id,
+            spreadsheet_range_name=sheets_reporter_tab_survey_results,
+        )
+
+        descriptive_statistics = self.descriptive_statistics_analyzer.analyze(survey_results)
+        print(descriptive_statistics)
 
 
-    ## -------------------------------------------------------------------------------------------------------------------------------------------- ##
+
+    ## ____________________________________________________________________________________________________________________________________________________________________________________ ##
     def run(self):
+        # args
+        operation = self.args.operation
+
         # initialize services
         self._refresh_tokens()
         self.run_initialization()
         self.mk1.logging.logger.info(f"(Controller.run) All services initilalized")
 
-        self.run_get_survey_responses()
+        # actions
+        if operation == "descriptive_analysis" :
+            self.run_descriptive_analysis()
+
+        elif operation == "survey" :
+         self.run_get_survey_responses()
         
         
 

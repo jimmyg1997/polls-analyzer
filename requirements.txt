@@ -42,6 +42,7 @@ tabulate
 pretty_html_table
 ujson
 bs4
+statsmodels
 
 ## ========================== Basic Modules for APIs
 # langid
