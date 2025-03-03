@@ -99,12 +99,9 @@ class SurveyHandler():
                 * {{
                     color: black !important;
                 }}
-
-        
-
-        
             }}
 
+  
             /* Change the top bar background color */
             header[data-testid="stHeader"] {{
                 background-color: #1E1E1E !important;  /* Dark Gray */
@@ -129,28 +126,19 @@ class SurveyHandler():
                 font-size: 16px;
             }}
             
-            /* Fix text for dark mode */
-            @media (prefers-color-scheme: dark) {{
-                html, body, [class*="st-"] {{
-                    color: white !important;
-                }}
-            }}
-
             /* _____________ 1. stSelectbox _____________ */
             /* Fix font color for selectbox */
-            # ul[data-testid="stSelectboxVirtualDropdown"] li {{
-            #     color: #000000;
-            #     background-color: #FFFFFF;
-            #     font-weight: bold;      
-            #     font-size: 16px;
-            # }}
+            ul[data-testid="stSelectboxVirtualDropdown"] li {{
+                background-color: #FFFFFF;
+                font-weight: bold;      
+                font-size: 16px;
+            }}
            
-            # .stSelectbox div[data-baseweb="select"] > div:first-child {{
-            #     color: #000000;
-            #     background-color: #FFFFFF;
-            #     color: black !important;
-            #     border-color: #2d408d;
-            # }}
+            .stSelectbox div[data-baseweb="select"] > div:first-child {{
+                background-color: #FFFFFF;
+                color: black !important;
+                border-color: #2d408d;
+            }}
 
             /* _____________ 2. stTextInput _____________ */
             div[data-testid="stTextInput"] input {{
