@@ -60,7 +60,7 @@ class Controller():
             "--operation",
             "-o",
             type=str,
-            default="descriptive_analysis",
+            default="survey",
             help="Options = {descriptive_analysis}",
         )
         parser.add_argument(
@@ -135,8 +135,7 @@ class Controller():
         self.dropbox_api.download_file(
             dropbox_path = google_oauth_accessed_dbx_path,
             local_path   = google_oauth_accessed_local_path
-        )
-        return 
+        ) 
 
 
     def run_get_survey_responses(self):
