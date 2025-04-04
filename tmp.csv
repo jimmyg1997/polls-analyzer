@@ -1,0 +1,59 @@
+,Timestamp,Start Time,End Time,Age Group,Gender,Educational Level,Employment Status,Living Situation,Physical Activity Level,City,Email,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q8,Q9,Q10
+0,2025-03-03 17:21:56,2025-03-03 17:20:56,2025-03-03 17:22:25,25-34,Female,Master's,Employed full-time,Alone,Light activity,athens,eirinipapav@gmail.com,3,2,3,3,2,2,2,4,3,0
+1,2025-03-03 18:41:24,2025-03-03 18:39:03,2025-03-03 18:43:17,45-54,Female,Bachelor's,Employed full-time,With family,Light activity,athens,venicagelidou1972@gmail.com,3,3,2,5,2,2,1,2,0,3
+2,2025-03-03 19:03:03,2025-03-03 19:00:49,2025-03-03 19:03:05,25-34,Male,Master's,Employed full-time,Alone,High activity,utrecht,leuteris5201@gmail.com,4,5,0,5,1,5,0,0,5,5
+3,2025-03-03 19:03:03,2025-03-03 19:00:49,2025-03-03 19:03:25,25-34,Male,Master's,Employed full-time,Alone,High activity,utrecht,leuteris5201@gmail.com,4,5,0,5,1,5,0,0,1,5
+4,2025-03-03 21:34:22,2025-03-03 21:32:51,2025-03-03 21:35:47,18-24,Female,Master's,Student,Shared housing,Moderate activity,limassol,theklagatenine@gmail.com,5,5,0,3,1,4,1,0,4,5
+5,2025-03-03 21:39:51,2025-03-03 21:38:54,2025-03-03 21:40:41,25-34,Male,Bachelor's,Student,With family,Moderate activity,athens,lambrosthomas@gmail.com,5,5,1,5,3,2,3,3,2,1
+6,2025-03-03 21:51:25,2025-03-03 21:50:21,2025-03-03 21:52:37,18-24,Female,Master's,Employed full-time,With family,Moderate activity,athens,vanigeorgiou2000@gmail.com,1,2,3,5,3,2,2,4,5,0
+7,2025-03-03 22:02:04,2025-03-03 22:00:56,2025-03-03 22:03:00,25-34,Female,Master's,Employed full-time,With partner,Light activity,krakow,,3,3,2,1,4,2,3,1,4,1
+8,2025-03-04 7:01:25,2025-03-04 7:00:08,2025-03-04 7:02:30,25-34,Male,Master's,Unemployed,With partner,Moderate activity,ostrava,harisgoses@gmail.com,2,4,1,4,2,1,1,3,5,1
+9,2025-03-04 9:07:21,2025-03-04 9:06:24,2025-03-04 9:08:49,25-34,Female,High school,Employed full-time,Shared housing,Light activity,athens,,3,4,2,3,2,1,3,2,3,0
+10,2025-03-04 9:11:16,2025-03-04 9:10:19,2025-03-04 9:12:19,25-34,Female,Master's,Employed full-time,With partner,High activity,athens,,1,2,2,2,4,2,3,0,4,0
+11,2025-03-04 9:17:13,2025-03-04 9:15:52,2025-03-04 9:18:48,25-34,Female,Master's,Student,Shared housing,Moderate activity,delft,eleni1997pp@gmail.com,3,5,0,5,2,4,2,3,4,5
+12,2025-03-04 9:17:13,2025-03-04 9:15:52,2025-03-04 9:18:49,25-34,Female,Master's,Student,Shared housing,Moderate activity,delft,eleni1997pp@gmail.com,3,5,0,5,2,4,2,3,4,5
+13,2025-03-04 10:33:34,2025-03-04 10:32:39,2025-03-04 10:34:37,25-34,Female,Bachelor's,Student,With family,Moderate activity,athens,,4,4,0,5,1,4,1,1,5,0
+14,2025-03-04 10:40:55,2025-03-04 10:39:49,2025-03-04 10:42:32,18-24,Female,High school,Student,With family,Light activity,athens,,5,5,1,4,2,4,2,3,5,0
+15,2025-03-04 13:47:44,2025-03-04 13:46:58,2025-03-04 13:49:53,25-34,Male,High school,Employed full-time,With partner,Light activity,krakow,globalwarning98@gmail.com,5,5,2,4,2,4,1,1,4,5
+16,2025-03-04 13:49:47,2025-03-04 13:48:07,2025-03-04 13:50:50,25-34,Female,Bachelor's,Employed full-time,With family,Moderate activity,athens,,4,4,3,5,2,4,3,1,4,0
+17,2025-03-04 14:13:08,2025-03-04 14:12:17,2025-03-04 14:14:02,25-34,Male,Master's,Employed full-time,Alone,Sedentary,athens,,2,3,4,1,3,0,2,3,3,0
+18,2025-03-04 15:24:53,2025-03-04 15:24:23,2025-03-04 15:25:25,25-34,Female,Master's,Employed full-time,Alone,Light activity,athens,,2,2,4,5,3,2,2,4,3,0
+19,2025-03-04 16:12:50,2025-03-04 16:12:08,2025-03-04 16:13:45,18-24,Female,Bachelor's,Employed full-time,Alone,High activity,athens,,2,3,1,4,2,2,3,5,5,0
+20,2025-03-04 18:27:57,2025-03-04 18:26:46,2025-03-04 18:29:22,25-34,Male,Master's,Employed full-time,Alone,High activity,athens,dimitrispatsalis@hotmail.com,2,2,1,5,3,2,1,3,5,0
+21,2025-03-04 18:47:11,2025-03-04 18:42:45,2025-03-04 18:48:00,25-34,Male,Master's,Employed full-time,Alone,Light activity,athens,mariosmitsouras1@gmail.com,3,0,1,0,0,4,2,1,4,1
+22,2025-03-04 20:01:16,2025-03-04 20:00:36,2025-03-04 20:02:08,25-34,Male,Master's,Employed full-time,Alone,High activity,athens,manos_7_93@hotmail.com,3,3,1,5,2,3,1,2,5,0
+23,2025-03-04 21:43:35,2025-03-04 21:42:24,2025-03-04 21:44:17,25-34,Female,Master's,Employed full-time,With family,Moderate activity,athens,,5,5,0,5,1,5,0,1,5,0
+24,2025-03-04 21:43:35,2025-03-04 21:42:24,2025-03-04 21:45:16,25-34,Female,Master's,Employed full-time,With family,Moderate activity,athens,,5,5,0,5,1,5,0,1,5,0
+25,2025-03-04 22:37:19,2025-03-04 22:35:41,2025-03-04 22:38:32,25-34,Female,Bachelor's,Employed full-time,Alone,Light activity,athens,Mariadormpari@gmail.com,4,4,1,2,0,0,0,2,3,1
+26,2025-03-04 22:37:19,2025-03-04 22:35:41,2025-03-04 22:38:42,25-34,Female,Bachelor's,Employed full-time,Alone,Light activity,athens,Mariadormpari@gmail.com,4,4,1,2,0,0,0,2,3,1
+27,2025-03-04 22:37:19,2025-03-04 22:35:41,2025-03-04 22:38:51,25-34,Female,Bachelor's,Employed full-time,Alone,Light activity,athens,Mariadormpari@gmail.com,4,4,1,2,0,0,0,2,3,1
+28,2025-03-05 11:42:08,2025-03-05 11:41:06,2025-03-05 11:42:41,25-34,Male,Bachelor's,Employed full-time,With partner,High activity,krakow,,5,4,1,4,1,4,1,1,5,5
+29,2025-03-05 14:00:16,2025-03-05 13:59:33,2025-03-05 14:01:24,25-34,Male,Master's,Employed full-time,With partner,High activity,raleigh,Dktrakakis@gmail.com,3,5,0,5,1,3,2,2,1,2
+30,2025-03-05 14:10:10,2025-03-05 14:09:27,2025-03-05 14:10:54,25-34,Male,Bachelor's,Employed full-time,With partner,Moderate activity,krakow,balkopoulos1@gmail.com,2,3,1,5,2,3,5,1,3,5
+31,2025-03-07 6:41:49,2025-03-07 6:41:03,2025-03-07 6:42:59,25-34,Male,Master's,Employed full-time,Alone,Light activity,athens,akmakrigiannis97@gmail.com,5,3,2,2,5,4,5,3,2,0
+32,2025-03-07 8:47:16,2025-03-07 8:46:30,2025-03-07 8:47:59,25-34,Male,Master's,Employed full-time,Alone,High activity,krakow,dgeorgiou3@gmail.com,1,3,0,4,1,3,2,1,4,2
+33,2025-03-07 9:28:39,2025-03-07 9:26:25,2025-03-07 9:28:43,45-54,Female,Master's,Employed full-time,With partner,Moderate activity,athens,,4,5,1,5,3,5,5,5,5,3
+34,2025-03-07 9:29:26,2025-03-07 9:26:15,2025-03-07 9:30:05,35-44,Male,Master's,Employed full-time,With partner,High activity,athens,fyntanis.st@gmail.com,0,1,0,2,0,0,0,1,5,5
+35,2025-03-07 9:33:25,2025-03-07 9:31:44,2025-03-07 9:34:55,35-44,Female,Bachelor's,Employed full-time,With family,Light activity,rafina,,3,3,2,5,2,1,2,2,5,0
+36,2025-03-07 9:35:22,2025-03-07 9:34:14,2025-03-07 9:36:31,25-34,Female,Master's,Employed full-time,With family,Light activity,athens,,5,5,1,5,1,5,1,1,4,2
+37,2025-03-07 20:01:55,2025-03-07 20:01:05,2025-03-07 20:02:50,25-34,Male,Bachelor's,Employed full-time,Alone,Light activity,athens,dimitrisoiko1@gmail.con,1,2,3,5,2,2,2,2,5,2
+38,2025-03-08 22:32:39,2025-03-08 22:31:47,2025-03-08 22:33:16,25-34,Female,Bachelor's,Employed full-time,Alone,Sedentary,athens,aretikarageorgou@gmail.com ,5,5,1,5,2,3,0,3,5,0
+39,2025-03-09 6:27:07,2025-03-09 6:26:04,2025-03-09 6:27:57,35-44,Female,Master's,Employed full-time,With family,High activity,chalkida,Lina.vasilou@gmail.com,4,5,0,4,1,4,1,0,5,5
+40,2025-03-09 12:47:08,2025-03-09 12:41:52,2025-03-09 12:49:14,35-44,Female,Master's,Employed full-time,With family,Light activity,athens,,2,3,3,4,4,5,1,0,5,0
+41,2025-03-09 13:46:05,2025-03-09 13:44:50,2025-03-09 13:46:55,18-24,Male,Bachelor's,Employed full-time,Alone,Moderate activity,krakow,,2,4,4,1,2,2,2,2,4,1
+42,2025-03-09 14:11:35,2025-03-09 14:10:57,2025-03-09 14:12:45,25-34,Male,Master's,Employed full-time,With partner,Moderate activity,wroclaw,,1,2,1,3,1,4,2,2,5,4
+43,2025-03-10 20:35:49,2025-03-10 20:34:30,2025-03-10 20:37:22,25-34,Female,Bachelor's,Student,With partner,Light activity,athens,,3,4,1,3,2,1,2,4,3,2
+44,2025-03-11 8:45:42,2025-03-11 8:45:02,2025-03-11 8:46:29,25-34,Female,Master's,Employed full-time,With family,Moderate activity,athens,,5,5,1,3,0,2,0,1,5,5
+45,2025-03-11 16:33:39,2025-03-11 16:32:26,2025-03-11 16:35:23,18-24,Female,Master's,Employed full-time,Shared housing,Moderate activity,geneva,,1,2,2,2,2,1,2,2,5,4
+46,2025-03-12 5:14:57,2025-03-12 5:12:51,2025-03-12 5:15:55,25-34,Male,Master's,Employed full-time,With family,Moderate activity,nicosia,antreasp07@gmail.com,5,5,1,5,1,5,1,1,5,4
+47,2025-03-13 22:51:29,2025-03-13 22:49:39,2025-03-13 22:55:03,18-24,Female,Master's,Employed full-time,With family,Moderate activity,athens,vanigeorgiou2000@gmail.com,2,3,1,5,3,1,2,4,5,1
+48,2025-03-16 22:19:03,2025-03-16 22:18:01,2025-03-16 22:19:40,25-34,Male,PhD,Employed full-time,With partner,Moderate activity,none,,4,4,1,5,1,2,1,2,5,3
+49,2025-03-16 22:37:26,2025-03-16 22:36:48,2025-03-16 22:37:59,25-34,Female,Bachelor's,Employed full-time,With family,Sedentary,athens,,3,2,4,3,4,2,3,4,5,1
+50,2025-03-16 23:42:35,2025-03-16 23:40:05,2025-03-16 23:43:35,25-34,Female,Master's,Employed full-time,Alone,Moderate activity,athens,kzographia@gmail.com,1,4,0,2,2,0,0,3,5,0
+51,2025-03-17 15:13:28,2025-03-17 15:12:34,2025-03-17 15:15:07,25-34,Male,Master's,Employed full-time,With family,Moderate activity,athens,,2,2,3,4,3,3,2,3,3,4
+52,2025-03-17 15:47:51,2025-03-17 15:46:55,2025-03-17 15:48:49,25-34,Female,Master's,Employed full-time,With partner,Moderate activity,athens,eirinimeg96@gmail.com,5,5,0,5,2,5,3,2,5,2
+53,2025-03-18 15:40:53,2025-03-18 15:40:01,2025-03-18 15:42:28,25-34,Male,PhD,Employed full-time,Alone,Moderate activity,lausanne,dhmhtrhs.kam@gmail.com,5,3,1,5,2,4,1,1,5,2
+54,2025-03-18 18:01:20,2025-03-18 18:00:05,2025-03-18 18:02:11,25-34,Male,Master's,Part-time,With family,Light activity,thessalonike,panal6977@gmail.com,3,5,0,5,1,5,1,0,5,5
+55,2025-03-18 18:24:51,2025-03-18 18:23:48,2025-03-18 18:25:53,35-44,Male,Master's,Employed full-time,With partner,High activity,krakow,kamkopczy@gmail.com,5,5,0,5,1,4,1,2,4,4
+56,2025-03-18 19:37:53,2025-03-18 19:34:38,2025-03-18 19:38:00,25-34,Female,Master's,Student,Alone,High activity,stockholm,magiakrek1902@gmail.com,3,5,3,3,1,5,1,0,4,2
+57,2025-03-19 9:30:49,2025-03-19 9:29:24,2025-03-19 9:32:03,25-34,Male,Master's,Employed full-time,Alone,High activity,krakow,hrach.harutyunyan49@gmail.com,2,1,2,3,2,2,2,3,3,0

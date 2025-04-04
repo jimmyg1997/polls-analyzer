@@ -1,0 +1,7 @@
+Contrast,A,B,Paired,Parametric,U-val,alternative,p-unc,p-corr,p-adjust,hedges
+Living Situation,Alone,Shared housing,False,False,82.0,two-sided,0.2950267088780162,1.0,bonf,-0.4356322058628497
+Living Situation,Alone,With family,False,False,198.0,two-sided,0.011361544263416732,0.06816926558050039,bonf,-0.5599617226748762
+Living Situation,Alone,With partner,False,False,155.5,two-sided,0.06281172283160232,0.3768703369896139,bonf,-0.5064591735935144
+Living Situation,Shared housing,With family,False,False,65.0,two-sided,0.13772412560126326,0.8263447536075796,bonf,-0.17994980105007194
+Living Situation,Shared housing,With partner,False,False,54.5,two-sided,0.41150951664101465,1.0,bonf,-0.10921954828458444
+Living Situation,With family,With partner,False,False,227.0,two-sided,0.4952380003285709,1.0,bonf,0.0814096487998614

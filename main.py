@@ -9,17 +9,23 @@
 # -*-*-*-*-*-*-*-*-*-*-* #
 #     Basic Modules      #
 # -*-*-*-*-*-*-*-*-*-*-* #
-import os, json, time, glob, argparse, re, ast
+import os, json, time, glob, argparse, re
 import functools as ft
 import pandas    as pd
 import datetime  as dt
 import streamlit as st
-from urllib.parse    import unquote
 from bs4             import BeautifulSoup
 from tqdm            import tqdm
 from typing          import Dict, Any, List
 from IPython.display import display
 from concurrent.futures import ThreadPoolExecutor
+from geopy.geocoders import Nominatim
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+import pingouin as pg
+
+
 
 # -*-*-*-*-*-*-*-*-*-*-* #
 #     Project Modules    #
@@ -29,14 +35,15 @@ from lib.framework.markI import *
 
 # handlers
 from lib.handlers.data_handling        import DataLoader
+from lib.handlers.data_preprocessing   import DataPreprocessor
 from lib.handlers.survey_handling      import SurveyHandler
-from lib.handlers.statistical_analysis import DescriptiveStatisticsAnalyzer
-
+from lib.handlers.statistical_analysis import *
 
 # modules
 from lib.modules.API_google import (
     GoogleAPI, GoogleSheetsAPI, GoogleEmailAPI, GoogleDocsAPI, GoogleDriveAPI
 )
+from lib.modules.API_openai import OpenaiAPI
 
 from lib.modules.API_dropbox import DropboxAPI
 
@@ -56,12 +63,14 @@ class Controller():
 
     def parsing(self):
         parser = argparse.ArgumentParser()
+
+        ## ______________________________ General ______________________________ ##
         parser.add_argument(
             "--operation",
             "-o",
-            type=str,
-            default="survey",
-            help="Options = {descriptive_analysis}",
+            type    = str,
+            default = "statistical_report_generation",
+            help    = "Options = {statistical_report_generation,statistical_analysis,survey}",
         )
         parser.add_argument(
             "--days_diff",
@@ -78,7 +87,33 @@ class Controller():
             default = "FFQ",
             help    = "Options ~ {PHQ-9,GAD-7, ...}"
         )
+
+        ## ______________________________ Statistical Tests ______________________________ ##
+        parser.add_argument( "--significance_threshold", type = float, default = 0.05, help = 'In the range [0,1]')
+
+        parser.add_argument( "--chi_square_dof_min", type = int, default = 9.0, help = '1 or more')
+        parser.add_argument( "--chi_square_cramer_v_min", type = float, default = 0.1, help = 'In the range [0,1]')
+        parser.add_argument( "--chi_square_power_min", type = float, default = 0.8, help = 'In the range [0,1]')
+
+        parser.add_argument( "--anova_power_min", type = float, default = 0.5, help = 'In the range [0,1]')
+        parser.add_argument( "--anova_cohens_d_min", type = float, default = 0.3, help = 'In the range [0,1]')
+        parser.add_argument( "--anova_epsilon_squared_min", type = float, default = 0.03, help = 'In the range [0,1]')
+        parser.add_argument( "--anova_eta_squared_min", type = float, default = 0.03, help = 'In the range [0,1]')
+        parser.add_argument( "--anova_cles_diff_min", type = float, default = 0.1, help = 'In the range [0,1]')
+
+        parser.add_argument( "--nonparam_power_min", type = float, default = 0.5, help = 'In the range [0,1]')
+        parser.add_argument( "--nonparam_cles_diff_min", type = float, default = 0.05, help = 'In the range [0,1]')
+        parser.add_argument( "--nonparam_epsilon_squared_min", type = float, default = 0.02, help = 'In the range [0,1]')
+
+        parser.add_argument( "--pearson_corr_min", type = float, default = 0.55, help = 'In the range [0,1]')
+        parser.add_argument( "--pearson_power_min", type = float, default = 0.6, help = 'In the range [0,1]')
+
+        parser.add_argument( "--spearman_corr_min", type = float, default = 0.55, help = 'In the range [0,1]')
+        parser.add_argument( "--spearman_power_min", type = float, default = 0.6, help = 'In the range [0,1]')
+
+        
         return parser.parse_args()
+    
 
 
 
@@ -103,6 +138,9 @@ class Controller():
             mk1        = self.mk1,
             google_api = self.google_api
         )
+        self.openai_api = OpenaiAPI(
+             mk1 = self.mk1
+        )
         
         # Initializing Handlers
         self.data_loader = DataLoader(
@@ -110,11 +148,22 @@ class Controller():
             google_sheets_api = self.google_sheets_api
         )
 
+        self.data_preprocessor = DataPreprocessor(
+            mk1 = self.mk1,
+        )
+
         self.survey_handler = SurveyHandler(
             mk1         = self.mk1,
             data_loader = self.data_loader
         )
-        self.descriptive_statistics_analyzer = DescriptiveStatisticsAnalyzer()
+        
+        self.chi_square_analyzer     = ChiSquareAnalyzer()
+        self.fishers_exact_analyzer  = FishersExactAnalyzer()
+        self.anova_analyzer          = ANOVAAnalyzer()
+        self.descriptive_post_statistics_analyzer =  DescriptivePostStatisticsAnalyzer()
+        self.statistical_tester = StatisticalTests(
+            significance_threshold = self.args.significance_threshold
+        )
     
 
     def _refresh_session(self):
@@ -167,7 +216,7 @@ class Controller():
 
         ## _____________________________________________________________________________________________________________________ ##
         ## 1. Get questionnaire
-        questionnaire = self.survey_handler.get_questionnaire(
+        questionnaire, _ = self.survey_handler.get_questionnaire(
             fn_questionnaires  = fn_questionnaires,
             questionnaire_name = questionnaire_name
         )
@@ -209,12 +258,39 @@ class Controller():
         #     spreadsheet_range_name = sheets_reporter_tab_survey_results,
         # )
 
+
+    def generate_folders(self, dir_static : str, questionnaire_name:str ): 
+        if not os.path.exists(f"{dir_static}/{questionnaire_name}"):
+            os.makedirs(f"{dir_static}/{questionnaire_name}")
+
+        if not os.path.exists(f"{dir_static}/{questionnaire_name}/descriptive"):
+            os.makedirs(f"{dir_static}/{questionnaire_name}/descriptive")
+
+        if not os.path.exists(f"{dir_static}/{questionnaire_name}/categorical-categorical"):
+            os.makedirs(f"{dir_static}/{questionnaire_name}/categorical-categorical")
+
+        if not os.path.exists(f"{dir_static}/{questionnaire_name}/continuous-continuous"):
+            os.makedirs(f"{dir_static}/{questionnaire_name}/continuous-continuous")
+
+        if not os.path.exists(f"{dir_static}/{questionnaire_name}/categorical-continuous"):
+            os.makedirs(f"{dir_static}/{questionnaire_name}/categorical-continuous")
+
+
+
+    
     ## ____________________________________________________________________________________________________________________________________________________________________________________ ##
-    def run_descriptive_analysis(self) :
+    def run_statistical_analysis(self) :
+        tqdm.pandas()
 
         ## _______________ *** Configuration (attributes) *** _______________ #
         # Args
         questionnaire_name  = self.args.questionnaire_name
+
+        # app
+        dir_static = self.mk1.config.get("app","dir_static")
+
+        # app static
+        fn_questionnaires = self.mk1.config.get("app_static","fn_questionnaires")
 
         # google sheets
         sheets_reporter_id = self.mk1.config.get("google_sheets","reporter_id")
@@ -224,13 +300,306 @@ class Controller():
         ) + "!A2:N"
 
         ## ____________________________________________________________ #
-        survey_results = self.data_loader.load_data_from_google_sheets_tab(
-            spreadsheet_id=sheets_reporter_id,
-            spreadsheet_range_name=sheets_reporter_tab_survey_results,
+        self.generate_folders(
+            dir_static = dir_static,
+            questionnaire_name = questionnaire_name
         )
 
-        descriptive_statistics = self.descriptive_statistics_analyzer.analyze(survey_results)
-        print(descriptive_statistics)
+        ## ____________________________________________________________ #
+        """ 1. Data Loading """
+        _, questions_mapping = self.survey_handler.get_questionnaire(
+            fn_questionnaires  = fn_questionnaires,
+            questionnaire_name = questionnaire_name
+        )
+
+        data = self.data_loader.load_data_from_google_sheets_tab(
+            spreadsheet_id         = sheets_reporter_id,
+            spreadsheet_range_name = sheets_reporter_tab_survey_results,
+        )
+        
+        ## ____________________________________________________________ #
+        """
+            2. Data Preprocessing
+                2.1 Preprocess data types
+                2.2 Proprocess data overall, pivot on questions!
+        """
+        data = self.data_preprocessor.preprocess_dtypes(
+            data = data
+        )
+
+        data = self.data_preprocessor.preprocess_city(
+            data = data
+        )
+
+        # data = self.data_preprocessor.get_country(
+        #     data = data
+        # )
+
+        data = self.data_preprocessor.pivot_on_questions(
+            data = data
+        )
+        print(data)
+          
+    
+        ## ____________________________________________________________ #
+        """ 3. Analytics
+                3.1 Descriptive Statistics
+                3.2 Statistical Tests by Variable Type
+                    - Categorical-Categorical: Chi-square/Fisher's Exact
+                    - Categorical-Continuous: ANOVA/t-test and nonparametric alternatives
+                    - Continuous-Continuous: Correlation tests
+        """
+        # 3.1 (Descriptive Statistics) 
+        # self.descriptive_post_statistics_analyzer.create_summary_visualizations(
+        #     data_df   = data,
+        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        # )
+        # self.descriptive_post_statistics_analyzer.create_demographic_visualizations(
+        #     data_df   = data,
+        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        # )
+
+        # self.descriptive_post_statistics_analyzer.create_distribution_visualizations(
+        #     data_df   = data,
+        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        # )
+
+        # self.descriptive_post_statistics_analyzer.create_advanced_visualizations(
+        #     data_df   = data,
+        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        # )
+
+        # self.descriptive_post_statistics_analyzer.create_geographic_heatmap(
+        #     data_df   = data_pivot,
+        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        # )
+          
+    
+        ## ____________________________________________________________ #
+        # 3.2 Statistical Tests
+        # Auto-detect variable pairs
+        pairs = self.statistical_tester.get_pairs_of_variables(data)
+
+        # chi2_results = pd.read_csv(
+        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/categorical-categorical/chi2_results.csv", 
+        # )
+
+        # anova_results = pd.read_csv(
+        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/categorical-continuous/anova_results.csv", 
+        # )
+        # nonparam_group_results = pd.read_csv(
+        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/categorical-continuous/nonparametric_results.csv", 
+        # )
+        # pearson_results = pd.read_csv(
+        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/continuous-continuous/pearson_results.csv", 
+        # )
+        # spearman_results = pd.read_csv(
+        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/continuous-continuous/spearman_results.csv", 
+        # )
+
+        # strong_findings = {
+        #     "categorical_categorical": chi2_results[
+        #         (chi2_results["Significant"] == True) & 
+        #         (chi2_results["Passed_All_Filters"] == True)
+        #         #(chi2_results["Passed_Any_Filter"] == True if "Passed_Any_Filter" in chi2_results.columns else True)
+        #     ],
+        #     "categorical_continuous_parametric": anova_results[
+        #         (anova_results["Significant"] == True) & 
+        #         (anova_results["Passed_Any_Filter"] == True)
+        #     ],
+        #     "categorical_continuous_nonparametric": nonparam_group_results[
+        #         (nonparam_group_results["Significant"] == True) & 
+        #         (nonparam_group_results["Passed_Any_Filter"] == True)
+        #     ],
+        #     "continuous_continuous_parametric": pearson_results[
+        #         (pearson_results["Significant"] == True) & 
+        #         (pearson_results["Passed_Any_Filter"] == True)
+        #     ],
+        #     "continuous_continuous_nonparametric": spearman_results[
+        #         (spearman_results["Significant"] == True) & 
+        #         (spearman_results["Passed_Any_Filter"] == True)
+        #     ]
+        # }
+
+
+        ## ____________________________________________________________ #
+        # 3.2.1 Categorical-Categorical: Chi-square tests
+        chi2_results = self.statistical_tester.chi2_test_wrapper(
+            data         = data,
+            pairs        = pairs["categorical_categorical"],
+            directory    = f"{dir_static}/{questionnaire_name}/categorical-categorical",
+            dof_min      = self.args.chi_square_dof_min,
+            cramer_v_min = self.args.chi_square_cramer_v_min,
+            power_min    = self.args.chi_square_power_min
+        )
+        
+        
+        ## ____________________________________________________________ #
+        # 3.2.2 Categorical-Continuous: Parametric tests (ANOVA/t-tests)
+        anova_results = self.statistical_tester.anova_test_wrapper(
+            data      = data,
+            pairs     = pairs["categorical_continuous"],
+            directory = f"{dir_static}/{questionnaire_name}/categorical-continuous",
+            power_min           = self.args.anova_power_min,
+            cohens_d_min        = self.args.anova_cohens_d_min,
+            epsilon_squared_min = self.args.anova_epsilon_squared_min,
+            eta_squared_min     = self.args.anova_eta_squared_min,
+            cles_diff_min       = self.args.anova_cles_diff_min
+        )
+        
+        # 3.2.3 Categorical-Continuous: Non-parametric tests (Mann-Whitney/Kruskal-Wallis)
+        nonparam_group_results = self.statistical_tester.nonparametric_group_test_wrapper(
+            data                = data,
+            pairs               = pairs["categorical_continuous"],
+            directory           = f"{dir_static}/{questionnaire_name}/categorical-continuous",
+            epsilon_squared_min = self.args.nonparam_epsilon_squared_min,
+            cles_diff_min       = self.args.nonparam_cles_diff_min,
+            power_min           = self.args.nonparam_power_min
+        )
+
+       
+        ## ____________________________________________________________ #
+        # 3.2.4. Continuous-Continuous: Correlation tests
+        # Try both Pearson (parametric) and Spearman (non-parametric) correlations
+        pearson_results = self.statistical_tester.correlation_test_wrapper(
+            data      = data,
+            pairs     = pairs["continuous_continuous"],
+            method    = 'pearson',
+            directory = f"{dir_static}/{questionnaire_name}/continuous-continuous",
+            corr_min  = self.args.pearson_corr_min,
+            power_min = self.args.pearson_power_min
+        )
+
+        spearman_results = self.statistical_tester.correlation_test_wrapper(
+            data      = data,
+            pairs     = pairs["continuous_continuous"],
+            method    = 'spearman',
+            directory = f"{dir_static}/{questionnaire_name}/continuous-continuous",
+            corr_min  = self.args.spearman_corr_min,
+            power_min = self.args.spearman_power_min
+        )
+
+        ## ____________________________________________________________ #
+        # 3.3 Save ALL results to CSV
+        chi2_results.to_csv(
+            path_or_buf = f"{dir_static}/{questionnaire_name}/categorical-categorical/chi2_results.csv", 
+            index       = False
+        )
+
+        anova_results.to_csv(
+            path_or_buf = f"{dir_static}/{questionnaire_name}/categorical-continuous/anova_results.csv", 
+            index       = False
+        )
+        nonparam_group_results.to_csv(
+            path_or_buf = f"{dir_static}/{questionnaire_name}/categorical-continuous/nonparametric_results.csv", 
+            index       = False 
+        )
+        pearson_results.to_csv(
+            path_or_buf = f"{dir_static}/{questionnaire_name}/continuous-continuous/pearson_results.csv", 
+            index       = False
+        )
+        spearman_results.to_csv(
+            path_or_buf = f"{dir_static}/{questionnaire_name}/continuous-continuous/spearman_results.csv", 
+            index       = False
+        )
+
+        ## ____________________________________________________________ #
+        # 3.4 Generate a summary of significant findings across all tests
+        filters = self.statistical_tester.get_all_filters(
+            args = self.args
+        )
+
+        self.statistical_tester.generate_final_report(
+            dir_static             = dir_static,
+            questionnaire_name     = questionnaire_name,
+            filters                = filters,
+            chi2_results           = chi2_results,
+            anova_results          = anova_results,
+            nonparam_group_results = nonparam_group_results,
+            pearson_results        = pearson_results,
+            spearman_results       = spearman_results,
+        )
+
+
+    
+
+        
+
+
+
+
+    def run_statistical_report_generation(self) :
+        tqdm.pandas()
+
+        ## _______________ *** Configuration (attributes) *** _______________ #
+        # Args
+        questionnaire_name  = self.args.questionnaire_name
+
+        # app
+        dir_static = self.mk1.config.get("app","dir_static")
+
+        # app static
+        fn_questionnaires = self.mk1.config.get("app_static","fn_questionnaires")
+        fn_technical_summary = f'./static/{questionnaire_name}/significant_findings_summary.txt'
+
+
+        ## ____________________________________________________________ #
+        """ 1. Data Loading """
+        questionnaire, questions_mapping = self.survey_handler.get_questionnaire(
+            fn_questionnaires  = fn_questionnaires,
+            questionnaire_name = questionnaire_name
+        )
+
+        ## ____________________________________________________________ #
+        """ 2. Analytics from images
+                2.1 Get all the paths
+                2.2 Generate analytics
+                2.3 Generate the final report
+                2.4 Save the report
+        """
+
+        # Get all the image paths
+        image_paths = self.statistical_tester.get_all_visualization_paths(
+            dir_static             = dir_static,
+            questionnaire_name     = questionnaire_name
+        )
+        print(image_paths)
+        for k, v in image_paths.items() : 
+            print(f"{k} : {len(v)}")
+        
+
+        image_paths = [
+            #'./static/FFQ/significant_findings_summary.png',
+            './static/FFQ/descriptive/question_distributions.png',
+            './static/FFQ/categorical-categorical/Employment Status_City_contingency.png',
+            './static/FFQ/categorical-continuous/Living Situation_Q4_boxplot.png',
+            #'./static/FFQ/categorical-continuous/Living Gender_Q10_nonparametric_violin.png',
+            './static/FFQ/continuous-continuous/Q5_Q7_jointplot.png',
+        ]
+
+        # Generate analytics
+        analysis_results = self.openai_api.analyze_statistical_images(
+            image_paths = image_paths,
+            questions_mapping = questions_mapping
+        )
+
+        # Generate the report
+        html_report = self.openai_api.generate_statistical_report(
+            analysis_results  = analysis_results,
+            report_title      = f"Statistical Analysis Report for {questionnaire['title']}",
+            questions_mapping = questions_mapping,
+            technical_summary = fn_technical_summary
+        )
+        
+        # Save the report
+        output_file = self.openai_api.save_report_to_file(
+            html_content = html_report, 
+            #output_path  = f"{dir_static}/{questionnaire_name}/{questionnaire['title']}.html"
+            output_path  = f"{questionnaire['title']}.html"
+
+        ) 
+          
+
 
 
 
@@ -245,8 +614,11 @@ class Controller():
         self.mk1.logging.logger.info(f"(Controller.run) All services initilalized")
 
         # actions
-        if operation == "descriptive_analysis" :
-            self.run_descriptive_analysis()
+        if operation == "statistical_analysis" :
+            self.run_statistical_analysis()
+
+        elif operation == "statistical_report_generation":
+            self.run_statistical_report_generation()
 
         elif operation == "survey" :
          self.run_get_survey_responses()

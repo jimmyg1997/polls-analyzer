@@ -43,12 +43,18 @@ pretty_html_table
 ujson
 bs4
 statsmodels
+unidecode
 
 ## ========================== Basic Modules for APIs
 # langid
 streamlit==1.41.0
 watchdog
 dropbox
+geopy
+pingouin
+basemap
+openai
+tiktoken
 
 ## ========================== Basic Modules for Machine Learning
 #scipy

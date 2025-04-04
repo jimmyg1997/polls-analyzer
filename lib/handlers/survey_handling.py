@@ -22,7 +22,7 @@ from tqdm                   import tqdm
 from dateutil.relativedelta import relativedelta
 from datetime               import datetime
 from IPython.display        import display
-from typing                 import Dict, Any, List
+from typing                 import Dict, Any, List, Tuple
 
 # -*-*-*-*-*-*-*-*-*-*-* #
 #     Project Modules    #
@@ -49,13 +49,20 @@ class SurveyHandler():
             self, 
             fn_questionnaires  : str,
             questionnaire_name : str 
-        ) -> Dict[str,str]: 
+        ) -> Tuple[Dict[str,str], Dict[str,str]]: 
 
         try : 
             with open(fn_questionnaires, "r", encoding="utf-8") as file:
                 questionnaires = json.load(file) 
             questionnaire = questionnaires[questionnaire_name]
-            return questionnaire
+
+            questions_mapping = {}
+            for key, value in questionnaire.items():
+                if "question" in key:
+                    new_key = "Q" + key.replace("question", "")
+                    questions_mapping[new_key] = value
+            return questionnaire, questions_mapping
+
         except Exception as e :
             raise e
 
