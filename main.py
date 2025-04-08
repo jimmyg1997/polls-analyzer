@@ -3,22 +3,20 @@
 """
     [*] Description : Polls Analyzer
     [*] Author      : Dimitrios Georgiou (dgeorgiou3@gmail.com)
-    [*] Date        :
+    [*] Date        : JAN2025
     [*] Links       :
 """
 # -*-*-*-*-*-*-*-*-*-*-* #
 #     Basic Modules      #
 # -*-*-*-*-*-*-*-*-*-*-* #
-import os, json, time, glob, argparse, re
+import os
+import argparse
 import functools as ft
 import pandas    as pd
 import datetime  as dt
 import streamlit as st
-from bs4             import BeautifulSoup
 from tqdm            import tqdm
 from typing          import Dict, Any, List
-from IPython.display import display
-from concurrent.futures import ThreadPoolExecutor
 from geopy.geocoders import Nominatim
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -38,13 +36,13 @@ from lib.handlers.data_handling        import DataLoader
 from lib.handlers.data_preprocessing   import DataPreprocessor
 from lib.handlers.survey_handling      import SurveyHandler
 from lib.handlers.statistical_analysis import *
+from lib.handlers.report_handling      import ReportHandler
 
 # modules
 from lib.modules.API_google import (
     GoogleAPI, GoogleSheetsAPI, GoogleEmailAPI, GoogleDocsAPI, GoogleDriveAPI
 )
 from lib.modules.API_openai import OpenaiAPI
-
 from lib.modules.API_dropbox import DropboxAPI
 
 # helpers
@@ -164,6 +162,12 @@ class Controller():
         self.statistical_tester = StatisticalTests(
             significance_threshold = self.args.significance_threshold
         )
+
+        self.report_handler = ReportHandler(
+            mk1              = self.mk1,
+            google_email_api = self.google_email_api,
+            openai_api       = self.openai_api
+        )
     
 
     def _refresh_session(self):
@@ -275,8 +279,6 @@ class Controller():
         if not os.path.exists(f"{dir_static}/{questionnaire_name}/categorical-continuous"):
             os.makedirs(f"{dir_static}/{questionnaire_name}/categorical-continuous")
 
-
-
     
     ## ____________________________________________________________________________________________________________________________________________________________________________________ ##
     def run_statistical_analysis(self) :
@@ -349,28 +351,28 @@ class Controller():
                     - Categorical-Continuous: ANOVA/t-test and nonparametric alternatives
                     - Continuous-Continuous: Correlation tests
         """
-        # 3.1 (Descriptive Statistics) 
-        # self.descriptive_post_statistics_analyzer.create_summary_visualizations(
-        #     data_df   = data,
-        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
-        # )
-        # self.descriptive_post_statistics_analyzer.create_demographic_visualizations(
-        #     data_df   = data,
-        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
-        # )
+       # 3.1 (Descriptive Statistics) 
+        self.descriptive_post_statistics_analyzer.create_summary_visualizations(
+            data_df   = data,
+            directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        )
+        self.descriptive_post_statistics_analyzer.create_demographic_visualizations(
+            data_df   = data,
+            directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        )
 
-        # self.descriptive_post_statistics_analyzer.create_distribution_visualizations(
-        #     data_df   = data,
-        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
-        # )
+        self.descriptive_post_statistics_analyzer.create_distribution_visualizations(
+            data_df   = data,
+            directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        )
 
-        # self.descriptive_post_statistics_analyzer.create_advanced_visualizations(
-        #     data_df   = data,
-        #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
-        # )
+        self.descriptive_post_statistics_analyzer.create_advanced_visualizations(
+            data_df   = data,
+            directory = f"{dir_static}/{questionnaire_name}/descriptive"
+        )
 
         # self.descriptive_post_statistics_analyzer.create_geographic_heatmap(
-        #     data_df   = data_pivot,
+        #     data_df   = data,
         #     directory = f"{dir_static}/{questionnaire_name}/descriptive"
         # )
           
@@ -379,47 +381,6 @@ class Controller():
         # 3.2 Statistical Tests
         # Auto-detect variable pairs
         pairs = self.statistical_tester.get_pairs_of_variables(data)
-
-        # chi2_results = pd.read_csv(
-        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/categorical-categorical/chi2_results.csv", 
-        # )
-
-        # anova_results = pd.read_csv(
-        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/categorical-continuous/anova_results.csv", 
-        # )
-        # nonparam_group_results = pd.read_csv(
-        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/categorical-continuous/nonparametric_results.csv", 
-        # )
-        # pearson_results = pd.read_csv(
-        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/continuous-continuous/pearson_results.csv", 
-        # )
-        # spearman_results = pd.read_csv(
-        #     filepath_or_buffer = f"{dir_static}/{questionnaire_name}/continuous-continuous/spearman_results.csv", 
-        # )
-
-        # strong_findings = {
-        #     "categorical_categorical": chi2_results[
-        #         (chi2_results["Significant"] == True) & 
-        #         (chi2_results["Passed_All_Filters"] == True)
-        #         #(chi2_results["Passed_Any_Filter"] == True if "Passed_Any_Filter" in chi2_results.columns else True)
-        #     ],
-        #     "categorical_continuous_parametric": anova_results[
-        #         (anova_results["Significant"] == True) & 
-        #         (anova_results["Passed_Any_Filter"] == True)
-        #     ],
-        #     "categorical_continuous_nonparametric": nonparam_group_results[
-        #         (nonparam_group_results["Significant"] == True) & 
-        #         (nonparam_group_results["Passed_Any_Filter"] == True)
-        #     ],
-        #     "continuous_continuous_parametric": pearson_results[
-        #         (pearson_results["Significant"] == True) & 
-        #         (pearson_results["Passed_Any_Filter"] == True)
-        #     ],
-        #     "continuous_continuous_nonparametric": spearman_results[
-        #         (spearman_results["Significant"] == True) & 
-        #         (spearman_results["Passed_Any_Filter"] == True)
-        #     ]
-        # }
 
 
         ## ____________________________________________________________ #
@@ -509,7 +470,7 @@ class Controller():
             args = self.args
         )
 
-        self.statistical_tester.generate_final_report(
+        self.statistical_tester.generate_overall_summary(
             dir_static             = dir_static,
             questionnaire_name     = questionnaire_name,
             filters                = filters,
@@ -523,11 +484,6 @@ class Controller():
 
     
 
-        
-
-
-
-
     def run_statistical_report_generation(self) :
         tqdm.pandas()
 
@@ -540,64 +496,96 @@ class Controller():
 
         # app static
         fn_questionnaires = self.mk1.config.get("app_static","fn_questionnaires")
-        fn_technical_summary = f'./static/{questionnaire_name}/significant_findings_summary.txt'
+        fn_technical_summary     = f"./{dir_static}/{questionnaire_name}/significant_findings_summary.txt"
+        fn_non_technical_summary = f"./{dir_static}/{questionnaire_name}/descriptive/key_findings_summary.txt"
+        fn_report_html           = f"./{dir_static}/{questionnaire_name}/final_report_{questionnaire_name}.html"
+        fn_report_pdf            = f"./{dir_static}/{questionnaire_name}/final_report_{questionnaire_name}.pdf"
+        
+
+        # google sheets
+        sheets_reporter_id = self.mk1.config.get("google_sheets","reporter_id")
+        sheets_reporter_tab_survey_results = self.mk1.config.get("google_sheets","reporter_tab_survey_results")
+        sheets_reporter_tab_survey_results = sheets_reporter_tab_survey_results.format(
+            questionnaire_name = questionnaire_name
+        ) + "!A2:N"
+
+        # google_email
+        cc = self.mk1.config.get("google_email","cc")
 
 
         ## ____________________________________________________________ #
-        """ 1. Data Loading """
+        """ 1. Data Loading 
+            - Questionnaire from file
+            - Data from survey results
+        """
         questionnaire, questions_mapping = self.survey_handler.get_questionnaire(
             fn_questionnaires  = fn_questionnaires,
             questionnaire_name = questionnaire_name
         )
 
+        data = self.data_loader.load_data_from_google_sheets_tab(
+            spreadsheet_id         = sheets_reporter_id,
+            spreadsheet_range_name = sheets_reporter_tab_survey_results,
+        )
+
+
         ## ____________________________________________________________ #
         """ 2. Analytics from images
                 2.1 Get all the paths
-                2.2 Generate analytics
-                2.3 Generate the final report
-                2.4 Save the report
-        """
+                2.2 (OpenAI) Generate analytics 
+                2.3 Generate the final .html report
+                2.4 Save the .html report
+                2.4 Save the .html report to .pdf report
 
+            Testing Purposes
+        """
         # Get all the image paths
-        image_paths = self.statistical_tester.get_all_visualization_paths(
-            dir_static             = dir_static,
-            questionnaire_name     = questionnaire_name
+        image_paths_dict = self.statistical_tester.get_all_visualization_paths(
+            dir_static          = dir_static,
+            questionnaire_name  = questionnaire_name
         )
-        print(image_paths)
-        for k, v in image_paths.items() : 
-            print(f"{k} : {len(v)}")
-        
 
         image_paths = [
-            #'./static/FFQ/significant_findings_summary.png',
-            './static/FFQ/descriptive/question_distributions.png',
-            './static/FFQ/categorical-categorical/Employment Status_City_contingency.png',
-            './static/FFQ/categorical-continuous/Living Situation_Q4_boxplot.png',
-            #'./static/FFQ/categorical-continuous/Living Gender_Q10_nonparametric_violin.png',
-            './static/FFQ/continuous-continuous/Q5_Q7_jointplot.png',
+            img_path for category in image_paths_dict.values() for img_path in category if '.DS_Store' not in img_path
         ]
-
-        # Generate analytics
-        analysis_results = self.openai_api.analyze_statistical_images(
-            image_paths = image_paths,
-            questions_mapping = questions_mapping
-        )
-
-        # Generate the report
-        html_report = self.openai_api.generate_statistical_report(
-            analysis_results  = analysis_results,
-            report_title      = f"Statistical Analysis Report for {questionnaire['title']}",
-            questions_mapping = questions_mapping,
-            technical_summary = fn_technical_summary
-        )
         
-        # Save the report
-        output_file = self.openai_api.save_report_to_file(
-            html_content = html_report, 
-            #output_path  = f"{dir_static}/{questionnaire_name}/{questionnaire['title']}.html"
-            output_path  = f"{questionnaire['title']}.html"
+        if not os.path.exists(fn_report_pdf):
+            # Generate analytics
+            analysis_results = self.openai_api.analyze_statistical_images(
+                image_paths       = image_paths,
+                questions_mapping = questions_mapping
+            )
 
-        ) 
+            # Generate the .html report
+            report_html_content = self.report_handler.generate_statistical_report(
+                analysis_results   = analysis_results,
+                report_title       = f"Statistical Analysis Report for {questionnaire['title']}",
+                questionnaire_name = questionnaire_name,
+                questions_mapping  = questions_mapping,
+                technical_summary  = fn_technical_summary
+            )
+        
+            # Save the .html report
+            self.report_handler.save_report_to_file(
+                html_content = report_html_content, 
+                output_path  = fn_report_html
+            ) 
+
+            # Convert .html to .pdf
+            self.report_handler.html_to_pdf(
+                html_path = fn_report_html
+            )
+
+        # Send .pdf (converted from .html) report by email to all participants
+        self.report_handler.send_report_by_email(
+            report_path              = fn_report_pdf,
+            df                       = data,
+            cc                       = cc,
+            subject                  = f"📊 Your Analysis Report for {questionnaire_name}",
+            fn_non_technical_summary = fn_non_technical_summary
+        )
+
+        
           
 
 

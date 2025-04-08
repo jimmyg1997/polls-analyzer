@@ -9,7 +9,7 @@ DOF filter (>= 9.0)
 Cramér's V filter (>= 0.1)
 Power filter (>= 0.8)
   * Employment Status and City (Chi-square, p=0.0000)
-  * Living Situation and City (Chi-square, p=0.0005)
+  * Living Situation and City (Chi-square, p=0.0006)
 
 2a. Significant Relationships between Categorical and Continuous Variables (Parametric):
 ------------------------------------------------------------
@@ -18,34 +18,30 @@ Effect Size Cohen's d (>= 0.3)
 Effect Size ε² (>= 0.03)
 Effect Size Partial η² (>= 0.03)
 Effect Size CLES (diff >= 0.1)
-  * Gender affects Q10 (Mann-Whitney U, p=0.0317)
-  * Living Situation affects Q4 (Kruskal-Wallis, p=0.0278)
-  * Living Situation affects Q9 (Kruskal-Wallis, p=0.0410)
-  * Living Situation affects Q10 (Kruskal-Wallis, p=0.0129)
-  * Physical Activity Level affects Q3 (Kruskal-Wallis, p=0.0153)
-  * Physical Activity Level affects Q8 (Kruskal-Wallis, p=0.0388)
-  * Physical Activity Level affects Q9 (Kruskal-Wallis, p=0.0294)
-  * City affects Q8 (Kruskal-Wallis, p=0.0499)
-  * City affects Q10 (Kruskal-Wallis, p=0.0389)
+  * Gender affects Q10 (Mann-Whitney U, p=0.0169)
+  * Living Situation affects Q4 (Kruskal-Wallis, p=0.0295)
+  * Living Situation affects Q10 (Kruskal-Wallis, p=0.0343)
+  * Physical Activity Level affects Q3 (Kruskal-Wallis, p=0.0140)
+  * City affects Q10 (Kruskal-Wallis, p=0.0353)
 
 2b. Strong Relationships between Categorical and Continuous Variables (Non-parametric):
 ------------------------------------------------------------
 Power filter (>= 0.5)
 Effect Size ε² (>= 0.02)
 Effect Size CLES (diff >= 0.05)
-  * Gender affects Q10 (Mann-Whitney U, p=0.0317)
+  * Gender affects Q10 (Mann-Whitney U, p=0.0169)
 
 3a. Strong Parametric Correlations between Continuous Variables:
 ------------------------------------------------------------
 Correlation Strength filter (|r| >= 0.55)
 Power filter (>= 0.6)
-  * Q1 and Q2 (r=0.6581, p=0.0000)
-  * Q5 and Q7 (r=0.6231, p=0.0000)
+  * Q1 and Q2 (r=0.6718, p=0.0000)
+  * Q5 and Q7 (r=0.6320, p=0.0000)
 
 3b. Significant Non-parametric Correlations between Continuous Variables:
 ------------------------------------------------------------
 Correlation Strength filter (|r| >= 0.55)
 Power filter (>= 0.6)
-  * Q1 and Q2 (rho=0.6704, p=0.0000)
-  * Q3 and Q5 (rho=0.5700, p=0.0000)
-  * Q5 and Q7 (rho=0.6299, p=0.0000)
+  * Q1 and Q2 (rho=0.6813, p=0.0000)
+  * Q3 and Q5 (rho=0.5564, p=0.0000)
+  * Q5 and Q7 (rho=0.6413, p=0.0000)

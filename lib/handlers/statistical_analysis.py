@@ -80,19 +80,19 @@ class StatisticalTests:
             ]
         }
 
-        overall_analysis_path         = f"{dir_static}/{questionnaire_name}/significant_findings_summary.txt"
+        #technical_summary_path        = f"{dir_static}/{questionnaire_name}/significant_findings_summary.txt"
         descriptive_paths             = os.listdir(f"{dir_static}/{questionnaire_name}/descriptive")
         categorical_categorical_paths = os.listdir(f"{dir_static}/{questionnaire_name}/categorical-categorical")
         categorical_continuous_paths  = os.listdir(f"{dir_static}/{questionnaire_name}/categorical-continuous")
         continuous_continuous_paths   = os.listdir(f"{dir_static}/{questionnaire_name}/continuous-continuous")
 
         strong_findings_paths = {
-            "overall_analysis_path"                : overall_analysis_path,
-            "descriptive"                          : [f"{dir_static}/{questionnaire_name}/descriptive/{fn}" for fn in descriptive_paths],
-            "categorical_categorical"              : [f"{dir_static}/{questionnaire_name}/categorical-categorical/{fn}" for fn in categorical_categorical_paths],
-            "categorical_continuous_parametric"    : [f"{dir_static}/{questionnaire_name}/categorical-continuous/{fn}" for fn in categorical_continuous_paths if 'nonparametric' not in fn],
-            "categorical_continuous_nonparametric" : [f"{dir_static}/{questionnaire_name}/categorical-continuous/{fn}" for fn in categorical_continuous_paths if 'nonparametric' in fn],
-            "continuous_continuous_nonparametric"  : [f"{dir_static}/{questionnaire_name}/continuous-continuous/{fn}" for fn in continuous_continuous_paths],
+            #"technical_summary"                    : technical_summary_path,
+            "descriptive"                          : [f"{dir_static}/{questionnaire_name}/descriptive/{fn}" for fn in descriptive_paths if '.csv' not in fn and '.txt' not in fn],
+            "categorical_categorical"              : [f"{dir_static}/{questionnaire_name}/categorical-categorical/{fn}" for fn in categorical_categorical_paths if '.csv' not in fn and '.txt' not in fn],
+            "categorical_continuous_parametric"    : [f"{dir_static}/{questionnaire_name}/categorical-continuous/{fn}" for fn in categorical_continuous_paths if 'nonparametric' not in fn and '.csv' not in fn and '.txt' not in fn],
+            "categorical_continuous_nonparametric" : [f"{dir_static}/{questionnaire_name}/categorical-continuous/{fn}" for fn in categorical_continuous_paths if 'nonparametric' in fn and '.csv' not in fn and '.txt' not in fn],
+            "continuous_continuous_nonparametric"  : [f"{dir_static}/{questionnaire_name}/continuous-continuous/{fn}" for fn in continuous_continuous_paths if '.csv' not in fn and '.txt' not in fn],
         }
 
         ## Utility Function
@@ -146,10 +146,10 @@ class StatisticalTests:
             return output_path
 
 
-        ## Overall Analysis (.txt -> .png)
-        strong_findings_paths["overall_analysis_path"] = txt_to_png(
-            input_txt = strong_findings_paths["overall_analysis_path"]
-        )
+        ## Technical Summary Analysis (.txt -> .png)
+        # strong_findings_paths["technical_summary_path"] = txt_to_png(
+        #     input_txt = strong_findings_paths["technical_summary_path"]
+        # )
 
         ## 1. Strong Relationships between Categorical Variables
         strong_findings_paths["categorical_categorical"] = filter_list(
@@ -226,7 +226,7 @@ class StatisticalTests:
         return filters_str
 
 
-    def generate_final_report(
+    def generate_overall_summary(
             self, 
             dir_static             : str,
             questionnaire_name     : str,
@@ -2819,6 +2819,8 @@ class DescriptivePostStatisticsAnalyzer:
         • Most Common Employment Status: {df['Employment Status'].value_counts().index[0]}
         • Most Common Physical Activity Level: {df['Physical Activity Level'].value_counts().index[0]}
         """
+        with open(f"{directory}/key_findings_summary.txt", "w") as f:
+            f.write(summary_text)
         
         plt.text(0.5, 0.5, summary_text, fontsize=14, ha='center', va='center')
         plt.axis('off')

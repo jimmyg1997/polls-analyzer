@@ -1,0 +1,736 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Statistical Analysis Report for Food Frequency Questionnaire (FFQ)</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #f9f9f9;
+                }
+                .header {
+                    background: linear-gradient(135deg, #2c3e50, #3498db);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 10px 10px 0 0;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+                }
+                .header h1 {
+                    margin: 0;
+                    font-size: 28px;
+                }
+                .header p {
+                    margin: 5px 0 0;
+                    font-size: 14px;
+                    opacity: 0.8;
+                }
+                .report-meta {
+                    background-color: #f5f5f5;
+                    border-left: 5px solid #3498db;
+                    padding: 15px;
+                    margin: 20px 0;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+                
+                /* Tab styling */
+                .tabs {
+                    margin-top: 25px;
+                    overflow: hidden;
+                    border-radius: 8px 8px 0 0;
+                    background-color: #f1f1f1;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                .tab {
+                    background-color: inherit;
+                    float: left;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    transition: 0.3s;
+                    font-size: 16px;
+                    color: #555;
+                    border-radius: 8px 8px 0 0;
+                    border-right: 1px solid #ddd;
+                    flex-grow: 1;
+                    text-align: center;
+                }
+                .tab:hover {
+                    background-color: #ddd;
+                }
+                .tab.active {
+                    background-color: #3498db;
+                    color: white;
+                }
+                .tabcontent {
+                
+                    display: none;
+                    padding: 15px;
+                    border: 1px solid #ccc;
+                    border-top: none;
+                    border-radius: 0 0 8px 8px;
+                    animation: fadeIn 0.5s;
+                    background-color: white;
+                }
+                @keyframes fadeIn {
+                    from {opacity: 0;}
+                    to {opacity: 1;}
+                }
+                @keyframes fadeEffect {
+                    from {opacity: 0;}
+                    to {opacity: 1;}
+                }
+                
+                .image-analysis {
+                    background-color: white;
+                    margin: 25px 0;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+                    transition: all 0.3s ease;
+                }
+                .image-analysis:hover {
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+                    transform: translateY(-5px);
+                }
+                .image-display {
+                    margin: 15px 0;
+                    text-align: center;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    background-color: #f8f9fa;
+                    padding: 10px;
+                    border: 1px solid #e9ecef;
+                }
+                .analysis-image {
+                    max-width: 100%;
+                    height: auto;
+                    max-height: 300px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                    transition: max-height 0.3s ease;
+                }
+                .analysis-image.expanded {
+                    max-height: 600px;
+                }
+                .image-controls {
+                    margin-top: 8px;
+                    text-align: center;
+                }
+                .image-resize-btn {
+                    background-color: #f0f0f0;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    padding: 5px 10px;
+                    font-size: 12px;
+                    cursor: pointer;
+                    color: #555;
+                }
+                .image-resize-btn:hover {
+                    background-color: #e0e0e0;
+                }
+                
+                .image-title {
+                    background-color: #ecf0f1;
+                    padding: 12px 20px;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: 600;
+                    color: #2c3e50;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .confidence {
+                    display: inline-block;
+                    padding: 3px 10px;
+                    border-radius: 15px;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+                .high-confidence {
+                    background-color: #d4edda;
+                    color: #155724;
+                }
+                .medium-confidence {
+                    background-color: #fff3cd;
+                    color: #856404;
+                }
+                .low-confidence {
+                    background-color: #f8d7da;
+                    color: #721c24;
+                }
+                .analysis-content {
+                    padding: 20px;
+                }
+                .key-findings {
+                    background-color: #eaf6ff;
+                    border-radius: 5px;
+                    padding: 15px;
+                    margin-top: 15px;
+                    border-left: 4px solid #3498db;
+                }
+                .key-findings h4 {
+                    margin-top: 0;
+                    color: #2980b9;
+                    font-size: 16px;
+                }
+                .key-findings ul {
+                    margin-bottom: 0;
+                    padding-left: 20px;
+                }
+                .key-findings li {
+                    margin-bottom: 8px;
+                }
+                .raw-analysis {
+                    font-size: 14px;
+                    color: #666;
+                    border-top: 1px solid #eee;
+                    margin-top: 20px;
+                    padding-top: 15px;
+                    white-space: pre-line;
+                }
+                .visualization-type {
+                    display: inline-block;
+                    background-color: #e8f4f8;
+                    color: #246;
+                    padding: 3px 10px;
+                    border-radius: 15px;
+                    font-size: 13px;
+                    margin-top: 10px;
+                }
+                .footer {
+                    text-align: center;
+                    margin-top: 30px;
+                    padding: 20px;
+                    color: #777;
+                    font-size: 13px;
+                    border-top: 1px solid #eee;
+                }
+                .summary-box {
+                    background-color: #f8f9fa;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 20px 0;
+                    border: 1px solid #e9ecef;
+                }
+                .category-summary {
+                    background: linear-gradient(to right, #4e54c8, #8f94fb);
+                    color: white;
+                    border-radius: 12px;
+                    padding: 20px 25px;
+                    margin: 15px 0 25px 0;
+                    box-shadow: 0 4px 12px rgba(78, 84, 200, 0.2);
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .category-summary::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url('/api/placeholder/200/200') right center no-repeat;
+                    background-size: auto 100%;
+                    opacity: 0.15;
+                }
+
+                .category-summary p {
+                    margin: 0;
+                    font-size: 16px;
+                    font-weight: 500;
+                    position: relative;
+                    z-index: 2;
+                }
+
+                .category-summary strong {
+                    font-weight: 700;
+                    font-size: 20px;
+                    display: block;
+                    margin-bottom: 6px;
+                }
+                
+                /* Technical Summary styling */
+                #technical-summary {
+                    font-family: 'Inter', sans-serif;
+                    max-width: 900px;
+                    margin: 0 auto;
+                }
+                .technical-summary-content {
+                    background-color: white;
+                    padding: 25px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                    font-size: 15px;
+                    line-height: 1.5;
+                    margin: 20px 0;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+                
+                .technical-summary-content::before {
+                    content: "📊";
+                    position: absolute;
+                    top: -12px;
+                    left: 20px;
+                    background: white;
+                    padding: 0 12px;
+                    font-size: 22px;
+                }
+
+                .technical-summary-content h3 {
+                    color: #2c3e50;
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-top: 20px;
+                    margin-bottom: 12px;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 8px;
+                }
+
+                .technical-summary-content p {
+                    margin-bottom: 15px;
+                    color: #333;
+                }
+
+                .technical-summary-content ul {
+                    margin-top: 8px;
+                    margin-bottom: 15px;
+                    padding-left: 20px;
+                }
+
+                .technical-summary-content li {
+                    margin-bottom: 6px;
+                }
+
+                .technical-summary-content div[style*="background-color:#f5f5f5"] {
+                    margin-bottom: 15px;
+                }
+
+                .technical-summary-content code {
+                    background: #f8f9fa;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    font-family: 'Consolas', monospace;
+                    font-size: 14px;
+                    color: #e83e8c;
+                }
+                
+                /* Questions mapping styling */
+                .questions-container {
+                    background: linear-gradient(to right, #f9f9f9, #f1f1f1);
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 25px 0;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+                }
+                .questions-title {
+                    font-size: 20px;
+                    color: #2c3e50;
+                    margin-bottom: 15px;
+                    border-bottom: 2px solid #3498db;
+                    padding-bottom: 8px;
+                }
+                .questions-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 15px;
+                }
+                .question-item {
+                    background-color: white;
+                    border-radius: 8px;
+                    padding: 12px 15px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                    border-left: 3px solid #3498db;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+                .question-item:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+                .question-id {
+                    font-weight: bold;
+                    color: #3498db;
+                    margin-right: 8px;
+                    font-size: 15px;
+                }
+                .question-text {
+                    color: #444;
+                }
+                
+                @media print {
+                    body {
+                        background-color: white;
+                    }
+                    .image-analysis {
+                        break-inside: avoid;
+                        box-shadow: none;
+                        margin: 15px 0;
+                        border: 1px solid #eee;
+                    }
+                    .image-analysis:hover {
+                        transform: none;
+                        box-shadow: none;
+                    }
+                    .header {
+                        background: white;
+                        color: black;
+                        box-shadow: none;
+                        border-bottom: 2px solid #eee;
+                    }
+                    .tab {
+                        color: black;
+                        background: white !important;
+                    }
+                    .tab.active {
+                        border-bottom: 2px solid #3498db;
+                    }
+                    .tabcontent {
+                        display: block !important;
+                        border: none;
+                        page-break-before: always;
+                    }
+                    .questions-container {
+                        background: white;
+                        box-shadow: none;
+                        border: 1px solid #eee;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>Statistical Analysis Report for Food Frequency Questionnaire (FFQ)</h1>
+                <p>Generated by Data Analysis Team on April 04, 2025</p>
+            </div>
+            
+            <div class="report-meta">
+                <p><strong>Analysis Summary:</strong> Processed 4 statistical images with 4 successful analyses (100.0% success rate)</p>
+                <p><strong>Analysis Categories:</strong> Descriptive (1), Categorical-Categorical (1), Categorical-Continuous (1), Continuous-Continuous (1)</p>
+            </div>
+        
+            <div class="questions-container">
+                <div class="questions-title">Survey Questions Reference</div>
+                <div class="questions-grid">
+            
+                <div class="question-item">
+                    <span class="question-id">Q1:</span>
+                    <span class="question-text">How often do you consume 🍎 <strong>fruits</strong>?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q2:</span>
+                    <span class="question-text">How often do you eat 🥦 <strong>vegetables</strong>?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q3:</span>
+                    <span class="question-text">How often do you drink 🥤 <strong>sugary beverages</strong>?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q4:</span>
+                    <span class="question-text">How often do you eat 🍽️ three or more meals (breakfast, lunch, dinner) per day?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q5:</span>
+                    <span class="question-text">How often do you eat 🍔 <strong>fast food</strong> or takeout?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q6:</span>
+                    <span class="question-text">How often do you consume 🌾 <strong>whole grains</strong>? (eg. whole-wheat flour, oatmeal, and brown rice)</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q7:</span>
+                    <span class="question-text">How often do you eat 🍗 <strong>deep-fried</strong> food?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q8:</span>
+                    <span class="question-text">Do you consume 🍷 <strong>alcohol</strong>? If so, how frequently?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q9:</span>
+                    <span class="question-text">How often do you consume 🧀 <strong>dairy products</strong>? (e.g., yogurt, cheese, milk, butter)</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q10:</span>
+                    <span class="question-text">Do you take 💊 <strong>nutritional supplements</strong>? If so, how frequently?</span>
+                </div>
+                
+                </div>
+            </div>
+            
+            <!-- Tab navigation -->
+            <div class="tabs">
+        <button class="tab active" onclick="openTab(event, 'technical-summary')">Technical Summary</button>
+<button class="tab" onclick="openTab(event, 'descriptive')">Descriptive (1)</button>
+<button class="tab" onclick="openTab(event, 'categorical-categorical')">Categorical-Categorical (1)</button>
+<button class="tab" onclick="openTab(event, 'categorical-continuous')">Categorical-Continuous (1)</button>
+<button class="tab" onclick="openTab(event, 'continuous-continuous')">Continuous-Continuous (1)</button>
+
+            </div>
+        
+            <div id="technical-summary" class="tabcontent" style="display: block;">
+                <div class="category-summary">
+                    <p><strong>Technical Summary</strong>Detailed technical information about the analysis</p>
+                </div>
+                <div class="technical-summary-content">
+                    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Summary</title>
+</head>
+<body>
+    <div style="background-color:#f5f5f5; padding:12px; border-radius:5px; margin-bottom:15px;">
+        <h3>STRONG FINDINGS (Significant + Passed Quality Filters)</h3>
+    </div>
+
+    <h3>1. Strong Relationships between Categorical Variables:</h3>
+    <ul>
+        <li>DOF filter (>= 9.0)</li>
+        <li>Cramér's V filter (>= 0.1)</li>
+        <li>Power filter (>= 0.8)</li>
+        <li>* Employment Status and City (Chi-square, p=0.0000)</li>
+        <li>* Living Situation and City (Chi-square, p=0.0005)</li>
+    </ul>
+
+    <h3>2a. Significant Relationships between Categorical and Continuous Variables (Parametric):</h3>
+    <ul>
+        <li>Power filter (>= 0.5)</li>
+        <li>Effect Size Cohen's d (>= 0.3)</li>
+        <li>Effect Size ε² (>= 0.03)</li>
+        <li>Effect Size Partial η² (>= 0.03)</li>
+        <li>Effect Size CLES (diff >= 0.1)</li>
+        <li>* Gender affects Q10 (Mann-Whitney U, p=0.0317)</li>
+        <li>* Living Situation affects Q4 (Kruskal-Wallis, p=0.0278)</li>
+        <li>* Living Situation affects Q9 (Kruskal-Wallis, p=0.0410)</li>
+        <li>* Living Situation affects Q10 (Kruskal-Wallis, p=0.0129)</li>
+        <li>* Physical Activity Level affects Q3 (Kruskal-Wallis, p=0.0153)</li>
+        <li>* Physical Activity Level affects Q8 (Kruskal-Wallis, p=0.0388)</li>
+        <li>* Physical Activity Level affects Q9 (Kruskal-Wallis, p=0.0294)</li>
+        <li>* City affects Q8 (Kruskal-Wallis, p=0.0499)</li>
+        <li>* City affects Q10 (Kruskal-Wallis, p=0.0389)</li>
+    </ul>
+
+    <h3>2b. Strong Relationships between Categorical and Continuous Variables (Non-parametric):</h3>
+    <ul>
+        <li>Power filter (>= 0.5)</li>
+        <li>Effect Size ε² (>= 0.02)</li>
+        <li>Effect Size CLES (diff >= 0.05)</li>
+        <li>* Gender affects Q10 (Mann-Whitney U, p=0.0317)</li>
+    </ul>
+
+    <h3>3a. Strong Parametric Correlations between Continuous Variables:</h3>
+    <ul>
+        <li>Correlation Strength filter (|r| >= 0.55)</li>
+        <li>Power filter (>= 0.6)</li>
+        <li>* Q1 and Q2 (r=0.6581, p=0.0000)</li>
+        <li>* Q5 and Q7 (r=0.6231, p=0.0000)</li>
+    </ul>
+
+    <h3>3b. Significant Non-parametric Correlations between Continuous Variables:</h3>
+    <ul>
+        <li>Correlation Strength filter (|r| >= 0.55)</li>
+        <li>Power filter (>= 0.6)</li>
+        <li>* Q1 and Q2 (rho=0.6704, p=0.0000)</li>
+        <li>* Q3 and Q5 (rho=0.5700, p=0.0000)</li>
+        <li>* Q5 and Q7 (rho=0.6299, p=0.0000)</li>
+    </ul>
+</body>
+</html>
+                </div>
+            </div>
+        
+                <div id="descriptive" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Descriptive (1)</strong>1 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: question_distributions.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./static/FFQ/descriptive/question_distributions.png" alt="question_distributions.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">histograms Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Consumption of fruits and vegetables is frequent, suggesting healthy eating habits</li>
+<li>Avoidance of sugary beverages is common, contributing to a healthy lifestyle</li>
+<li>High frequency of eating three or more meals per day indicates regular meal patterns</li>
+<li>Moderate distribution in fast food and deep-fried food consumption, balanced approach observed</li>
+<li>Prevalence of whole grains and dairy products consumption, preference for nutritious choices</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="categorical-categorical" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Categorical-Categorical (1)</strong>1 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: Employment Status_City_contingency.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./static/FFQ/categorical-categorical/Employment Status_City_contingency.png" alt="Employment Status_City_contingency.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Athens shows a significant concentration of full-time employed individuals</li>
+<li>Chalkida and Delft have noticeable student populations</li>
+<li>Geneva and Stockholm display a more diverse employment status distribution</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="categorical-continuous" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Categorical-Continuous (1)</strong>1 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: Living Situation_Q4_boxplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./static/FFQ/categorical-continuous/Living Situation_Q4_boxplot.png" alt="Living Situation_Q4_boxplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">box plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Living arrangements significantly impact meal frequency</li>
+<li>Individuals living alone tend to have the most varied meal frequency</li>
+<li>Individuals living with family or a partner report more consistent meal patterns</li>
+<li>Kruskal-Wallis test confirms statistically significant differences</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="continuous-continuous" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Continuous-Continuous (1)</strong>1 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: Q5_Q7_jointplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./static/FFQ/continuous-continuous/Q5_Q7_jointplot.png" alt="Q5_Q7_jointplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">scatter plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Individuals who frequently consume fast food or takeout are likely to consume deep-fried food more often</li>
+<li>Strong positive correlation between fast food consumption and deep-fried food intake</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            <div class="footer">
+                <p>This report was automatically generated on April 04, 2025. The analysis was performed using advanced computer vision and natural language processing techniques.</p>
+                <p>&copy; 2025 Data Analysis Team. All rights reserved.</p>
+            </div>
+            <script>
+                function openTab(evt, categoryId) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tab");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(categoryId).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+                
+                function toggleImageSize(img) {
+                    img.classList.toggle('expanded');
+                }
+                
+                // Ensure the first tab is active by default
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Get the first tab and click it
+                    var firstTab = document.querySelector('.tab');
+                    if (firstTab) {
+                        firstTab.click();
+                    }
+                });
+            </script>
+        </body>
+        </html>
+        

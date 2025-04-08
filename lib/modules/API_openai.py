@@ -10,7 +10,13 @@
 # -*-*-*-*-*-*-*-*-*-*-* #
 #     Basic Modules      #
 # -*-*-*-*-*-*-*-*-*-*-* #
-from retry import retry
+import os
+import re
+import time
+import random
+import threading
+import concurrent.futures
+
 from tqdm import tqdm
 from datetime import datetime
 from typing import Dict, Any, List, Tuple
@@ -22,6 +28,43 @@ from concurrent.futures import ThreadPoolExecutor
 import openai
 import tiktoken
 from openai import OpenAI
+
+class RateLimiter:
+    """Token bucket rate limiter for API requests."""
+    
+    def __init__(self, tokens_per_second: float):
+        """
+        Initialize a rate limiter.
+        
+        Args:
+            tokens_per_second (float): Tokens added per second
+        """
+        self.tokens_per_second = tokens_per_second
+        self.token_bucket = 1.0  # Start with one token
+        self.max_tokens = 1.0    # Maximum number of tokens
+        self.last_update = time.time()
+        self.lock = threading.Lock()
+        
+    def acquire(self):
+        """
+        Acquires a token from the bucket, blocking if necessary.
+        """
+        with self.lock:
+            current_time = time.time()
+            # Add tokens based on elapsed time
+            time_elapsed = current_time - self.last_update
+            new_tokens = time_elapsed * self.tokens_per_second
+            self.token_bucket = min(self.max_tokens, self.token_bucket + new_tokens)
+            self.last_update = current_time
+            
+            # If no tokens available, sleep until one is available
+            if self.token_bucket < 1.0:
+                sleep_time = (1.0 - self.token_bucket) / self.tokens_per_second
+                time.sleep(sleep_time)
+                self.token_bucket = 0.0
+                self.last_update = time.time()
+            else:
+                self.token_bucket -= 1.0
 
 class OpenaiAPI:
     def __init__(self, mk1):
@@ -187,55 +230,55 @@ class OpenaiAPI:
             return None
 
 
-    def analyze_statistical_images(
-        self,
-        image_paths: List[str],
-        analysis_type: str = "general",
-        questions_mapping: Dict[str, str] = None,
-        confidence_threshold: float = 0.7,
-        temperature: float = 0.3
-    ):
-        """Analyzes a list of statistical images using OpenAI Vision to extract scientific outcomes.
+    # def analyze_statistical_images(
+    #     self,
+    #     image_paths: List[str],
+    #     analysis_type: str = "general",
+    #     questions_mapping: Dict[str, str] = None,
+    #     confidence_threshold: float = 0.7,
+    #     temperature: float = 0.3
+    # ):
+    #     """Analyzes a list of statistical images using OpenAI Vision to extract scientific outcomes.
         
-        Args:
-            image_paths (List[str]): List of paths to statistical image files
-            question_mapping (Dict[str, str]): Dictionary mapping question IDs (e.g., 'Q1') to their text representations
-            analysis_type (str): Type of analysis to perform ('general', 'correlation', 'regression', 'time_series', etc.)
-            confidence_threshold (float): Minimum confidence score to accept results
-            temperature (float): Controls randomness in the model's responses (lower = more deterministic)
+    #     Args:
+    #         image_paths (List[str]): List of paths to statistical image files
+    #         question_mapping (Dict[str, str]): Dictionary mapping question IDs (e.g., 'Q1') to their text representations
+    #         analysis_type (str): Type of analysis to perform ('general', 'correlation', 'regression', 'time_series', etc.)
+    #         confidence_threshold (float): Minimum confidence score to accept results
+    #         temperature (float): Controls randomness in the model's responses (lower = more deterministic)
             
-        Returns:
-            List[Dict]: List of dictionaries containing analysis results for each image
-        """
-        self.mk1.logging.logger.info(
-            f"(OpenaiAPI.analyze_statistical_images) Analyzing {len(image_paths)} statistical images"
-        )
+    #     Returns:
+    #         List[Dict]: List of dictionaries containing analysis results for each image
+    #     """
+    #     self.mk1.logging.logger.info(
+    #         f"(OpenaiAPI.analyze_statistical_images) Analyzing {len(image_paths)} statistical images"
+    #     )
         
-        results = []
+    #     results = []
         
-        # Process images in parallel
-        with ThreadPoolExecutor() as executor:
-            results = list(executor.map(
-                lambda path: self._analyze_single_statistical_image(
-                    image_path        = path, 
-                    questions_mapping = questions_mapping,
-                    analysis_type     = analysis_type,
-                    temperature       = temperature
-                ), 
-                image_paths
-            ))
+    #     # Process images in parallel
+    #     with ThreadPoolExecutor() as executor:
+    #         results = list(executor.map(
+    #             lambda path: self._analyze_single_statistical_image(
+    #                 image_path        = path, 
+    #                 questions_mapping = questions_mapping,
+    #                 analysis_type     = analysis_type,
+    #                 temperature       = temperature
+    #             ), 
+    #             image_paths
+    #         ))
         
-        # Filter results based on confidence threshold
-        validated_results = [
-            result for result in results 
-            if result and result.get('confidence', 0) >= confidence_threshold
-        ]
+    #     # Filter results based on confidence threshold
+    #     validated_results = [
+    #         result for result in results 
+    #         if result and result.get('confidence', 0) >= confidence_threshold
+    #     ]
         
-        self.mk1.logging.logger.info(
-            f"(OpenaiAPI.analyze_statistical_images) Successfully analyzed {len(validated_results)} out of {len(image_paths)} images"
-        )
+    #     self.mk1.logging.logger.info(
+    #         f"(OpenaiAPI.analyze_statistical_images) Successfully analyzed {len(validated_results)} out of {len(image_paths)} images"
+    #     )
         
-        return validated_results
+    #     return validated_results
 
     def _analyze_single_statistical_image(
             self,
@@ -255,6 +298,8 @@ class OpenaiAPI:
         Returns:
             Dict[str, Any]: Dictionary containing analysis results
         """
+
+        print(image_path)
         try:
             # Read image file as base64
             import base64
@@ -336,6 +381,153 @@ class OpenaiAPI:
                 'confidence' : 0,
                 'timestamp'  : datetime.now().isoformat()
             }
+
+
+    def analyze_statistical_images(
+            self,
+            image_paths: List[str],
+            analysis_type: str = "general",
+            questions_mapping: Dict[str, str] = None,
+            confidence_threshold: float = 0.7,
+            temperature: float = 0.3,
+            max_requests_per_minute: int = 25,  # Lower than the actual limit to be safe
+            max_workers: int = 5,  # Limit concurrent threads
+            retry_delay: float = 2.0  # Seconds to wait after a rate limit error
+        ):
+            """Analyzes a list of statistical images using OpenAI Vision to extract scientific outcomes.
+            
+            Args:
+                image_paths (List[str]): List of paths to statistical image files
+                questions_mapping (Dict[str, str]): Dictionary mapping question IDs to their text representations
+                analysis_type (str): Type of analysis to perform ('general', 'correlation', 'regression', etc.)
+                confidence_threshold (float): Minimum confidence score to accept results
+                temperature (float): Controls randomness in the model's responses (lower = more deterministic)
+                max_requests_per_minute (int): Maximum number of API requests per minute
+                max_workers (int): Maximum number of concurrent worker threads
+                retry_delay (float): Seconds to wait after encountering a rate limit error
+                
+            Returns:
+                List[Dict]: List of dictionaries containing analysis results for each image
+            """
+            self.mk1.logging.logger.info(
+                f"(OpenaiAPI.analyze_statistical_images) Analyzing {len(image_paths)} statistical images"
+            )
+            
+            # Create a token bucket for rate limiting
+            rate_limiter = RateLimiter(max_requests_per_minute / 60.0)  # Tokens per second
+            
+            # Process images with controlled parallelism
+            results = []
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                future_to_path = {
+                    executor.submit(
+                        self._analyze_single_statistical_image_with_rate_limit,
+                        image_path=path,
+                        questions_mapping=questions_mapping,
+                        analysis_type=analysis_type,
+                        temperature=temperature,
+                        rate_limiter=rate_limiter,
+                        retry_delay=retry_delay
+                    ): path for path in image_paths
+                }
+                
+                for future in concurrent.futures.as_completed(future_to_path):
+                    path = future_to_path[future]
+                    try:
+                        result = future.result()
+                        results.append(result)
+                    except Exception as e:
+                        self.mk1.logging.logger.error(
+                            f"(OpenaiAPI.analyze_statistical_images) Error processing image {path}: {e}"
+                        )
+                        # Add error entry to results
+                        results.append({
+                            'image_path': path,
+                            'error': str(e),
+                            'confidence': 0,
+                            'timestamp': datetime.now().isoformat()
+                        })
+            
+            # Filter results based on confidence threshold
+            validated_results = [
+                result for result in results 
+                if result and result.get('confidence', 0) >= confidence_threshold
+            ]
+            
+            self.mk1.logging.logger.info(
+                f"(OpenaiAPI.analyze_statistical_images) Successfully analyzed {len(validated_results)} out of {len(image_paths)} images"
+            )
+            
+            return validated_results
+
+    def _analyze_single_statistical_image_with_rate_limit(
+            self,
+            image_path: str,
+            questions_mapping: Dict[str, str],
+            analysis_type: str,
+            temperature: float,
+            rate_limiter,
+            retry_delay: float = 2.0,
+            max_retries: int = 5
+        ) -> Dict[str, Any]:
+        """Analyzes a single statistical image with rate limiting and retries.
+        
+        Args:
+            image_path (str): Path to the statistical image file
+            questions_mapping (Dict[str, str]): Dictionary mapping question IDs to their text
+            analysis_type (str): Type of analysis to perform
+            temperature (float): Controls randomness in the model's responses
+            rate_limiter: Rate limiter instance to control API call frequency
+            retry_delay (float): Base delay for retries in seconds
+            max_retries (int): Maximum number of retry attempts
+            
+        Returns:
+            Dict[str, Any]: Dictionary containing analysis results
+        """
+        print(image_path)
+        retry_count = 0
+        
+        while retry_count < max_retries:
+            try:
+                # Wait for token from rate limiter before making request
+                rate_limiter.acquire()
+                
+                # Perform the analysis
+                result = self._analyze_single_statistical_image(
+                    image_path        = image_path,
+                    questions_mapping = questions_mapping,
+                    analysis_type     = analysis_type,
+                    temperature       = temperature
+                )
+
+                print(f"[Success] For {image_path}")
+                return result
+                
+            except openai.RateLimitError as e:
+                print(f"[Failure] For {image_path} : {e}")
+                retry_count += 1
+                self.mk1.logging.logger.warning(
+                    f"(OpenaiAPI._analyze_single_statistical_image_with_rate_limit) "
+                    f"Rate limit error on image {image_path}, retry {retry_count}/{max_retries}: {e}"
+                )
+                
+                # Exponential backoff with jitter for retries
+                wait_time = retry_delay * (2 ** retry_count) + random.uniform(0, 1)
+                time.sleep(wait_time)
+                
+        # If we've exhausted retries, raise the last exception
+        self.mk1.logging.logger.error(
+            f"(OpenaiAPI._analyze_single_statistical_image_with_rate_limit) "
+            f"Failed to process image {image_path} after {max_retries} retries"
+        )
+        
+        return {
+            'image_path': image_path,
+            'error': f"Failed after {max_retries} retries",
+            'confidence': 0,
+            'timestamp': datetime.now().isoformat()
+        }
+
 
     def _get_statistical_analysis_prompt(self, analysis_type: str) -> str:
         """Returns an appropriate system prompt based on the type of statistical analysis.
@@ -514,784 +706,4 @@ class OpenaiAPI:
             raise e
 
     
-    def save_report_to_file(
-            self,
-            html_content: str, 
-            output_path: str = "statistical_report.html"
-        ):
-        """
-        Save the HTML report to a file.
-        
-        Args:
-            html_content (str): HTML content of the report
-            output_path (str): Path to save the HTML file
-            
-        Returns:
-            str: Path to the saved file
-        """
-        try:
-            with open(output_path, "w", encoding="utf-8") as f:
-                f.write(html_content)
-            return output_path
-        except Exception as e:
-            print(f"Error saving report: {e}")
-            return None
-        
-
-    # Example usage:
-    def example_usage():
-        # Sample analysis results
-        sample_results = [
-            {
-                'image_path': '/path/to/image1.png',
-                'confidence': 0.92,
-                'structured_data': {
-                    'visualization_type': 'Bar Chart',
-                    'key_findings': [
-                        'Physical activity levels show a strong positive correlation with overall health scores (r=0.78, p<0.01).',
-                        'Participants in the high activity group reported 45% fewer health issues than those in the sedentary group.',
-                        'Women showed higher adherence to exercise routines (67%) compared to men (51%).'
-                    ]
-                },
-                'raw_analysis': 'This is a bar chart showing the relationship between physical activity and health outcomes...'
-            },
-            {
-                'image_path': '/path/to/image2.png',
-                'confidence': 0.85,
-                'structured_data': {
-                    'visualization_type': 'Scatter Plot',
-                    'key_findings': [
-                        'BMI shows a negative correlation with daily step count (r=-0.65, p<0.001).',
-                        'For every 1000 additional daily steps, BMI decreased by approximately 0.4 points.',
-                        'The relationship is non-linear at extreme values, suggesting diminishing returns.'
-                    ]
-                },
-                'raw_analysis': 'The scatter plot demonstrates the relationship between BMI and daily step count...'
-            }
-        ]
-
-    def generate_statistical_report(
-        self,
-        analysis_results: List[Dict[str, Any]],
-        report_title: str = "Statistical Analysis Report",
-        company_name: str = "Data Analysis Team",
-        date_format: str = "%B %d, %Y",
-        include_raw_analysis: bool = False,
-        max_key_findings: int = 5,
-        questions_mapping: Dict[str, str] = None,
-        technical_summary: str = None
-    ) -> str:
-        """
-        Generate a fancy HTML report summarizing statistical image analyses,
-        organized into tabs based on analysis categories.
-        
-        Args:
-            analysis_results (List[Dict]): List of dictionaries containing analysis results for each image
-            report_title (str): Title for the report
-            company_name (str): Name of the company/team generating the report
-            date_format (str): Format for the date in the report
-            include_raw_analysis (bool): Whether to include the raw analysis text
-            max_key_findings (int): Maximum number of key findings to display per image
-            questions_mapping (Dict[str, str]): Mapping of question IDs to their descriptions
-            technical_summary (str): Path to a text file containing technical summary content
-            
-        Returns:
-            str: HTML content of the report with tabs
-        """
-        from datetime import datetime
-        import os
-        import re
-        
-        # Get current date
-        current_date = datetime.now().strftime(date_format)
-        
-        # Count total images analyzed
-        total_images = len(analysis_results)
-        successful_analyses = sum(1 for result in analysis_results if result.get('confidence', 0) >= 0.7)
-        
-        # Group analyses by category
-        categories = {
-            'descriptive': [],
-            'categorical-categorical': [],
-            'categorical-continuous': [],
-            'continuous-continuous': []
-        }
-        
-        # Process each analysis result and categorize by folder path
-        for analysis in analysis_results:
-            image_path = analysis.get('image_path', '')
-            
-            # Determine category from image path
-            category = 'other'
-            if '/descriptive/' in image_path:
-                category = 'descriptive'
-            elif '/categorical-categorical/' in image_path:
-                category = 'categorical-categorical'
-            elif '/categorical-continuous/' in image_path:
-                category = 'categorical-continuous'
-            elif '/continuous-continuous/' in image_path:
-                category = 'continuous-continuous'
-                
-            # Add to appropriate category
-            if category in categories:
-                categories[category].append(analysis)
-            else:
-                # Handle any uncategorized analyses
-                if 'other' not in categories:
-                    categories['other'] = []
-                categories['other'].append(analysis)
-        
-        # Create tab names with counts
-        tab_names = {
-            'technical-summary': "Technical Summary",
-            'descriptive': f"Descriptive ({len(categories['descriptive'])})",
-            'categorical-categorical': f"Categorical-Categorical ({len(categories['categorical-categorical'])})",
-            'categorical-continuous': f"Categorical-Continuous ({len(categories['categorical-continuous'])})",
-            'continuous-continuous': f"Continuous-Continuous ({len(categories['continuous-continuous'])})"
-        }
-        
-        # Remove empty categories
-        categories = {k: v for k, v in categories.items() if v}
-        
-        # Keep the technical summary in tab_names regardless of whether other categories exist
-        category_tab_names = {k: v for k, v in tab_names.items() if k in categories or k == 'technical-summary'}
-        tab_names = category_tab_names
-        
-        # Load technical summary content if provided
-        technical_summary_content = ""
-        if technical_summary:
-            try:
-                with open(technical_summary, 'r', encoding='utf-8') as file:
-                    technical_summary_content = file.read()
-                # Convert plain text to HTML by replacing newlines with <br> tags
-                technical_summary_content = technical_summary_content.replace('\n', '<br>')
-            except Exception as e:
-                technical_summary_content = f"<p>Error loading technical summary: {str(e)}</p>"
-        
-        # Clean the technical summary (with OpenAI)
-        technical_summary_content = self._generate_clean_technical_summary(
-            technical_summary = technical_summary_content
-        )
-        
-        # HTML header and styling
-        html_content = f"""
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>{report_title}</title>
-            <style>
-                body {{
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                    line-height: 1.6;
-                    color: #333;
-                    max-width: 1200px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    background-color: #f9f9f9;
-                }}
-                .header {{
-                    background: linear-gradient(135deg, #2c3e50, #3498db);
-                    color: white;
-                    padding: 20px;
-                    border-radius: 10px 10px 0 0;
-                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-                }}
-                .header h1 {{
-                    margin: 0;
-                    font-size: 28px;
-                }}
-                .header p {{
-                    margin: 5px 0 0;
-                    font-size: 14px;
-                    opacity: 0.8;
-                }}
-                .report-meta {{
-                    background-color: #f5f5f5;
-                    border-left: 5px solid #3498db;
-                    padding: 15px;
-                    margin: 20px 0;
-                    border-radius: 5px;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                }}
-                
-                /* Tab styling */
-                .tabs {{
-                    margin-top: 25px;
-                    overflow: hidden;
-                    border-radius: 8px 8px 0 0;
-                    background-color: #f1f1f1;
-                    display: flex;
-                    flex-wrap: wrap;
-                }}
-                .tab {{
-                    background-color: inherit;
-                    float: left;
-                    border: none;
-                    outline: none;
-                    cursor: pointer;
-                    padding: 14px 16px;
-                    transition: 0.3s;
-                    font-size: 16px;
-                    color: #555;
-                    border-radius: 8px 8px 0 0;
-                    border-right: 1px solid #ddd;
-                    flex-grow: 1;
-                    text-align: center;
-                }}
-                .tab:hover {{
-                    background-color: #ddd;
-                }}
-                .tab.active {{
-                    background-color: #3498db;
-                    color: white;
-                }}
-                .tabcontent {{
-                
-                    display: none;
-                    padding: 15px;
-                    border: 1px solid #ccc;
-                    border-top: none;
-                    border-radius: 0 0 8px 8px;
-                    animation: fadeIn 0.5s;
-                    background-color: white;
-                }}
-                @keyframes fadeIn {{
-                    from {{opacity: 0;}}
-                    to {{opacity: 1;}}
-                }}
-                @keyframes fadeEffect {{
-                    from {{opacity: 0;}}
-                    to {{opacity: 1;}}
-                }}
-                
-                .image-analysis {{
-                    background-color: white;
-                    margin: 25px 0;
-                    border-radius: 10px;
-                    overflow: hidden;
-                    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-                    transition: all 0.3s ease;
-                }}
-                .image-analysis:hover {{
-                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-                    transform: translateY(-5px);
-                }}
-                .image-display {{
-                    margin: 15px 0;
-                    text-align: center;
-                    border-radius: 5px;
-                    overflow: hidden;
-                    background-color: #f8f9fa;
-                    padding: 10px;
-                    border: 1px solid #e9ecef;
-                }}
-                .analysis-image {{
-                    max-width: 100%;
-                    height: auto;
-                    max-height: 300px;
-                    border-radius: 5px;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-                    cursor: pointer;
-                    transition: max-height 0.3s ease;
-                }}
-                .analysis-image.expanded {{
-                    max-height: 600px;
-                }}
-                .image-controls {{
-                    margin-top: 8px;
-                    text-align: center;
-                }}
-                .image-resize-btn {{
-                    background-color: #f0f0f0;
-                    border: 1px solid #ddd;
-                    border-radius: 4px;
-                    padding: 5px 10px;
-                    font-size: 12px;
-                    cursor: pointer;
-                    color: #555;
-                }}
-                .image-resize-btn:hover {{
-                    background-color: #e0e0e0;
-                }}
-                
-                .image-title {{
-                    background-color: #ecf0f1;
-                    padding: 12px 20px;
-                    border-bottom: 1px solid #ddd;
-                    font-weight: 600;
-                    color: #2c3e50;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }}
-                .confidence {{
-                    display: inline-block;
-                    padding: 3px 10px;
-                    border-radius: 15px;
-                    font-size: 12px;
-                    font-weight: bold;
-                }}
-                .high-confidence {{
-                    background-color: #d4edda;
-                    color: #155724;
-                }}
-                .medium-confidence {{
-                    background-color: #fff3cd;
-                    color: #856404;
-                }}
-                .low-confidence {{
-                    background-color: #f8d7da;
-                    color: #721c24;
-                }}
-                .analysis-content {{
-                    padding: 20px;
-                }}
-                .key-findings {{
-                    background-color: #eaf6ff;
-                    border-radius: 5px;
-                    padding: 15px;
-                    margin-top: 15px;
-                    border-left: 4px solid #3498db;
-                }}
-                .key-findings h4 {{
-                    margin-top: 0;
-                    color: #2980b9;
-                    font-size: 16px;
-                }}
-                .key-findings ul {{
-                    margin-bottom: 0;
-                    padding-left: 20px;
-                }}
-                .key-findings li {{
-                    margin-bottom: 8px;
-                }}
-                .raw-analysis {{
-                    font-size: 14px;
-                    color: #666;
-                    border-top: 1px solid #eee;
-                    margin-top: 20px;
-                    padding-top: 15px;
-                    white-space: pre-line;
-                }}
-                .visualization-type {{
-                    display: inline-block;
-                    background-color: #e8f4f8;
-                    color: #246;
-                    padding: 3px 10px;
-                    border-radius: 15px;
-                    font-size: 13px;
-                    margin-top: 10px;
-                }}
-                .footer {{
-                    text-align: center;
-                    margin-top: 30px;
-                    padding: 20px;
-                    color: #777;
-                    font-size: 13px;
-                    border-top: 1px solid #eee;
-                }}
-                .summary-box {{
-                    background-color: #f8f9fa;
-                    border-radius: 8px;
-                    padding: 15px;
-                    margin: 20px 0;
-                    border: 1px solid #e9ecef;
-                }}
-                .category-summary {{
-                    background: linear-gradient(to right, #4e54c8, #8f94fb);
-                    color: white;
-                    border-radius: 12px;
-                    padding: 20px 25px;
-                    margin: 15px 0 25px 0;
-                    box-shadow: 0 4px 12px rgba(78, 84, 200, 0.2);
-                    position: relative;
-                    overflow: hidden;
-                }}
-
-                .category-summary::before {{
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: url('/api/placeholder/200/200') right center no-repeat;
-                    background-size: auto 100%;
-                    opacity: 0.15;
-                }}
-
-                .category-summary p {{
-                    margin: 0;
-                    font-size: 16px;
-                    font-weight: 500;
-                    position: relative;
-                    z-index: 2;
-                }}
-
-                .category-summary strong {{
-                    font-weight: 700;
-                    font-size: 20px;
-                    display: block;
-                    margin-bottom: 6px;
-                }}
-                
-                /* Technical Summary styling */
-                #technical-summary {{
-                    font-family: 'Inter', sans-serif;
-                    max-width: 900px;
-                    margin: 0 auto;
-                }}
-                .technical-summary-content {{
-                    background-color: white;
-                    padding: 25px;
-                    border-radius: 8px;
-                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-                    font-size: 15px;
-                    line-height: 1.5;
-                    margin: 20px 0;
-                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-                }}
-
-                
-                .technical-summary-content::before {{
-                    content: "📊";
-                    position: absolute;
-                    top: -12px;
-                    left: 20px;
-                    background: white;
-                    padding: 0 12px;
-                    font-size: 22px;
-                }}
-
-                .technical-summary-content h3 {{
-                    color: #2c3e50;
-                    font-size: 18px;
-                    font-weight: 600;
-                    margin-top: 20px;
-                    margin-bottom: 12px;
-                    border-bottom: 1px solid #eee;
-                    padding-bottom: 8px;
-                }}
-
-                .technical-summary-content p {{
-                    margin-bottom: 15px;
-                    color: #333;
-                }}
-
-                .technical-summary-content ul {{
-                    margin-top: 8px;
-                    margin-bottom: 15px;
-                    padding-left: 20px;
-                }}
-
-                .technical-summary-content li {{
-                    margin-bottom: 6px;
-                }}
-
-                .technical-summary-content div[style*="background-color:#f5f5f5"] {{
-                    margin-bottom: 15px;
-                }}
-
-                .technical-summary-content code {{
-                    background: #f8f9fa;
-                    padding: 2px 6px;
-                    border-radius: 4px;
-                    font-family: 'Consolas', monospace;
-                    font-size: 14px;
-                    color: #e83e8c;
-                }}
-                
-                /* Questions mapping styling */
-                .questions-container {{
-                    background: linear-gradient(to right, #f9f9f9, #f1f1f1);
-                    border-radius: 10px;
-                    padding: 20px;
-                    margin: 25px 0;
-                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-                }}
-                .questions-title {{
-                    font-size: 20px;
-                    color: #2c3e50;
-                    margin-bottom: 15px;
-                    border-bottom: 2px solid #3498db;
-                    padding-bottom: 8px;
-                }}
-                .questions-grid {{
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-                    gap: 15px;
-                }}
-                .question-item {{
-                    background-color: white;
-                    border-radius: 8px;
-                    padding: 12px 15px;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-                    border-left: 3px solid #3498db;
-                    transition: transform 0.2s ease, box-shadow 0.2s ease;
-                }}
-                .question-item:hover {{
-                    transform: translateY(-3px);
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                }}
-                .question-id {{
-                    font-weight: bold;
-                    color: #3498db;
-                    margin-right: 8px;
-                    font-size: 15px;
-                }}
-                .question-text {{
-                    color: #444;
-                }}
-                
-                @media print {{
-                    body {{
-                        background-color: white;
-                    }}
-                    .image-analysis {{
-                        break-inside: avoid;
-                        box-shadow: none;
-                        margin: 15px 0;
-                        border: 1px solid #eee;
-                    }}
-                    .image-analysis:hover {{
-                        transform: none;
-                        box-shadow: none;
-                    }}
-                    .header {{
-                        background: white;
-                        color: black;
-                        box-shadow: none;
-                        border-bottom: 2px solid #eee;
-                    }}
-                    .tab {{
-                        color: black;
-                        background: white !important;
-                    }}
-                    .tab.active {{
-                        border-bottom: 2px solid #3498db;
-                    }}
-                    .tabcontent {{
-                        display: block !important;
-                        border: none;
-                        page-break-before: always;
-                    }}
-                    .questions-container {{
-                        background: white;
-                        box-shadow: none;
-                        border: 1px solid #eee;
-                    }}
-                }}
-            </style>
-        </head>
-        <body>
-            <div class="header">
-                <h1>{report_title}</h1>
-                <p>Generated by {company_name} on {current_date}</p>
-            </div>
-            
-            <div class="report-meta">
-                <p><strong>Analysis Summary:</strong> Processed {total_images} statistical images with {successful_analyses} successful analyses ({(successful_analyses/total_images*100) if total_images > 0 else 0:.1f}% success rate)</p>
-                <p><strong>Analysis Categories:</strong> {', '.join([v for k, v in tab_names.items() if k != 'technical-summary'])}</p>
-            </div>
-        """
-        
-        # Add questions mapping section if provided
-        if questions_mapping:
-            html_content += """
-            <div class="questions-container">
-                <div class="questions-title">Survey Questions Reference</div>
-                <div class="questions-grid">
-            """
-            
-            # Process each question and replace markdown bold (**) with HTML bold
-            for q_id, q_text in questions_mapping.items():
-                # Replace markdown bold with HTML bold
-                q_text_html = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', q_text)
-                
-                html_content += f"""
-                <div class="question-item">
-                    <span class="question-id">{q_id}:</span>
-                    <span class="question-text">{q_text_html}</span>
-                </div>
-                """
-            
-            html_content += """
-                </div>
-            </div>
-            """
-        
-        # Tab navigation
-        html_content += """
-            <!-- Tab navigation -->
-            <div class="tabs">
-        """
-        
-        # Create tab buttons - Technical Summary always first
-        tab_order = ['technical-summary'] + [cat for cat in tab_names if cat != 'technical-summary']
-        first_tab = True
-        
-        for category_id in tab_order:
-            if category_id in tab_names:
-                active_class = " active" if first_tab else ""
-                html_content += f'<button class="tab{active_class}" onclick="openTab(event, \'{category_id}\')">{tab_names[category_id]}</button>\n'
-                first_tab = False
-        
-        html_content += """
-            </div>
-        """
-
-       
-
-        
-        
-        # Create Technical Summary tab content
-        html_content += f"""
-            <div id="technical-summary" class="tabcontent" style="display: block;">
-                <div class="category-summary">
-                    <p><strong>Technical Summary</strong>Detailed technical information about the analysis</p>
-                </div>
-                <div class="technical-summary-content">
-                    {technical_summary_content if technical_summary_content else "<p>No technical summary provided.</p>"}
-                </div>
-            </div>
-        """
-        
-        # Create tab content for each category
-        first_content_tab = False  # Technical Summary is already shown by default
-        for category_id, analyses in categories.items():
-            if category_id in tab_names:  # Only process categories that have tab names
-                display_style = "none"  # All other tabs start hidden
-                tab_name = tab_names[category_id]
-                
-                html_content += f"""
-                <div id="{category_id}" class="tabcontent" style="display: {display_style};">
-                    <div class="category-summary">
-                        <p><strong>{tab_name}</strong>{len(analyses)} analyses ✅</p>
-                    </div>
-                """
-                
-                # Add each image analysis within this category
-                for index, analysis in enumerate(analyses, 1):
-                    # Get image path and format it nicely
-                    image_path = analysis.get('image_path', 'Unknown')
-                    filename = os.path.basename(image_path) if image_path != 'Unknown' else 'Unknown'
-                    
-                    # Get analysis data
-                    confidence = analysis.get('confidence', 0)
-                    confidence_class = 'high-confidence' if confidence >= 0.85 else 'medium-confidence' if confidence >= 0.7 else 'low-confidence'
-                    
-                    # Get structured data
-                    structured_data = analysis.get('structured_data', {})
-                    visualization_type = structured_data.get('visualization_type', 'Unknown')
-                    
-                    # Get key findings
-                    key_findings = structured_data.get('key_findings', [])
-                    if isinstance(key_findings, str):
-                        key_findings = [key_findings]
-                    
-                    # Limit key findings to max_key_findings
-                    key_findings = key_findings[:max_key_findings]
-                    
-                    # Get raw analysis
-                    raw_analysis = analysis.get('raw_analysis', '')
-                    
-                    # Create the analysis section
-                    html_content += f"""
-                    <div class="image-analysis">
-                        <div class="image-title">
-                            Image {index}: {filename}
-                            <span class="confidence {confidence_class}">{confidence*100:.1f}% Confidence</span>
-                        </div>
-                        <div class="analysis-content">
-                            <div class="image-display">
-                                <img src="{image_path}" alt="{filename}" class="analysis-image" onclick="toggleImageSize(this)">
-                                <div class="image-controls">
-                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
-                                </div>
-                            </div>
-                            <div class="visualization-type">{visualization_type} Visualization</div>
-                            
-                            <div class="key-findings">
-                                <h4>Key Findings:</h4>
-                                <ul>
-                    """
-                    
-                    # Add key findings
-                    for finding in key_findings:
-                        html_content += f"<li>{finding}</li>\n"
-                    
-                    # If no key findings, add a message
-                    if not key_findings:
-                        html_content += "<li>No significant findings detected.</li>\n"
-                    
-                    html_content += """
-                                </ul>
-                            </div>
-                    """
-                    
-                    # Add raw analysis if requested
-                    if include_raw_analysis and raw_analysis:
-                        # Limit to 500 characters with ellipsis for brevity
-                        display_raw = raw_analysis[:500] + ("..." if len(raw_analysis) > 500 else "")
-                        html_content += f"""
-                            <div class="raw-analysis">
-                                <details>
-                                    <summary>Raw Analysis</summary>
-                                    {display_raw}
-                                </details>
-                            </div>
-                        """
-                    
-                    html_content += """
-                        </div>
-                    </div>
-                    """
-                
-                html_content += """
-                </div>
-                """
-                
-                first_content_tab = False
-        
-        # Add footer and JavaScript
-        html_content += f"""
-            <div class="footer">
-                <p>This report was automatically generated on {current_date}. The analysis was performed using advanced computer vision and natural language processing techniques.</p>
-                <p>&copy; {datetime.now().year} {company_name}. All rights reserved.</p>
-            </div>
-            <script>
-                function openTab(evt, categoryId) {{
-                    var i, tabcontent, tablinks;
-                    tabcontent = document.getElementsByClassName("tabcontent");
-                    for (i = 0; i < tabcontent.length; i++) {{
-                        tabcontent[i].style.display = "none";
-                    }}
-                    tablinks = document.getElementsByClassName("tab");
-                    for (i = 0; i < tablinks.length; i++) {{
-                        tablinks[i].className = tablinks[i].className.replace(" active", "");
-                    }}
-                    document.getElementById(categoryId).style.display = "block";
-                    evt.currentTarget.className += " active";
-                }}
-                
-                function toggleImageSize(img) {{
-                    img.classList.toggle('expanded');
-                }}
-                
-                // Ensure the first tab is active by default
-                document.addEventListener('DOMContentLoaded', function() {{
-                    // Get the first tab and click it
-                    var firstTab = document.querySelector('.tab');
-                    if (firstTab) {{
-                        firstTab.click();
-                    }}
-                }});
-            </script>
-        </body>
-        </html>
-        """
-        
-        return html_content
         

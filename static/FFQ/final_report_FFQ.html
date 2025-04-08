@@ -1,0 +1,2024 @@
+
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Statistical Analysis Report for Food Frequency Questionnaire (FFQ)</title>
+            <style>
+                body {
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    line-height: 1.6;
+                    color: #333;
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #f9f9f9;
+                }
+                .header {
+                    background: linear-gradient(135deg, #2c3e50, #3498db);
+                    color: white;
+                    padding: 20px;
+                    border-radius: 10px 10px 0 0;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+                }
+                .header h1 {
+                    margin: 0;
+                    font-size: 28px;
+                }
+                .header p {
+                    margin: 5px 0 0;
+                    font-size: 14px;
+                    opacity: 0.8;
+                }
+                .report-meta {
+                    background-color: #f5f5f5;
+                    border-left: 5px solid #3498db;
+                    padding: 15px;
+                    margin: 20px 0;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                }
+                
+                /* Tab styling */
+                .tabs {
+                    margin-top: 25px;
+                    overflow: hidden;
+                    border-radius: 8px 8px 0 0;
+                    background-color: #f1f1f1;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+                .tab {
+                    background-color: inherit;
+                    float: left;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    transition: 0.3s;
+                    font-size: 16px;
+                    color: #555;
+                    border-radius: 8px 8px 0 0;
+                    border-right: 1px solid #ddd;
+                    flex-grow: 1;
+                    text-align: center;
+                }
+                .tab:hover {
+                    background-color: #ddd;
+                }
+                .tab.active {
+                    background-color: #3498db;
+                    color: white;
+                }
+                .tabcontent {
+                
+                    display: none;
+                    padding: 15px;
+                    border: 1px solid #ccc;
+                    border-top: none;
+                    border-radius: 0 0 8px 8px;
+                    animation: fadeIn 0.5s;
+                    background-color: white;
+                }
+                @keyframes fadeIn {
+                    from {opacity: 0;}
+                    to {opacity: 1;}
+                }
+                @keyframes fadeEffect {
+                    from {opacity: 0;}
+                    to {opacity: 1;}
+                }
+                
+                .image-analysis {
+                    background-color: white;
+                    margin: 25px 0;
+                    border-radius: 10px;
+                    overflow: hidden;
+                    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+                    transition: all 0.3s ease;
+                }
+                .image-analysis:hover {
+                    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+                    transform: translateY(-5px);
+                }
+                .image-display {
+                    margin: 15px 0;
+                    text-align: center;
+                    border-radius: 5px;
+                    overflow: hidden;
+                    background-color: #f8f9fa;
+                    padding: 10px;
+                    border: 1px solid #e9ecef;
+                }
+                .analysis-image {
+                    max-width: 100%;
+                    height: auto;
+                    max-height: 300px;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                    cursor: pointer;
+                    transition: max-height 0.3s ease;
+                }
+                .analysis-image.expanded {
+                    max-height: 600px;
+                }
+                .image-controls {
+                    margin-top: 8px;
+                    text-align: center;
+                }
+                .image-resize-btn {
+                    background-color: #f0f0f0;
+                    border: 1px solid #ddd;
+                    border-radius: 4px;
+                    padding: 5px 10px;
+                    font-size: 12px;
+                    cursor: pointer;
+                    color: #555;
+                }
+                .image-resize-btn:hover {
+                    background-color: #e0e0e0;
+                }
+                
+                .image-title {
+                    background-color: #ecf0f1;
+                    padding: 12px 20px;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: 600;
+                    color: #2c3e50;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+                .confidence {
+                    display: inline-block;
+                    padding: 3px 10px;
+                    border-radius: 15px;
+                    font-size: 12px;
+                    font-weight: bold;
+                }
+                .high-confidence {
+                    background-color: #d4edda;
+                    color: #155724;
+                }
+                .medium-confidence {
+                    background-color: #fff3cd;
+                    color: #856404;
+                }
+                .low-confidence {
+                    background-color: #f8d7da;
+                    color: #721c24;
+                }
+                .analysis-content {
+                    padding: 20px;
+                }
+                .key-findings {
+                    background-color: #eaf6ff;
+                    border-radius: 5px;
+                    padding: 15px;
+                    margin-top: 15px;
+                    border-left: 4px solid #3498db;
+                }
+                .key-findings h4 {
+                    margin-top: 0;
+                    color: #2980b9;
+                    font-size: 16px;
+                }
+                .key-findings ul {
+                    margin-bottom: 0;
+                    padding-left: 20px;
+                }
+                .key-findings li {
+                    margin-bottom: 8px;
+                }
+                .raw-analysis {
+                    font-size: 14px;
+                    color: #666;
+                    border-top: 1px solid #eee;
+                    margin-top: 20px;
+                    padding-top: 15px;
+                    white-space: pre-line;
+                }
+                .visualization-type {
+                    display: inline-block;
+                    background-color: #e8f4f8;
+                    color: #246;
+                    padding: 3px 10px;
+                    border-radius: 15px;
+                    font-size: 13px;
+                    margin-top: 10px;
+                }
+                .footer {
+                    text-align: center;
+                    margin-top: 30px;
+                    padding: 20px;
+                    color: #777;
+                    font-size: 13px;
+                    border-top: 1px solid #eee;
+                }
+                .summary-box {
+                    background-color: #f8f9fa;
+                    border-radius: 8px;
+                    padding: 15px;
+                    margin: 20px 0;
+                    border: 1px solid #e9ecef;
+                }
+                .category-summary {
+                    background: linear-gradient(to right, #4e54c8, #8f94fb);
+                    color: white;
+                    border-radius: 12px;
+                    padding: 20px 25px;
+                    margin: 15px 0 25px 0;
+                    box-shadow: 0 4px 12px rgba(78, 84, 200, 0.2);
+                    position: relative;
+                    overflow: hidden;
+                }
+
+                .category-summary::before {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: url('/api/placeholder/200/200') right center no-repeat;
+                    background-size: auto 100%;
+                    opacity: 0.15;
+                }
+
+                .category-summary p {
+                    margin: 0;
+                    font-size: 16px;
+                    font-weight: 500;
+                    position: relative;
+                    z-index: 2;
+                }
+
+                .category-summary strong {
+                    font-weight: 700;
+                    font-size: 20px;
+                    display: block;
+                    margin-bottom: 6px;
+                }
+                
+                /* Technical Summary styling */
+                #technical-summary {
+                    font-family: 'Inter', sans-serif;
+                    max-width: 900px;
+                    margin: 0 auto;
+                }
+                .technical-summary-content {
+                    background-color: white;
+                    padding: 25px;
+                    border-radius: 8px;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                    font-size: 15px;
+                    line-height: 1.5;
+                    margin: 20px 0;
+                    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                }
+
+                
+                .technical-summary-content::before {
+                    content: "📊";
+                    position: absolute;
+                    top: -12px;
+                    left: 20px;
+                    background: white;
+                    padding: 0 12px;
+                    font-size: 22px;
+                }
+
+                .technical-summary-content h3 {
+                    color: #2c3e50;
+                    font-size: 18px;
+                    font-weight: 600;
+                    margin-top: 20px;
+                    margin-bottom: 12px;
+                    border-bottom: 1px solid #eee;
+                    padding-bottom: 8px;
+                }
+
+                .technical-summary-content p {
+                    margin-bottom: 15px;
+                    color: #333;
+                }
+
+                .technical-summary-content ul {
+                    margin-top: 8px;
+                    margin-bottom: 15px;
+                    padding-left: 20px;
+                }
+
+                .technical-summary-content li {
+                    margin-bottom: 6px;
+                }
+
+                .technical-summary-content div[style*="background-color:#f5f5f5"] {
+                    margin-bottom: 15px;
+                }
+
+                .technical-summary-content code {
+                    background: #f8f9fa;
+                    padding: 2px 6px;
+                    border-radius: 4px;
+                    font-family: 'Consolas', monospace;
+                    font-size: 14px;
+                    color: #e83e8c;
+                }
+                
+                /* Questions mapping styling */
+                .questions-container {
+                    background: linear-gradient(to right, #f9f9f9, #f1f1f1);
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 25px 0;
+                    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+                }
+                .questions-title {
+                    font-size: 20px;
+                    color: #2c3e50;
+                    margin-bottom: 15px;
+                    border-bottom: 2px solid #3498db;
+                    padding-bottom: 8px;
+                }
+                .questions-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                    gap: 15px;
+                }
+                .question-item {
+                    background-color: white;
+                    border-radius: 8px;
+                    padding: 12px 15px;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+                    border-left: 3px solid #3498db;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+                .question-item:hover {
+                    transform: translateY(-3px);
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
+                .question-id {
+                    font-weight: bold;
+                    color: #3498db;
+                    margin-right: 8px;
+                    font-size: 15px;
+                }
+                .question-text {
+                    color: #444;
+                }
+                
+                @media print {
+                    body {
+                        background-color: white;
+                    }
+                    .image-analysis {
+                        break-inside: avoid;
+                        box-shadow: none;
+                        margin: 15px 0;
+                        border: 1px solid #eee;
+                    }
+                    .image-analysis:hover {
+                        transform: none;
+                        box-shadow: none;
+                    }
+                    .header {
+                        background: white;
+                        color: black;
+                        box-shadow: none;
+                        border-bottom: 2px solid #eee;
+                    }
+                    .tab {
+                        color: black;
+                        background: white !important;
+                    }
+                    .tab.active {
+                        border-bottom: 2px solid #3498db;
+                    }
+                    .tabcontent {
+                        display: block !important;
+                        border: none;
+                        page-break-before: always;
+                    }
+                    .questions-container {
+                        background: white;
+                        box-shadow: none;
+                        border: 1px solid #eee;
+                    }
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>Statistical Analysis Report for Food Frequency Questionnaire (FFQ)</h1>
+                <p>Generated by Data Analysis Team on April 08, 2025</p>
+            </div>
+            
+            <div class="report-meta">
+                <p><strong>Analysis Summary:</strong> Processed 52 statistical images with 52 successful analyses (100.0% success rate)</p>
+                <p><strong>Analysis Categories:</strong> Descriptive (28), Categorical-Categorical (6), Categorical-Continuous (12), Continuous-Continuous (6)</p>
+            </div>
+        
+            <div class="questions-container">
+                <div class="questions-title">Survey Questions Reference</div>
+                <div class="questions-grid">
+            
+                <div class="question-item">
+                    <span class="question-id">Q1:</span>
+                    <span class="question-text">How often do you consume 🍎 <strong>fruits</strong>?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q2:</span>
+                    <span class="question-text">How often do you eat 🥦 <strong>vegetables</strong>?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q3:</span>
+                    <span class="question-text">How often do you drink 🥤 <strong>sugary beverages</strong>?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q4:</span>
+                    <span class="question-text">How often do you eat 🍽️ three or more meals (breakfast, lunch, dinner) per day?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q5:</span>
+                    <span class="question-text">How often do you eat 🍔 <strong>fast food</strong> or takeout?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q6:</span>
+                    <span class="question-text">How often do you consume 🌾 <strong>whole grains</strong>? (eg. whole-wheat flour, oatmeal, and brown rice)</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q7:</span>
+                    <span class="question-text">How often do you eat 🍗 <strong>deep-fried</strong> food?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q8:</span>
+                    <span class="question-text">Do you consume 🍷 <strong>alcohol</strong>? If so, how frequently?</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q9:</span>
+                    <span class="question-text">How often do you consume 🧀 <strong>dairy products</strong>? (e.g., yogurt, cheese, milk, butter)</span>
+                </div>
+                
+                <div class="question-item">
+                    <span class="question-id">Q10:</span>
+                    <span class="question-text">Do you take 💊 <strong>nutritional supplements</strong>? If so, how frequently?</span>
+                </div>
+                
+                </div>
+            </div>
+            
+            <!-- Tab navigation -->
+            <div class="tabs">
+        <button class="tab active" onclick="openTab(event, 'technical-summary')">Technical Summary</button>
+<button class="tab" onclick="openTab(event, 'descriptive')">Descriptive (28)</button>
+<button class="tab" onclick="openTab(event, 'categorical-categorical')">Categorical-Categorical (6)</button>
+<button class="tab" onclick="openTab(event, 'categorical-continuous')">Categorical-Continuous (12)</button>
+<button class="tab" onclick="openTab(event, 'continuous-continuous')">Continuous-Continuous (6)</button>
+
+            </div>
+        
+            <div id="technical-summary" class="tabcontent" style="display: block;">
+                <div class="category-summary">
+                    <p><strong>Technical Summary</strong>Detailed technical information about the analysis</p>
+                </div>
+                <div class="technical-summary-content">
+                    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Summary</title>
+</head>
+<body>
+    <div style="background-color:#f5f5f5; padding:12px; border-radius:5px; margin-bottom:15px;">
+        <h3>STRONG FINDINGS (Significant + Passed Quality Filters)</h3>
+    </div>
+    <h3>1. Strong Relationships between Categorical Variables:</h3>
+    <ul>
+        <li>DOF filter (>= 9.0)</li>
+        <li>Cramér's V filter (>= 0.1)</li>
+        <li>Power filter (>= 0.8)</li>
+        <li>* Employment Status and City (Chi-square, p=0.0000)</li>
+        <li>* Living Situation and City (Chi-square, p=0.0006)</li>
+    </ul>
+
+    <h3>2a. Significant Relationships between Categorical and Continuous Variables (Parametric):</h3>
+    <ul>
+        <li>Power filter (>= 0.5)</li>
+        <li>Effect Size Cohen's d (>= 0.3)</li>
+        <li>Effect Size ε² (>= 0.03)</li>
+        <li>Effect Size Partial η² (>= 0.03)</li>
+        <li>Effect Size CLES (diff >= 0.1)</li>
+        <li>* Gender affects Q10 (Mann-Whitney U, p=0.0169)</li>
+        <li>* Living Situation affects Q4 (Kruskal-Wallis, p=0.0295)</li>
+        <li>* Living Situation affects Q10 (Kruskal-Wallis, p=0.0343)</li>
+        <li>* Physical Activity Level affects Q3 (Kruskal-Wallis, p=0.0140)</li>
+        <li>* City affects Q10 (Kruskal-Wallis, p=0.0353)</li>
+    </ul>
+
+    <h3>2b. Strong Relationships between Categorical and Continuous Variables (Non-parametric):</h3>
+    <ul>
+        <li>Power filter (>= 0.5)</li>
+        <li>Effect Size ε² (>= 0.02)</li>
+        <li>Effect Size CLES (diff >= 0.05)</li>
+        <li>* Gender affects Q10 (Mann-Whitney U, p=0.0169)</li>
+    </ul>
+
+    <h3>3a. Strong Parametric Correlations between Continuous Variables:</h3>
+    <ul>
+        <li>Correlation Strength filter (|r| >= 0.55)</li>
+        <li>Power filter (>= 0.6)</li>
+        <li>* Q1 and Q2 (r=0.6718, p=0.0000)</li>
+        <li>* Q5 and Q7 (r=0.6320, p=0.0000)</li>
+    </ul>
+
+    <h3>3b. Significant Non-parametric Correlations between Continuous Variables:</h3>
+    <ul>
+        <li>Correlation Strength filter (|r| >= 0.55)</li>
+        <li>Power filter (>= 0.6)</li>
+        <li>* Q1 and Q2 (rho=0.6813, p=0.0000)</li>
+        <li>* Q3 and Q5 (rho=0.5564, p=0.0000)</li>
+        <li>* Q5 and Q7 (rho=0.6413, p=0.0000)</li>
+    </ul>
+</body>
+</html>
+                </div>
+            </div>
+        
+                <div id="descriptive" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Descriptive (28)</strong>28 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: question_means.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/question_means.png" alt="question_means.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The highest average score is for Q9, 'How often do you consume dairy products?'</li>
+<li>Q4, 'How often do you eat three or more meals per day?' also scores high</li>
+<li>Q3, 'How often do you drink sugary beverages?' has the lowest average score</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 2: question_distributions.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/question_distributions.png" alt="question_distributions.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">histograms Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The consumption of fruits and vegetables shows a positive trend</li>
+<li>Responses on sugary beverages indicate a conscious effort to limit sugar intake</li>
+<li>High frequency of eating three or more meals per day is noted</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 3: individual_responses.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/individual_responses.png" alt="individual_responses.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Respondents with lower sugary beverage consumption tended to consume more fruits and vegetables</li>
+<li>Fast food consumption was inversely related to whole grain consumption</li>
+<li>Frequent alcohol consumers had lower scores for nutritional supplement use</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 4: activity_responses.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/activity_responses.png" alt="activity_responses.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Individuals with high activity levels consume sugary beverages the least</li>
+<li>Sedentary individuals are least likely to take nutritional supplements</li>
+<li>Dairy product consumption is high across all activity levels</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 5: living_activity.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/living_activity.png" alt="living_activity.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The highest frequency (12) occurs for those living alone with light activity and those living with family with moderate activity.</li>
+<li>The lowest frequency (0) is observed for those in shared housing with high activity and those living with a partner with sedentary activity.</li>
+<li>Individuals living alone tend to have higher activity levels compared to those in shared housing.</li>
+<li>Moderate activity is most common among those living with family.</li>
+<li>Sedentary lifestyle is least common among those living with a partner.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 6: city_responses.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/city_responses.png" alt="city_responses.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Delft and Utrecht show strong inclination towards consuming vegetables</li>
+<li>Delft and Utrecht report lowest scores for sugary beverages</li>
+<li>None exhibits a unique pattern with high score for consuming dairy products</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 7: top_cities.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/top_cities.png" alt="top_cities.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Bar Chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Athens has the highest number of respondents, with 44 individuals.</li>
+<li>Krakow follows with 12 respondents.</li>
+<li>Delft and Utrecht each have 2 respondents.</li>
+<li>There is 1 respondent from a category labeled 'none.'</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 8: zero_responses.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/zero_responses.png" alt="zero_responses.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Many people don't take vitamins or supplements at all. This could mean they either don't think they need them or aren't aware of their benefits.</li>
+<li>Quite a few people are choosing not to drink sugary drinks like soda. This might mean they're trying to be healthier by avoiding too much sugar.</li>
+<li>Some people are staying away from fried foods. They might be doing this because they know it's not the healthiest option.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 9: gender_analysis.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/gender_analysis.png" alt="gender_analysis.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Similar frequencies in consuming fruits and sugary beverages between genders</li>
+<li>Significant gender disparity in the consumption of nutritional supplements</li>
+<li>Females consume dairy products more frequently than males</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 10: employment_status.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/employment_status.png" alt="employment_status.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Pie chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>A significant majority of respondents are employed full-time.</li>
+<li>Students make up a smaller portion, followed by part-time workers and unemployed individuals.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 11: activity_comparison.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/activity_comparison.png" alt="activity_comparison.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Individuals with high activity levels score higher in consuming fruits and whole grains</li>
+<li>Consumption of sugary beverages is lower among active individuals</li>
+<li>Sedentary individuals exhibit higher scores in consuming dairy products</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 12: employment_responses.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/employment_responses.png" alt="employment_responses.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Students prioritize vegetable consumption</li>
+<li>Part-time employees have regular meal patterns</li>
+<li>Part-time employees prefer healthier drink options</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 13: education_analysis.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/education_analysis.png" alt="education_analysis.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Higher educational attainment is associated with healthier eating habits</li>
+<li>PhD holders consume fruits more frequently than those with a Master's degree</li>
+<li>PhD holders eat three or more meals a day more regularly</li>
+<li>PhD holders consume deep-fried food less often</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 14: key_findings_summary.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/key_findings_summary.png" alt="key_findings_summary.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Dairy products are frequently consumed by participants</li>
+<li>Reduced consumption of sugary beverages due to health awareness</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 15: completion_time.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/completion_time.png" alt="completion_time.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">histogram Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Central Tendency: The mean completion time is 2.42 minutes, slightly higher than the median of 2.18 minutes.</li>
+<li>Distribution Shape: The histogram shows a peak around the 2-minute mark, indicating that most respondents completed the survey in this time frame.</li>
+<li>Spread and Outliers: The presence of completion times extending up to 7 minutes indicates variability and potential outliers.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 16: question_boxplots.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/question_boxplots.png" alt="question_boxplots.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">box plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Participants consume fruits and vegetables regularly</li>
+<li>Reduced sugary beverage intake</li>
+<li>Moderate alcohol consumption</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 17: age_distribution.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/age_distribution.png" alt="age_distribution.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Bar Chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The age group 25-34 has the highest number of respondents at 59.</li>
+<li>The age group 18-24 has 10 respondents.</li>
+<li>The age group 35-44 has 6 respondents.</li>
+<li>The age group 45-54 has 2 respondents.</li>
+<li>There is a significant concentration of respondents in the 25-34 age group, suggesting this age group is the most engaged or targeted in the survey.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 18: correlation_network.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/correlation_network.png" alt="correlation_network.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">correlation network diagram Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>There is a strong positive correlation between the consumption of whole grains and the frequency of eating fast food or takeout.</li>
+<li>A notable negative correlation exists between the consumption of sugary beverages and the frequency of eating vegetables.</li>
+<li>There is a significant negative correlation between alcohol consumption and the intake of dairy products.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 19: gender_radar.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/gender_radar.png" alt="gender_radar.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">radar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>females have healthier dietary habits compared to males</li>
+<li>females show higher consumption of fruits, vegetables, and whole grains</li>
+<li>males show higher consumption of sugary beverages</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 20: age_response_heatmap.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/age_response_heatmap.png" alt="age_response_heatmap.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Older adults (45-54) have the highest average response for regular meal consumption</li>
+<li>Middle-aged adults (35-44) show the lowest interest in sugary beverages</li>
+<li>Individuals aged 35-44 have the highest frequency of alcohol consumption</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 21: question_correlations.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/question_correlations.png" alt="question_correlations.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">correlation matrix Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The consumption of fruits and vegetables shows a strong positive correlation (r=0.67).</li>
+<li>The relationship between fast food consumption and deep-fried food intake is notably strong (r=0.63).</li>
+<li>Sugary beverage consumption and whole grain intake are negatively correlated (r=-0.36).</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 22: age_gender_distribution.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/age_gender_distribution.png" alt="age_gender_distribution.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Dominance of the 25-34 Age Group</li>
+<li>Gender Distribution</li>
+<li>Smaller Representation in Other Age Groups</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 23: response_violins.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/response_violins.png" alt="response_violins.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">violin plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Many individuals consume fruits and vegetables frequently</li>
+<li>Sugary beverages and fast food are consumed less frequently</li>
+<li>There is a growing trend towards whole grains and nutritional supplements</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 24: gender_comparison.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/gender_comparison.png" alt="gender_comparison.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Both males and females scored highest on Q9, indicating a preference for dairy products</li>
+<li>Low scores for Q3 suggest a tendency to avoid sugary beverages</li>
+<li>Higher average score for Q4, especially among males, indicates regular meal consumption</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 25: education_distribution.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/education_distribution.png" alt="education_distribution.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The majority of respondents have a Master's degree, indicating a higher level of educational attainment among the group.</li>
+<li>Bachelor's degree holders form the second-largest group.</li>
+<li>High School and PhD holders are equally represented, but in much smaller numbers compared to the other categories.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 26: city_distribution.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/city_distribution.png" alt="city_distribution.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Athens has the highest number of responses, with over 40.</li>
+<li>Krakow follows with a significantly lower count, around 10 responses.</li>
+<li>Other cities have minimal responses, mostly below 5.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 27: response_frequency.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/response_frequency.png" alt="response_frequency.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Consuming vegetables (Q2) shows a high frequency at level 5, indicating a strong inclination towards a balanced diet.</li>
+<li>Sugary beverages (Q3) have a notably low frequency at the highest response level, suggesting a positive trend towards reducing sugar intake.</li>
+<li>Many individuals frequently consume three or more meals per day (Q4), supporting metabolic health and energy levels.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 28: education_response.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./descriptive/education_response.png" alt="education_response.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">bar chart Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Higher education levels correlated with more frequent fruit consumption</li>
+<li>PhD holders reported significantly higher meal frequency</li>
+<li>Master's degree holders showed a greater tendency to use nutritional supplements</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="categorical-categorical" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Categorical-Categorical (6)</strong>6 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: Employment Status_City_observed_expected.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-categorical/Employment Status_City_observed_expected.png" alt="Employment Status_City_observed_expected.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Heatmaps Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Full-Time Employment: Athens shows a strong presence of full-time employment, exceeding expected counts.</li>
+<li>Student Population: Krakow has a higher student count than expected, suggesting a significant student demographic.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 2: Employment Status_City_heatmap.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-categorical/Employment Status_City_heatmap.png" alt="Employment Status_City_heatmap.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Full-time employment is highest in Athens.</li>
+<li>Student status is notably high in Cracow.</li>
+<li>Unemployment is most significant in Ostrava.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 3: Employment Status_City_contingency.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-categorical/Employment Status_City_contingency.png" alt="Employment Status_City_contingency.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Athens shows a strong presence of full-time employment compared to other cities.</li>
+<li>Student status is relatively low across most cities, with a slight concentration in Cracow.</li>
+<li>Part-time and unemployed statuses are minimal across all cities.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 4: Living Situation_City_observed_expected.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-categorical/Living Situation_City_observed_expected.png" alt="Living Situation_City_observed_expected.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmaps Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Observed vs. Expected Counts</li>
+<li>Living Alone: Athens has a notably high observed count of people living alone compared to other cities.</li>
+<li>With Family: A significant number of people in Athens also live with family, exceeding expected counts.</li>
+<li>With Partner: Krakow shows a higher observed count of people living with partners than expected.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 5: Living Situation_City_contingency.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-categorical/Living Situation_City_contingency.png" alt="Living Situation_City_contingency.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The highest frequency of individuals living alone is observed in Athens (17 people) and Krakow (5 people).</li>
+<li>A significant number of people live with family in Athens (19 people).</li>
+<li>Krakow shows a notable number of individuals living with a partner (6 people).</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 6: Living Situation_City_heatmap.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-categorical/Living Situation_City_heatmap.png" alt="Living Situation_City_heatmap.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Heatmap Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>There is a noticeable variation in living situations across different cities.</li>
+<li>Some cities have a dominant living situation, such as Athens for living alone and Krakow for living with a partner.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="categorical-continuous" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Categorical-Continuous (12)</strong>12 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: Gender_Q10_boxplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Gender_Q10_boxplot.png" alt="Gender_Q10_boxplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">box plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Males consume nutritional supplements more frequently than females</li>
+<li>Males show a greater overall tendency to incorporate supplements into their diets</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 2: Living Situation_Q4_boxplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Living Situation_Q4_boxplot.png" alt="Living Situation_Q4_boxplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">box plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Individuals living alone have a lower median frequency of eating three or more meals per day compared to other living situations</li>
+<li>Living with family shows a higher median frequency of eating three or more meals per day</li>
+<li>Statistical significance of differences in meal frequency based on living situation</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 3: Gender_Q10_violin.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Gender_Q10_violin.png" alt="Gender_Q10_violin.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Violin plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The distribution of Q10 (nutritional supplements) varies between genders.</li>
+<li>Females show a wider spread in supplement intake frequency compared to males.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 4: Living Situation_Q4_violin.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Living Situation_Q4_violin.png" alt="Living Situation_Q4_violin.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">violin plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Living situations significantly influence meal frequency</li>
+<li>Those living alone exhibit a wide range of meal frequencies</li>
+<li>Individuals living with family or a partner tend to have more consistent meal frequencies</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 5: Living Situation_Q10_violin.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Living Situation_Q10_violin.png" alt="Living Situation_Q10_violin.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">violin plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The Kruskal-Wallis test yields a p-value of 0.0343, indicating statistically significant differences in supplement intake across living situations.</li>
+<li>The violin plot shows distinct patterns in supplement intake based on living situation.</li>
+<li>Living with family or a partner may encourage more regular supplement intake compared to living alone or in shared housing.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 6: Living Situation_Q10_boxplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Living Situation_Q10_boxplot.png" alt="Living Situation_Q10_boxplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Box Plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Individuals in shared housing tend to take nutritional supplements more frequently compared to other living situations.</li>
+<li>Those living alone have the lowest median frequency of supplement intake.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 7: Physical Activity Level_Q3_violin.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Physical Activity Level_Q3_violin.png" alt="Physical Activity Level_Q3_violin.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">violin plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Statistically significant difference in sugary beverage consumption across different activity levels</li>
+<li>Individuals with higher physical activity levels consume sugary beverages less frequently</li>
+<li>Sedentary individuals show wider distribution of sugary beverage consumption</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 8: Physical Activity Level_Q3_boxplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Physical Activity Level_Q3_boxplot.png" alt="Physical Activity Level_Q3_boxplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">Distribution of Q3 by Physical Activity Level Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Sugary Beverage Consumption and Activity Level: Individuals with a sedentary lifestyle tend to consume sugary beverages more frequently than those who engage in any level of physical activity. The median consumption for sedentary individuals is notably higher, suggesting a potential link between inactivity and higher sugary beverage intake.</li>
+<li>Impact of High Physical Activity: Those in the high activity group show the lowest median consumption of sugary beverages. This suggests that higher physical activity levels might be associated with healthier dietary choices, possibly due to increased health awareness.</li>
+<li>Statistical Significance: The p-value of 0.0140 from the Kruskal-Wallis test confirms that the differences in sugary beverage consumption across the activity levels are statistically significant. This means the observed patterns are unlikely due to random chance.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 9: City_Q10_boxplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/City_Q10_boxplot.png" alt="City_Q10_boxplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">box plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Statistical Significance Across Cities: The Kruskal-Wallis test shows a p-value of 0.0353, suggesting significant differences in how often people take nutritional supplements in different cities. This means that the likelihood of taking supplements varies depending on the city, indicating cultural or regional differences in health practices.</li>
+<li>Variation in Supplement Consumption: Cities like Utrecht and Limassol show a wider range of responses, indicating diverse habits regarding supplement intake. In contrast, cities like Ostrava and Ioannina show less variation, suggesting more uniform behavior in these locations.</li>
+<li>Median Consumption Levels: The median values differ across cities, with some cities showing higher median frequencies of supplement intake. For example, Limassol has a higher median compared to Athens, indicating that people in Limassol might be more inclined to take supplements regularly.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 10: City_Q10_violin.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/City_Q10_violin.png" alt="City_Q10_violin.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">violin plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The distribution of responses for taking nutritional supplements varies significantly across different cities.</li>
+<li>Athens and Limassol show a wider range of responses, suggesting more variability in supplement consumption.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 11: Gender_Q10_nonparametric_boxplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Gender_Q10_nonparametric_boxplot.png" alt="Gender_Q10_nonparametric_boxplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">box plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Males report a higher frequency of taking nutritional supplements compared to females</li>
+<li>Statistically significant difference with a p-value of 0.0169</li>
+<li>Men are more likely to take vitamins or supplements more often than women</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 12: Gender_Q10_nonparametric_violin.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./categorical-continuous/Gender_Q10_nonparametric_violin.png" alt="Gender_Q10_nonparametric_violin.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">violin plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Significant Gender Difference: The Mann-Whitney U test reveals a significant difference in supplement intake frequency between genders (p=0.0169). This suggests that gender plays a role in the frequency of nutritional supplement consumption.</li>
+<li>Wider Distribution for Females: The violin plot for females is broader, indicating a greater range of responses. This suggests that females have more varied habits regarding supplement intake.</li>
+<li>Central Tendency: Both genders show a central tendency around similar values, but the spread is more pronounced in females.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+                <div id="continuous-continuous" class="tabcontent" style="display: none;">
+                    <div class="category-summary">
+                        <p><strong>Continuous-Continuous (6)</strong>6 analyses ✅</p>
+                    </div>
+                
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 1: Q1_Q2_scatter.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./continuous-continuous/Q1_Q2_scatter.png" alt="Q1_Q2_scatter.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">scatter plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>People who frequently eat fruits are likely to consume vegetables regularly.</li>
+<li>As fruit consumption increases, vegetable intake tends to rise as well.</li>
+<li>Making small changes in one area of your diet can lead to healthier choices overall.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 2: Q1_Q2_jointplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./continuous-continuous/Q1_Q2_jointplot.png" alt="Q1_Q2_jointplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">scatter plot with histograms Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Strong positive correlation between fruit and vegetable consumption</li>
+<li>Individuals who eat fruits frequently are likely to consume vegetables regularly</li>
+<li>Promotes healthier eating habits and balanced diets</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 3: Q3_Q5_jointplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./continuous-continuous/Q3_Q5_jointplot.png" alt="Q3_Q5_jointplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">scatter plot with marginal histograms Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Positive Correlation: The plot reveals a positive correlation between the frequency of drinking sugary beverages and eating fast food, with a Spearman correlation coefficient of 0.56.</li>
+<li>Statistical Significance: The correlation is statistically significant with a sample size of 77.</li>
+<li>Behavioral Insight: The trend suggests a lifestyle pattern where individuals who opt for sugary beverages might also prefer the convenience and taste of fast food.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 4: Q5_Q7_scatter.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./continuous-continuous/Q5_Q7_scatter.png" alt="Q5_Q7_scatter.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">scatter plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>A significant positive correlation exists between the frequency of consuming fast food or takeout and the frequency of eating deep-fried food.</li>
+<li>The Spearman coefficient of 0.64 indicates a strong relationship.</li>
+<li>The p-value of 0.0000 signifies statistical significance.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 5: Q3_Q5_scatter.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./continuous-continuous/Q3_Q5_scatter.png" alt="Q3_Q5_scatter.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">scatter plot Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>The plot shows a positive correlation between Q3 and Q5, with a Spearman correlation coefficient of 0.56.</li>
+<li>The p-value is 0.0000, indicating that the correlation is statistically significant.</li>
+<li>The analysis is based on a sample size of 77 (n=77).</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                    <div class="image-analysis">
+                        <div class="image-title">
+                            Image 6: Q5_Q7_jointplot.png
+                            <span class="confidence high-confidence">90.0% Confidence</span>
+                        </div>
+                        <div class="analysis-content">
+                            <div class="image-display">
+                                <img src="./continuous-continuous/Q5_Q7_jointplot.png" alt="Q5_Q7_jointplot.png" class="analysis-image" onclick="toggleImageSize(this)">
+                                <div class="image-controls">
+                                    <button onclick="toggleImageSize(this.parentElement.previousElementSibling)" class="image-resize-btn">Resize</button>
+                                </div>
+                            </div>
+                            <div class="visualization-type">scatter plot with histograms Visualization</div>
+                            
+                            <div class="key-findings">
+                                <h4>Key Findings:</h4>
+                                <ul>
+                    <li>Positive Correlation: The Spearman correlation coefficient is 0.64, indicating a strong positive correlation between Q5 and Q7. This means that as the frequency of consuming fast food increases, the frequency of eating deep-fried food also tends to increase. The p-value is 0.0000, which is highly significant, suggesting this relationship is not due to random chance.</li>
+<li>Data Distribution: The histograms show the distribution of responses for both questions. Most participants reported low to moderate frequencies for both consuming fast food and eating deep-fried food, with fewer participants reporting high frequencies.</li>
+<li>Sample Size: The analysis is based on 77 observations, providing a robust sample size for detecting significant relationships.</li>
+
+                                </ul>
+                            </div>
+                    
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            <div class="footer">
+                <p>This report was automatically generated on April 08, 2025. The analysis was performed using advanced computer vision and natural language processing techniques.</p>
+                <p>&copy; 2025 Data Analysis Team. All rights reserved.</p>
+            </div>
+            <script>
+                function openTab(evt, categoryId) {
+                    var i, tabcontent, tablinks;
+                    tabcontent = document.getElementsByClassName("tabcontent");
+                    for (i = 0; i < tabcontent.length; i++) {
+                        tabcontent[i].style.display = "none";
+                    }
+                    tablinks = document.getElementsByClassName("tab");
+                    for (i = 0; i < tablinks.length; i++) {
+                        tablinks[i].className = tablinks[i].className.replace(" active", "");
+                    }
+                    document.getElementById(categoryId).style.display = "block";
+                    evt.currentTarget.className += " active";
+                }
+                
+                function toggleImageSize(img) {
+                    img.classList.toggle('expanded');
+                }
+                
+                // Ensure the first tab is active by default
+                document.addEventListener('DOMContentLoaded', function() {
+                    // Get the first tab and click it
+                    var firstTab = document.querySelector('.tab');
+                    if (firstTab) {
+                        firstTab.click();
+                    }
+                });
+            </script>
+        </body>
+        </html>
+        

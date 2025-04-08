@@ -48,6 +48,9 @@ from googleapiclient.discovery      import build
 ## Google Email API
 from email.message                  import EmailMessage
 from email.mime.text                import MIMEText
+from email.mime.multipart           import MIMEMultipart
+from email.mime.base                import MIMEBase
+from email import encoders
 ## Google Drive API
 from googleapiclient.http           import MediaFileUpload
 
@@ -877,6 +880,57 @@ class GoogleEmailAPI(GoogleAPI):
             self.mk1.logging.logger.error(f"(GoogleEmailAPI.get_email) Failed to load email template: {e}")
             return ""
 
+    def send_email(self,
+                recipient: str,
+                cc: Optional[str] = None,
+                subject: str = "",
+                body_text: str = "",
+                attachment_path: Optional[str] = None,
+                attachment_type: Optional[str] = None) -> None:
+        """
+        Sends an email using the Gmail API.
+
+        Args:
+            recipient (str): Email recipient.
+            cc (Optional[str]): CC recipient(s), comma-separated.
+            subject (str): Email subject.
+            body_text (str): Plain text body.
+            attachment_path (Optional[str]): Path to the file to attach.
+            attachment_type (Optional[str]): MIME type of the attachment.
+        """
+        try:
+            message = MIMEMultipart()
+            message['to'] = recipient
+            message['subject'] = subject
+            if cc:
+                message['cc'] = cc
+
+            message.attach(MIMEText(body_text, 'plain'))
+
+            if attachment_path and attachment_type:
+                with open(attachment_path, 'rb') as f:
+                    attachment = MIMEBase(*attachment_type.split('/'))
+                    attachment.set_payload(f.read())
+                    encoders.encode_base64(attachment)
+                    attachment.add_header('Content-Disposition', f'attachment; filename="{os.path.basename(attachment_path)}"')
+                    message.attach(attachment)
+
+            raw_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+
+            send_response = self.service.users().messages().send(
+                userId='me',
+                body={'raw': raw_message}
+            ).execute()
+
+            self.mk1.logging.logger.info(f"(GoogleEmailAPI.send_email) Email sent successfully to {recipient}")
+            print(f"(GoogleEmailAPI.send_email) Email sent successfully to {recipient}")
+
+
+        except Exception as e:
+            print(e)
+            self.mk1.logging.logger.error(f"(GoogleEmailAPI.send_email) Failed to send email: {e}")
+
+
     def populate_body_message(self, replace_dict: Dict[str, str]) -> str:
         """Populating `body_html`"""
         body_html = self.get_email().replace("{{css}}", self.get_css())
@@ -889,34 +943,7 @@ class GoogleEmailAPI(GoogleAPI):
             self.mk1.logging.logger.error(f"(GoogleEmailAPI.populate_body_message) Message creation failed: {e}")
             raise
 
-    def build_message(self, email_from: str, email_to: str, email_subject: str) -> Dict[str, str]:
-        """Builds and encodes the email message"""
-        body_html = self.populate_body_message({})
-        try:
-            msg = MIMEText(body_html, "html")
-            msg["subject"] = email_subject
-            msg["from"] = email_from
-            msg["to"] = email_to
-            encoded_msg = base64.urlsafe_b64encode(msg.as_bytes()).decode()
-            self.mk1.logging.logger.info("(GoogleEmailAPI.build_message) Message built successfully")
-            return {'raw': encoded_msg}
-        except Exception as e:
-            self.mk1.logging.logger.error(f"(GoogleEmailAPI.build_message) Message creation failed: {e}")
-            raise
 
-    def send_message(self, email_from: str, email_to: str, email_subject: str) -> Optional[Dict]:
-        """Sends an email message"""
-        try:
-            msg = self.build_message(email_from, email_to, email_subject)
-            send = self.service.users().messages().send(
-                userId='me',  # Adjust as needed for different userId
-                body=msg
-            ).execute()
-            self.mk1.logging.logger.info("(GoogleEmailAPI.send_message) Message sent successfully")
-            return send
-        except Exception as e:
-            self.mk1.logging.logger.error(f"(GoogleEmailAPI.send_message) Message sending failed: {e}")
-            raise
 
     def get_emails_from_past_days(self, user_id: str, num_hours: int) -> List[Dict]:
         """Fetches emails from the past `num_hours`"""
@@ -1152,8 +1179,6 @@ class GoogleDocsAPI(GoogleAPI):
         except Exception as e:
             self.mk1.logging.logger.error(f"(GoogleDocsAPI.get_document) Failed to retrieve document `{document_id}`: {e}")
             return {}
-
-
 
 
 

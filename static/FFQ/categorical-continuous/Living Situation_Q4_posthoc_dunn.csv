@@ -1,7 +1,7 @@
 Contrast,A,B,Paired,Parametric,U-val,alternative,p-unc,p-corr,p-adjust,hedges
-Living Situation,Alone,Shared housing,False,False,81.5,two-sided,0.2928941228348496,1.0,bonf,-0.4611152216040615
-Living Situation,Alone,With family,False,False,176.0,two-sided,0.003109616013196393,0.01865769607917836,bonf,-0.9890164952681867
-Living Situation,Alone,With partner,False,False,181.5,two-sided,0.2349343709922984,1.0,bonf,-0.3839174117884128
+Living Situation,Alone,Shared housing,False,False,82.0,two-sided,0.3014838584348607,1.0,bonf,-0.4472445172082179
+Living Situation,Alone,With family,False,False,176.0,two-sided,0.003098211990018877,0.018589271940113263,bonf,-0.980868210815715
+Living Situation,Alone,With partner,False,False,208.0,two-sided,0.40755294620292715,1.0,bonf,-0.26361086498663894
 Living Situation,Shared housing,With family,False,False,66.5,two-sided,0.15972022665874286,0.9583213599524572,bonf,-0.6517841434448594
-Living Situation,Shared housing,With partner,False,False,67.0,two-sided,0.9755323799929435,1.0,bonf,0.07717169654498715
-Living Situation,With family,With partner,False,False,252.5,two-sided,0.1589503769841234,0.9537022619047404,bonf,0.6067313100612142
+Living Situation,Shared housing,With partner,False,False,75.0,two-sided,0.8843542137159673,1.0,bonf,0.1750476707371466
+Living Situation,With family,With partner,False,False,276.5,two-sided,0.09334862283096669,0.5600917369858002,bonf,0.7010470531779024

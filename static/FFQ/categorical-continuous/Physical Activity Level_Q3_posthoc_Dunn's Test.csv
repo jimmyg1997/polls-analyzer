@@ -1,7 +1,7 @@
 Contrast,A,B,Paired,Parametric,U-val,alternative,p-unc,p-corr,p-adjust,hedges
-Physical Activity Level,High activity,Light activity,False,False,127.0,two-sided,0.01902802961557489,0.11416817769344935,bonf,-0.6555261904474435
-Physical Activity Level,High activity,Moderate activity,False,False,233.5,two-sided,0.5280207747695866,1.0,bonf,-0.1517783051199276
-Physical Activity Level,High activity,Sedentary,False,False,17.5,two-sided,0.03489791835797385,0.20938751014784313,bonf,-1.265214695544855
-Physical Activity Level,Light activity,Moderate activity,False,False,459.5,two-sided,0.0367293457355448,0.2203760744132688,bonf,0.4990163676992782
-Physical Activity Level,Light activity,Sedentary,False,False,39.0,two-sided,0.21696104039647734,1.0,bonf,-0.7941219659552594
-Physical Activity Level,Moderate activity,Sedentary,False,False,32.0,two-sided,0.03807120755024184,0.22842724530145103,bonf,-1.19773629318618
+Physical Activity Level,High activity,Light activity,False,False,132.0,two-sided,0.0227062569135093,0.1362375414810558,bonf,-0.6155900882506593
+Physical Activity Level,High activity,Moderate activity,False,False,248.5,two-sided,0.5496068675195569,1.0,bonf,-0.15351263854487754
+Physical Activity Level,High activity,Sedentary,False,False,21.5,two-sided,0.019671463473130823,0.11802878083878493,bonf,-1.2394847277500154
+Physical Activity Level,Light activity,Moderate activity,False,False,433.5,two-sided,0.05292675665900503,0.31756053995403016,bonf,0.4490890330127679
+Physical Activity Level,Light activity,Sedentary,False,False,44.5,two-sided,0.1761822362195199,1.0,bonf,-0.7725846122592782
+Physical Activity Level,Moderate activity,Sedentary,False,False,38.0,two-sided,0.024365308312216005,0.14619184987329603,bonf,-1.128044674967934

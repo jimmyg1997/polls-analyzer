@@ -1,0 +1,11 @@
+Survey Analysis: Key Findings
+• Total Responses: 59
+• Gender Distribution: 25 Male (42.4%), 34 Female (57.6%)
+• Most Common City: athens (57.6% of respondents)
+• Average Completion Time: 2.49 minutes
+• Highest Scoring Question: Q9 (Average: 4.07)
+• Lowest Scoring Question: Q3 (Average: 1.32)
+• Most Common Age Group: 25-34
+• Most Common Education Level: Master's
+• Most Common Employment Status: Employed full-time
+• Most Common Physical Activity Level: Moderate activity

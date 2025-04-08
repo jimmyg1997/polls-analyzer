@@ -19315,3 +19315,680 @@
 2025-04-04 16:08:00 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_jointplot.png
 2025-04-04 16:08:02 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
 2025-04-04 16:08:02 - INFO - (OpenaiAPI.analyze_statistical_images) Successfully analyzed 4 out of 4 images
+2025-04-07 16:44:37 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 16:44:39 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 16:44:39 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 16:44:39 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 16:44:39 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 16:44:39 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 16:44:39 - INFO - (Controller.run) All services initilalized
+2025-04-07 16:44:55 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 16:44:57 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 16:44:57 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 16:44:57 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 16:44:57 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 16:44:57 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 16:44:57 - INFO - (Controller.run) All services initilalized
+2025-04-07 16:45:08 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 16:45:10 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 16:45:10 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 16:45:10 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 16:45:10 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 16:45:10 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 16:45:10 - INFO - (Controller.run) All services initilalized
+2025-04-07 16:51:15 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 16:51:17 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 16:51:17 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 16:51:17 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 16:51:17 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 16:51:17 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 16:51:17 - INFO - (Controller.run) All services initilalized
+2025-04-07 16:55:17 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 16:55:20 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 16:55:20 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 16:55:20 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 16:55:20 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 16:55:20 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 16:55:20 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:00:13 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:00:16 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:00:16 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:00:16 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:00:16 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:00:16 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:00:16 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:01:04 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:01:06 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:01:06 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:01:06 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:01:06 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:01:06 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:01:06 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:07:22 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:07:24 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:07:24 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:07:24 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:07:24 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:07:24 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:07:24 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:07:27 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:07:27 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:07:27 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:15:18 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:15:19 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:15:19 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:15:19 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:15:19 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:15:19 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:15:19 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:15:22 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:15:22 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:15:22 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:15:29 - ERROR - (GoogleEmailAPI.send_email) Failed to send email: name 'MIMEMultipart' is not defined
+2025-04-07 17:16:21 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:16:23 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:16:23 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:16:23 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:16:23 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:16:23 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:16:23 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:16:25 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:16:25 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:16:25 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:16:34 - ERROR - (GoogleEmailAPI.send_email) Failed to send email: name 'MIMEMultipart' is not defined
+2025-04-07 17:17:09 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:17:11 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:17:11 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:17:11 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:17:11 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:17:11 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:17:11 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:17:13 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:17:13 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:17:13 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:18:02 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-07 17:24:54 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:24:55 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:24:55 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:24:55 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:24:55 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:24:55 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:24:55 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:24:57 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:24:58 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:24:58 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:25:20 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-07 17:25:44 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:25:46 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:25:46 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:25:46 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:25:46 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:25:47 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:25:47 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:25:49 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:25:49 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:25:49 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:26:02 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-07 17:26:27 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:26:29 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:26:29 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:26:29 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:26:29 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:26:29 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:26:29 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:26:34 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:26:34 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:26:34 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:26:55 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-07 17:27:46 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:27:48 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:27:48 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:27:48 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:27:48 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:27:48 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:27:48 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:27:50 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:27:50 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:27:50 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:28:05 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-07 17:28:36 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:28:38 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:28:38 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:28:38 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:28:38 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:28:38 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:28:38 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:28:40 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:28:40 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:28:40 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:29:00 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-07 17:31:26 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-07 17:31:29 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-07 17:31:29 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-07 17:31:29 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-07 17:31:29 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-07 17:31:29 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-07 17:31:29 - INFO - (Controller.run) All services initilalized
+2025-04-07 17:31:32 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-07 17:31:32 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (760, 14)
+2025-04-07 17:31:32 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.760 rows 14 columns retrieved successfully
+2025-04-07 17:31:45 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 16:20:49 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:20:51 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:20:51 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:20:51 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:20:51 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:20:51 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:20:51 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:20:53 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 16:20:53 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 16:20:53 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 16:30:58 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:31:00 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:31:00 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:31:00 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:31:00 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:31:00 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:31:00 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:31:40 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:31:41 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:31:41 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:31:41 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:31:41 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:31:41 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:31:41 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:31:44 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 16:31:44 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 16:31:44 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 16:32:07 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:32:08 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:32:08 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:32:08 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:32:08 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:32:08 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:32:08 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:32:10 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 16:32:10 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 16:32:10 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 16:32:11 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 4 statistical images
+2025-04-08 16:32:25 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Living Situation_Q4_boxplot.png
+2025-04-08 16:32:26 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Employment Status_City_contingency.png
+2025-04-08 16:32:29 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
+2025-04-08 16:32:31 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_jointplot.png
+2025-04-08 16:32:31 - INFO - (OpenaiAPI.analyze_statistical_images) Successfully analyzed 4 out of 4 images
+2025-04-08 16:34:37 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:34:38 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:34:38 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:34:38 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:34:38 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:34:38 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:34:38 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:34:40 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 16:34:40 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 16:34:40 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 16:34:40 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 4 statistical images
+2025-04-08 16:34:53 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Living Situation_Q4_boxplot.png
+2025-04-08 16:34:54 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Employment Status_City_contingency.png
+2025-04-08 16:34:57 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_jointplot.png
+2025-04-08 16:35:03 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
+2025-04-08 16:35:03 - INFO - (OpenaiAPI.analyze_statistical_images) Successfully analyzed 4 out of 4 images
+2025-04-08 16:35:24 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 16:50:30 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:50:31 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:50:31 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:50:31 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:50:31 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:50:31 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:50:31 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:50:33 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 16:50:33 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 16:50:33 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 16:50:35 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 16:56:15 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:56:17 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:56:17 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:56:17 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:56:17 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:56:17 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:56:17 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:56:20 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 16:56:20 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 16:56:20 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 16:56:57 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 16:57:00 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 16:57:00 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 16:57:00 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 16:57:00 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 16:57:00 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 16:57:00 - INFO - (Controller.run) All services initilalized
+2025-04-08 16:57:02 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 16:57:02 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 16:57:02 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:00:11 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:00:13 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:00:13 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:00:13 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:00:13 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:00:13 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:00:13 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:00:15 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:00:15 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:00:15 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:00:16 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 4 statistical images
+2025-04-08 17:00:28 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_jointplot.png
+2025-04-08 17:00:30 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Living Situation_Q4_boxplot.png
+2025-04-08 17:00:35 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Employment Status_City_contingency.png
+2025-04-08 17:00:38 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
+2025-04-08 17:00:38 - INFO - (OpenaiAPI.analyze_statistical_images) Successfully analyzed 4 out of 4 images
+2025-04-08 17:00:59 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 17:03:42 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:03:45 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:03:45 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:03:45 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:03:45 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:03:45 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:03:45 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:03:47 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:03:47 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:03:47 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:03:50 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 17:04:37 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:04:39 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:04:39 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:04:39 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:04:39 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:04:39 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:04:39 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:04:41 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:04:41 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:04:41 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:05:35 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:05:37 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:05:37 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:05:37 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:05:37 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:05:37 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:05:37 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:05:39 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:05:39 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:05:39 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:05:41 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 17:06:30 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:06:32 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:06:32 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:06:32 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:06:32 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:06:32 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:06:32 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:06:34 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:06:34 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:06:34 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:06:34 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 2 statistical images
+2025-04-08 17:06:44 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_jointplot.png
+2025-04-08 17:07:00 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_scatter.png
+2025-04-08 17:07:00 - INFO - (OpenaiAPI.analyze_statistical_images) Successfully analyzed 2 out of 2 images
+2025-04-08 17:07:16 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 17:08:45 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:08:47 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:08:47 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:08:47 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:08:47 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:08:47 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:08:47 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:08:49 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:08:49 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:08:49 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:08:49 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 6 statistical images
+2025-04-08 17:09:42 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:09:44 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:09:44 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:09:44 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:09:44 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:09:44 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:09:44 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:09:46 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:09:46 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:09:46 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:13:06 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:13:08 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:13:08 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:13:08 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:13:08 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:13:08 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:13:08 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:13:11 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:13:11 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:13:11 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:14:07 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:14:08 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:14:08 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:14:08 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:14:08 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:14:08 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:14:08 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:14:11 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:14:11 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:14:11 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:14:11 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 5 statistical images
+2025-04-08 17:16:24 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:16:26 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:16:26 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:16:26 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:16:26 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:16:26 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:16:26 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:16:28 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:16:28 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:16:28 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:16:28 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 5 statistical images
+2025-04-08 17:18:15 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:18:17 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:18:17 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:18:17 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:18:17 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:18:17 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:18:17 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:18:20 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:18:20 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:18:20 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:18:20 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 53 statistical images
+2025-04-08 17:18:28 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/employment_status.png
+2025-04-08 17:18:32 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/employment_responses.png
+2025-04-08 17:18:33 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/living_activity.png
+2025-04-08 17:18:34 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/individual_responses.png
+2025-04-08 17:18:35 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/activity_comparison.png
+2025-04-08 17:18:36 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/gender_analysis.png
+2025-04-08 17:18:36 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/top_cities.png
+2025-04-08 17:18:36 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/city_responses.png
+2025-04-08 17:18:36 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/zero_responses.png
+2025-04-08 17:18:37 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
+2025-04-08 17:18:38 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/activity_responses.png
+2025-04-08 17:18:39 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_means.png
+2025-04-08 17:18:45 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/education_analysis.png
+2025-04-08 17:18:47 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/completion_time.png
+2025-04-08 17:18:48 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_distribution.png
+2025-04-08 17:18:48 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/key_findings_summary.png
+2025-04-08 17:18:48 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/correlation_network.png
+2025-04-08 17:18:49 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_boxplots.png
+2025-04-08 17:18:52 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_response_heatmap.png
+2025-04-08 17:18:54 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_gender_distribution.png
+2025-04-08 17:20:22 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:20:24 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:20:24 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:20:24 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:20:24 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:20:24 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:20:24 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:20:27 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:20:27 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:20:27 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:20:27 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 52 statistical images
+2025-04-08 17:20:39 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/gender_analysis.png
+2025-04-08 17:20:40 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/activity_responses.png
+2025-04-08 17:20:40 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/individual_responses.png
+2025-04-08 17:20:40 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/employment_responses.png
+2025-04-08 17:20:40 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/activity_comparison.png
+2025-04-08 17:20:40 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/employment_status.png
+2025-04-08 17:20:40 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/city_responses.png
+2025-04-08 17:20:40 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_means.png
+2025-04-08 17:20:41 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/zero_responses.png
+2025-04-08 17:20:41 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/top_cities.png
+2025-04-08 17:20:43 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
+2025-04-08 17:20:47 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/living_activity.png
+2025-04-08 17:20:51 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/education_analysis.png
+2025-04-08 17:20:51 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/key_findings_summary.png
+2025-04-08 17:20:51 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/correlation_network.png
+2025-04-08 17:20:53 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_gender_distribution.png
+2025-04-08 17:20:54 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/completion_time.png
+2025-04-08 17:20:55 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_distribution.png
+2025-04-08 17:20:55 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_boxplots.png
+2025-04-08 17:20:59 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_response_heatmap.png
+2025-04-08 17:21:03 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/gender_comparison.png
+2025-04-08 17:21:11 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Gender_Q10_boxplot.png
+2025-04-08 17:26:52 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:26:54 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:26:54 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:26:54 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:26:54 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:26:54 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:26:54 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:26:56 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:26:56 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:26:56 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:26:56 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 53 statistical images
+2025-04-08 17:27:21 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:27:22 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:27:22 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:27:22 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:27:22 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:27:22 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:27:22 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:27:24 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:27:24 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:27:24 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:27:25 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 53 statistical images
+2025-04-08 17:27:25 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/question_distributions.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:27 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/question_means.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:29 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/city_responses.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:32 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/.DS_Store: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:34 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/activity_responses.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:37 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/living_activity.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:39 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/individual_responses.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:41 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/zero_responses.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:44 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/top_cities.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:46 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/employment_status.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:49 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/gender_analysis.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:51 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/activity_comparison.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:53 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/employment_responses.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:56 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/education_analysis.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:27:58 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/key_findings_summary.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:01 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/completion_time.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:03 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/age_distribution.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:05 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/question_boxplots.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:08 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/correlation_network.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:10 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/age_response_heatmap.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:13 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/gender_radar.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:15 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/question_correlations.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:17 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/age_gender_distribution.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:20 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/response_violins.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:22 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/education_distribution.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:25 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/gender_comparison.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:27 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/city_distribution.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:29 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/response_frequency.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:32 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/education_response.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:34 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/categorical-categorical/Employment Status_City_observed_expected.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:37 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/categorical-categorical/Employment Status_City_heatmap.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:39 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/categorical-categorical/Employment Status_City_contingency.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:41 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/categorical-categorical/Living Situation_City_observed_expected.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:44 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/categorical-categorical/Living Situation_City_contingency.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:28:46 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/categorical-categorical/Living Situation_City_heatmap.png: 'OpenaiAPI' object has no attribute '_analyze_single_statistical_image'
+2025-04-08 17:30:21 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:30:23 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:30:23 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:30:23 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:30:23 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:30:23 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:30:23 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:30:25 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:30:25 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:30:25 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:30:25 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 53 statistical images
+2025-04-08 17:30:28 - WARNING - (OpenaiAPI._analyze_single_statistical_image_with_rate_limit) Rate limit error on image ./static/FFQ/descriptive/question_distributions.png, retry 1/5: Error code: 429 - {'error': {'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.', 'type': 'insufficient_quota', 'param': None, 'code': 'insufficient_quota'}}
+2025-04-08 17:33:02 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:33:04 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:33:04 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:33:04 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:33:04 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:33:04 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:33:04 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:33:06 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:33:06 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:33:06 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:33:06 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 53 statistical images
+2025-04-08 17:33:14 - ERROR - (OpenaiAPI.analyze_statistical_images) Error processing image ./static/FFQ/descriptive/.DS_Store: Error code: 400 - {'error': {'message': "You uploaded an unsupported image. Please make sure your image has of one the following formats: ['png', 'jpeg', 'gif', 'webp'].", 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_image_format'}}
+2025-04-08 17:33:18 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
+2025-04-08 17:34:28 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:34:30 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:34:30 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:34:30 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:34:30 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:34:31 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:34:31 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:34:33 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:34:33 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:34:33 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:34:33 - INFO - (OpenaiAPI.analyze_statistical_images) Analyzing 52 statistical images
+2025-04-08 17:34:48 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_means.png
+2025-04-08 17:34:49 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_distributions.png
+2025-04-08 17:34:51 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/individual_responses.png
+2025-04-08 17:34:51 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/activity_responses.png
+2025-04-08 17:35:01 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/living_activity.png
+2025-04-08 17:35:03 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/city_responses.png
+2025-04-08 17:35:10 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/top_cities.png
+2025-04-08 17:35:11 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/zero_responses.png
+2025-04-08 17:35:12 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/gender_analysis.png
+2025-04-08 17:35:13 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/employment_status.png
+2025-04-08 17:35:19 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/activity_comparison.png
+2025-04-08 17:35:23 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/employment_responses.png
+2025-04-08 17:35:26 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/education_analysis.png
+2025-04-08 17:35:28 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/key_findings_summary.png
+2025-04-08 17:35:32 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/completion_time.png
+2025-04-08 17:35:37 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_boxplots.png
+2025-04-08 17:35:38 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_distribution.png
+2025-04-08 17:35:42 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/correlation_network.png
+2025-04-08 17:35:43 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/gender_radar.png
+2025-04-08 17:35:45 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_response_heatmap.png
+2025-04-08 17:35:50 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/question_correlations.png
+2025-04-08 17:35:50 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/age_gender_distribution.png
+2025-04-08 17:35:56 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/response_violins.png
+2025-04-08 17:35:59 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/gender_comparison.png
+2025-04-08 17:35:59 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/education_distribution.png
+2025-04-08 17:36:02 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/city_distribution.png
+2025-04-08 17:36:11 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/response_frequency.png
+2025-04-08 17:36:14 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Employment Status_City_observed_expected.png
+2025-04-08 17:36:14 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/descriptive/education_response.png
+2025-04-08 17:36:16 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Employment Status_City_heatmap.png
+2025-04-08 17:36:19 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Employment Status_City_contingency.png
+2025-04-08 17:36:24 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Living Situation_City_observed_expected.png
+2025-04-08 17:36:25 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Living Situation_City_contingency.png
+2025-04-08 17:36:30 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Gender_Q10_boxplot.png
+2025-04-08 17:36:32 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-categorical/Living Situation_City_heatmap.png
+2025-04-08 17:36:37 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Living Situation_Q4_boxplot.png
+2025-04-08 17:36:39 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Gender_Q10_violin.png
+2025-04-08 17:36:41 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Living Situation_Q4_violin.png
+2025-04-08 17:36:42 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Living Situation_Q10_violin.png
+2025-04-08 17:36:50 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Living Situation_Q10_boxplot.png
+2025-04-08 17:36:51 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Physical Activity Level_Q3_violin.png
+2025-04-08 17:36:53 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Physical Activity Level_Q3_boxplot.png
+2025-04-08 17:36:56 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/City_Q10_boxplot.png
+2025-04-08 17:36:59 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/City_Q10_violin.png
+2025-04-08 17:37:01 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Gender_Q10_nonparametric_boxplot.png
+2025-04-08 17:37:03 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q1_Q2_scatter.png
+2025-04-08 17:37:05 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q1_Q2_jointplot.png
+2025-04-08 17:37:14 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/categorical-continuous/Gender_Q10_nonparametric_violin.png
+2025-04-08 17:37:16 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q3_Q5_jointplot.png
+2025-04-08 17:37:17 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_scatter.png
+2025-04-08 17:37:17 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q3_Q5_scatter.png
+2025-04-08 17:37:23 - INFO - (OpenaiAPI._analyze_single_statistical_image) Successfully analyzed image: ./static/FFQ/continuous-continuous/Q5_Q7_jointplot.png
+2025-04-08 17:37:23 - INFO - (OpenaiAPI.analyze_statistical_images) Successfully analyzed 52 out of 52 images
+2025-04-08 17:39:13 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:39:15 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:39:15 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:39:15 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:39:15 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:39:15 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:39:15 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:39:18 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:39:18 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:39:18 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:39:27 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 17:44:07 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:44:08 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:44:08 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:44:08 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:44:08 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:44:08 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:44:08 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:44:11 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:44:11 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:44:11 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:44:29 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:44:30 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:44:30 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:44:30 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:44:30 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:44:31 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:44:31 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:44:33 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:44:33 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:44:33 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:45:32 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:45:34 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:45:34 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:45:34 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:45:34 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:45:34 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:45:34 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:45:36 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:45:36 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:45:36 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:45:58 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:46:00 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:46:00 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:46:00 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:46:00 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:46:00 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:46:00 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:46:02 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:46:02 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:46:02 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:46:24 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-08 17:46:27 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-08 17:46:27 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-08 17:46:27 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-08 17:46:27 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-08 17:46:27 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-08 17:46:27 - INFO - (Controller.run) All services initilalized
+2025-04-08 17:46:29 - INFO - (GoogleSheetsAPI.result_to_df) Result converted to DataFrame successfully
+2025-04-08 17:46:29 - INFO - (GoogleSheetsAPI.get_df_from_tab) Data loaded. Shape = (770, 14)
+2025-04-08 17:46:29 - INFO - (DataHandler.get_number_of_google_sheets_tab) Tab exists.770 rows 14 columns retrieved successfully
+2025-04-08 17:46:38 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to eirinipapav@gmail.com
+2025-04-08 17:46:47 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to venicagelidou1972@gmail.com
+2025-04-08 17:46:53 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to leuteris5201@gmail.com
+2025-04-08 17:46:59 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to theklagatenine@gmail.com
+2025-04-08 17:47:04 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to lambrosthomas@gmail.com
+2025-04-08 17:47:10 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to vanigeorgiou2000@gmail.com
+2025-04-08 17:47:14 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to harisgoses@gmail.com
+2025-04-08 17:47:18 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to eleni1997pp@gmail.com
+2025-04-08 17:47:22 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to globalwarning98@gmail.com
+2025-04-08 17:47:26 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to dimitrispatsalis@hotmail.com
+2025-04-08 17:47:30 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to mariosmitsouras1@gmail.com
+2025-04-08 17:47:34 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to manos_7_93@hotmail.com
+2025-04-08 17:47:39 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to mariadormpari@gmail.com
+2025-04-08 17:47:43 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to dktrakakis@gmail.com
+2025-04-08 17:47:48 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to balkopoulos1@gmail.com
+2025-04-08 17:47:52 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to akmakrigiannis97@gmail.com
+2025-04-08 17:47:56 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to dgeorgiou3@gmail.com
+2025-04-08 17:48:00 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to fyntanis.st@gmail.com
+2025-04-08 17:48:04 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to dimitrisoiko1@gmail.con
+2025-04-08 17:48:09 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to aretikarageorgou@gmail.com 
+2025-04-08 17:48:13 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to lina.vasilou@gmail.com
+2025-04-08 17:48:19 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to antreasp07@gmail.com
+2025-04-08 17:48:24 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to kzographia@gmail.com
+2025-04-08 17:48:29 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to eirinimeg96@gmail.com
+2025-04-08 17:48:33 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to dhmhtrhs.kam@gmail.com
+2025-04-08 17:48:38 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to panal6977@gmail.com
+2025-04-08 17:48:43 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to kamkopczy@gmail.com
+2025-04-08 17:48:47 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to magiakrek1902@gmail.com
+2025-04-08 17:48:51 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to hrach.harutyunyan49@gmail.com
+2025-04-08 17:48:56 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to weradudzicz@gmail.com
+2025-04-08 17:49:00 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to dimfot97@gmail.com
+2025-04-08 17:49:04 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to kasseluris.apostolos@gmail.com
+2025-04-08 17:49:09 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to nuriyev_2001@mail.ru
+2025-04-08 17:49:13 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to stamatiskap@outlook.com
+2025-04-08 17:49:17 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to nikosmas23@gmail.com
+2025-04-08 17:49:21 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to kallivokad@protonmail.com
+2025-04-08 17:49:26 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to yianniskoutsodontis@gmail.com
+2025-04-08 17:49:30 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to antonarakoumaria@gmail.com
+2025-04-08 17:49:35 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to ps138@outlook.com
+2025-04-08 17:49:39 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to el.michapsychology@gmail.com
