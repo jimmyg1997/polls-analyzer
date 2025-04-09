@@ -114,8 +114,10 @@ class Controller():
     
 
 
-
-    def run_initialization(self, use_openai: bool = True):
+    def run_initialization(
+            self, 
+            use_openai: bool = True
+        ):
         # Initializing Modules
         self.google_api = GoogleAPI(
             mk1 = self.mk1
