@@ -82,7 +82,7 @@ class Controller():
             "--questionnaire_name",
             "-qn",
             type    = str,
-            default = "FFQ",
+            default = "PHQ-9",
             help    = "Options ~ {PHQ-9,GAD-7, ...}"
         )
 
