@@ -157,20 +157,21 @@ class Controller():
             data_loader = self.data_loader
         )
         
-        self.chi_square_analyzer     = ChiSquareAnalyzer()
-        self.fishers_exact_analyzer  = FishersExactAnalyzer()
-        self.anova_analyzer          = ANOVAAnalyzer()
-        self.descriptive_post_statistics_analyzer =  DescriptivePostStatisticsAnalyzer()
+        self.chi_square_analyzer = ChiSquareAnalyzer()
+        self.fishers_exact_analyzer = FishersExactAnalyzer()
+        self.anova_analyzer = ANOVAAnalyzer()
+        self.descriptive_post_statistics_analyzer = DescriptivePostStatisticsAnalyzer()
         self.statistical_tester = StatisticalTests(
             significance_threshold = self.args.significance_threshold
         )
 
-        self.report_handler = ReportHandler(
-            mk1              = self.mk1,
-            google_email_api = self.google_email_api,
-            openai_api       = self.openai_api
-        )
-    
+        if use_openai : 
+            self.report_handler = ReportHandler(
+                mk1              = self.mk1,
+                google_email_api = self.google_email_api,
+                openai_api       = self.openai_api
+            )
+        
 
     def _refresh_session(self):
         self.run_initialization()
