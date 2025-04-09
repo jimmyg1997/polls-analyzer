@@ -115,7 +115,7 @@ class Controller():
 
 
 
-    def run_initialization(self):
+    def run_initialization(self, use_openai: bool = True):
         # Initializing Modules
         self.google_api = GoogleAPI(
             mk1 = self.mk1
@@ -136,9 +136,11 @@ class Controller():
             mk1        = self.mk1,
             google_api = self.google_api
         )
-        self.openai_api = OpenaiAPI(
-             mk1 = self.mk1
-        )
+
+        if use_openai : 
+            self.openai_api = OpenaiAPI(
+                mk1 = self.mk1
+            )
         
         # Initializing Handlers
         self.data_loader = DataLoader(
@@ -196,8 +198,6 @@ class Controller():
 
         ## _______________ *** Configuration (attributes) *** _______________ #
         # Google Sheets
-        # sheets_reporter_id = st.secrets["google_sheets"]["reporter_id"]
-        # sheets_reporter_tab_survey_results = st.secrets["google_sheets"]["reporter_tab_survey_results"]
         sheets_reporter_id = self.mk1.config.get("google_sheets","reporter_id")
         sheets_reporter_tab_survey_results = self.mk1.config.get("google_sheets","reporter_tab_survey_results")
 
@@ -205,9 +205,6 @@ class Controller():
         img_path_backgrounds = ast.literal_eval(self.mk1.config.get("app_static","img_path_backgrounds"))
         fn_questionnaires    = self.mk1.config.get("app_static","fn_questionnaires")
         
-        # Attributes
-        today = datetime.now()
-
         # Args
         questionnaire_name   = self.args.questionnaire_name
         img_path_background = img_path_backgrounds[
@@ -233,34 +230,18 @@ class Controller():
         )
         
         ## _____________________________________________________________________________________________________________________ ##
-        ## 3. (DataFrame Operations) Initialize logs dictionary
-        logs = {
-            "exec_date"      : today.strftime('%Y-%m-%d'),
-            #"start_datetime" : (today - dt.timedelta(hours = hours)).strftime('%Y-%m-%d %H:%M:%S'),
-            #"end_datetime"   : today.strftime('%Y-%m-%d %H:%M:%S'),
-            #"period"         : hours
-        }
-
-        ## 4. Get Survey response & logs
-        response = self.survey_handler.get_survey_result(
+        ## 3. Get Survey response & logs
+        self.survey_handler.get_survey_result(
             questionnaire = questionnaire
         )
 
         ## _____________________________________________________________________________________________________________________ ##
-        ## 5. Log Survey responses to google sheets
+        ## 4. Log Survey responses to google sheets
         self.survey_handler.log_survey_result(
             sheets_reporter_id                 = sheets_reporter_id,
             sheets_reporter_tab_survey_results = sheets_reporter_tab_survey_results
         )
-        
 
-        ## _____________________________________________________________________________________________________________________ ##
-        ## 3. (Google Sheets API) Appends `logs` at Google Sheets
-        # self.data_loader.append_data_to_google_sheets(
-        #     df                     = logs,
-        #     spreadsheet_id         = sheets_reporter_id,
-        #     spreadsheet_range_name = sheets_reporter_tab_survey_results,
-        # )
 
 
     def generate_folders(self, dir_static : str, questionnaire_name:str ): 
@@ -340,7 +321,6 @@ class Controller():
         data = self.data_preprocessor.pivot_on_questions(
             data = data
         )
-        print(data)
           
     
         ## ____________________________________________________________ #
@@ -598,18 +578,20 @@ class Controller():
 
         # initialize services
         self._refresh_tokens()
-        self.run_initialization()
-        self.mk1.logging.logger.info(f"(Controller.run) All services initilalized")
+        
 
         # actions
         if operation == "statistical_analysis" :
+            self.run_initialization()
             self.run_statistical_analysis()
 
         elif operation == "statistical_report_generation":
+            self.run_initialization()
             self.run_statistical_report_generation()
 
         elif operation == "survey" :
-         self.run_get_survey_responses()
+            self.run_initialization(use_openai = False)
+            self.run_get_survey_responses()
         
         
 

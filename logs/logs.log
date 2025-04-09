@@ -20056,3 +20056,10 @@
 2025-04-09 14:21:14 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
 2025-04-09 14:21:14 - INFO - (OpenaiAPI.build_client) Service build succeeded
 2025-04-09 14:21:14 - INFO - (Controller.run) All services initilalized
+2025-04-09 14:26:45 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-09 14:26:46 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 14:26:46 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 14:26:46 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 14:26:46 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 14:26:46 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 14:26:46 - INFO - (Controller.run) All services initilalized
