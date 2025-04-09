@@ -67,7 +67,7 @@ class Controller():
             "--operation",
             "-o",
             type    = str,
-            default = "statistical_report_generation",
+            default = "survey",
             help    = "Options = {statistical_report_generation,statistical_analysis,survey}",
         )
         parser.add_argument(
