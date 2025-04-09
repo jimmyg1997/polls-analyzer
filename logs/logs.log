@@ -19992,3 +19992,46 @@
 2025-04-08 17:49:30 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to antonarakoumaria@gmail.com
 2025-04-08 17:49:35 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to ps138@outlook.com
 2025-04-08 17:49:39 - INFO - (GoogleEmailAPI.send_email) Email sent successfully to el.michapsychology@gmail.com
+2025-04-09 13:49:33 - INFO - -------------------------------------- Polls Analyzer (polls-analyzer) Started ..
+2025-04-09 13:49:36 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 13:49:36 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 13:49:36 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 13:49:36 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 13:49:36 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 13:49:36 - INFO - (Controller.run) All services initilalized
+2025-04-09 13:50:17 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (Controller.run) All services initilalized
+2025-04-09 13:50:17 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (Controller.run) All services initilalized
+2025-04-09 13:50:17 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 13:50:17 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 13:50:18 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 13:50:18 - INFO - (Controller.run) All services initilalized
+2025-04-09 13:50:18 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 13:50:18 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 13:50:18 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 13:50:18 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 13:50:18 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 13:50:18 - INFO - (Controller.run) All services initilalized
+2025-04-09 13:50:19 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 13:50:19 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 13:50:19 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 13:50:19 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 13:50:19 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 13:50:19 - INFO - (Controller.run) All services initilalized
+2025-04-09 13:50:20 - INFO - (GoogleSheetsAPI.build_client) Service build succeeded
+2025-04-09 13:50:20 - INFO - (GoogleEmailAPI.build_client) Service build succeeded
+2025-04-09 13:50:20 - INFO - (GoogleDriveAPI.build_client) Service build succeeded
+2025-04-09 13:50:20 - INFO - (GoogleDocsAPI.build_client) Service build succeeded
+2025-04-09 13:50:20 - INFO - (OpenaiAPI.build_client) Service build succeeded
+2025-04-09 13:50:20 - INFO - (Controller.run) All services initilalized
