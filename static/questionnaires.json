@@ -11,7 +11,6 @@
         "question7": "Trouble concentrating on things, such as reading or watching TV?",
         "question8": "Moving or speaking so slowly that others have noticed, or the opposite?",
         "question9": "Thoughts that you would be better off dead or hurting yourself?",
-        "question10": "How difficult have these problems made it to work or interact socially?",
         "choices": {
             "0" : "Not at all",
             "1" : "Several days",
